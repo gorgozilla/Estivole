@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.0" method="upgrade">
+	<name>COM_ESTIVOLE</name>
+	<creationDate>2013-01-31</creationDate>
+	<author>Spark</author>
+	<authorEmail>info@sparkbuilt.com</authorEmail>
+	<authorUrl>http://estivole.sparkbuilt.com</authorUrl>
+	<copyright>Copyright Info</copyright>
+	<license>License Info</license>
+	<version>1.0.0</version>
+	<description>COM_ESTIVOLE_DESCRIPTION</description>
+
+	<install>
+  		<sql>
+    		<file charset="utf8" driver="mysql">install.mysql.sql</file>
+  		</sql>
+	</install>
+
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>estivole.php</filename>
+		<folder>assets</folder>
+		<folder>controllers</folder>
+		<folder>helpers</folder>
+		<folder>language</folder>
+		<folder>models</folder>
+		<folder>tables</folder>
+		<folder>views</folder>
+		<filename>index.html</filename>
+		<filename>estivole.php</filename>
+		<filename>install.mysql.sql</filename>
+	</files> 
+
+	<scriptfile>install.php</scriptfile>
+
+	<administration>
+		<menu link="option=com_estivole" img="components/com_estivole/assets/images/estivole_icon.png">Estivole</menu>
+		<submenu>
+			<menu view="members" img="components/com_estivole/assets/images/settings_icon.png">Membres</menu>
+			<menu view="services" img="components/com_estivole/assets/images/settings_icon.png">Secteurs</menu>
+			<menu view="calendars" img="components/com_estivole/assets/images/settings_icon.png">Calendriers</menu>
+			<menu view="daytimes" img="components/com_estivole/assets/images/settings_icon.png">Liste des inscriptions</menu>
+		</submenu>
+
+		<files folder="admin">
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<filename>estivole.php</filename>
+			<folder>assets</folder>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>language</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<filename>estivole.php</filename>
+			<filename>index.html</filename>
+			<filename>install.mysql.sql</filename>
+		</files>  
+	</administration>
+	
+</extension>

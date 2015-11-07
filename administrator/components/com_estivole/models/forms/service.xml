@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset>
+        <field 
+            name="id_service" 
+            type="hidden" />
+        <field 
+            name="name" 
+            type="text" 
+            label="Nom"
+            size="40"
+            class="inputbox" />
+        <field 
+            name="email_responsable" 
+            type="text" 
+            label="Email responsable secteur"
+            size="40"
+            class="inputbox" />
+		<field
+				name="summary"
+				type="editor"
+				label="Description"
+				description="This is the description"
+				filter="safehtml"
+				class="inputbox"
+				default="" />
+    </fieldset>
+</form>

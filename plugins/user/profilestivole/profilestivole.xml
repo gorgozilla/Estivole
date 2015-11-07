@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="user">
+	<name>plg_user_profilestivole</name>
+	<author>Joomla! Project</author>
+	<creationDate>January 2008</creationDate>
+	<copyright>(C) 2005 - 2013 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>admin@joomla.org</authorEmail>
+	<authorUrl>www.joomla.org</authorUrl>
+	<version>3.0.0</version>
+	<description>PLG_USER_PROFILESTIVOLE_XML_DESCRIPTION</description>
+ 
+	<files>
+		<filename plugin="profilestivole">profilestivole.php</filename>
+		<filename>index.html</filename>
+		<folder>profiles</folder>
+	</files>
+ 
+	<languages>
+		<language tag="en-GB">fr-FR.plg_user_profilestivole.ini</language>
+		<language tag="en-GB">fr-FR.plg_user_profilestivole.sys.ini</language>
+	</languages>
+	
+	<config>
+		<fields name="params">
+ 
+			<fieldset name="basic">
+ 
+				<field name="profile-require-user" type="spacer"
+					label="PLG_USER_PROFILESTIVOLE_FIELD_NAME_PROFILE_REQUIRE_USER"
+				/>
+ 
+				<field name="profile-require_tshirtsize" type="list"
+					description="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_DESC"
+					label="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_LABEL"
+				>
+					<option value="2">JOPTION_REQUIRED</option>
+					<option value="1">JOPTION_OPTIONAL</option>
+					<option value="0">JDISABLED</option>
+				</field>
+ 
+			</fieldset>
+ 
+		</fields>
+	</config>
+ </extension>

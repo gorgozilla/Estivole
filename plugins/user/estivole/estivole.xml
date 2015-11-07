@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="user">
+	<name>plg_user_estivole</name>
+	<author>Laurent Jeanmonod</author>
+	<creationDate>January 2015</creationDate>
+	<copyright>(C) 2015 Laurent Jeanmonod</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>ljeanmonod@gmail.com</authorEmail>
+	<authorUrl>www.joomla.org</authorUrl>
+	<version>2.5.0</version>
+	<description>Etend la registration Joomla de base pour créer un membre dans le composant Estivole</description>
+	<files>
+		<filename plugin="estivole">estivole.php</filename>
+	</files>
+</extension>

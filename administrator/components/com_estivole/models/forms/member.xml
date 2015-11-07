@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset>
+        <field 
+            name="id_member" 
+            type="hidden" />
+        <field 
+            name="lastname" 
+            type="text" 
+            label="Nom"
+            size="40"
+            class="inputbox" />
+        <field 
+            name="firstname" 
+            type="text" 
+            label="Prénom"
+            size="40"
+            class="inputbox" />
+        <field 
+            name="email" 
+            type="text" 
+            label="Email"
+            size="40"
+            class="inputbox" />
+        <field 
+            name="phone" 
+            type="text" 
+            label="Tél."
+            size="40"
+            class="inputbox" />
+        <field 
+            name="birthdate" 
+            type="text" 
+            label="Date de naissance"
+            size="40"
+            class="inputbox" />
+        <field 
+            name="address" 
+            type="text" 
+            label="Adresse"
+            size="40"
+            class="inputbox" />
+        <field 
+            name="npa" 
+            type="text" 
+            label="NPA"
+            size="5"
+            class="inputbox"
+			maxlength="5" />
+        <field 
+            name="city" 
+            type="text" 
+            label="Ville"
+            size="40"
+            class="inputbox" />
+			<field name="tshirtsize"
+				type="list"
+				label="Taille du T-shirt">
+				<option value="S">S</option>
+				<option value="M">M</option>
+				<option value="L">L</option>
+				<option value="XL">XL</option>
+				<option value="XXL">XXL</option>
+			</field>
+    </fieldset>
+</form>
