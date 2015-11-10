@@ -55,8 +55,8 @@ useSMTP
 
 class EstivoleHelpersMail
 {	
-	function confirmMemberDaytime($member_id, $service_id, $daytime_id){
-		
+	function confirmMemberDaytime($member_id, $service_id, $daytime_id)
+	{	
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
 
@@ -68,7 +68,7 @@ class EstivoleHelpersMail
 		$db->setQuery($query);
 		$mailModel = $db->loadObject();
 		
-		$mailBody = "<h1>Confirmation d'inscription à une tranche horaire Estivale 2015</h1>
+		$mailBody = "<h1>Confirmation d'inscription à une tranche horaire Estivale 2016</h1>
 		
 		<p>Cher (Chère) bénévole,</p>
 
@@ -79,7 +79,7 @@ class EstivoleHelpersMail
 
 		<p>".$mailModel->summary."</p>
 
-		<p><strong>Voici la date et tranches horaire confirmée :</strong></p>
+		<p><strong>Voici la date et tranche horaire confirmée :</strong></p>
 
 		<p><strong>".$mailModel->description."  -  ".date('d-m-Y',strtotime($mailModel->daytime_day))."  -  ".date('H:i',strtotime($mailModel->daytime_hour_start))."  -  ".date('H:i',strtotime($mailModel->daytime_hour_end))."</strong></p>	
 
@@ -103,6 +103,43 @@ class EstivoleHelpersMail
 		$mail->setSubject(constant("SubjectConfirmMemberDaytime"));
 		$mail->isHtml();
 		$mail->addRecipient($email_member);
+		$mail->Send();
+	}
+	
+	function confirmResponsableDaytime($service_id, $daytime_id)
+	{	
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
+
+		$query->select('*');
+		$query->from('#__estivole_services as s, #__estivole_daytimes as d');
+		$query->where('s.service_id = ' . (int) $service_id);
+		$query->where('d.daytime_id = ' . (int) $daytime_id);
+		$db->setQuery($query);
+		$mailModel = $db->loadObject();
+		$this->user = JFactory::getUser();
+		$userName = $this->user->name; 
+		
+		$mailBody = "<h1>Confirmation de tranche horaire secteur ".$mailModel->name."</h1>
+		
+		<p>Cher (Chère) responsable du secteur ".$mailModel->name.",</p>
+
+		<p><strong>Voici la date et tranche horaire confirmée :</strong></p>
+		
+		<p>Nom bénévole : ".$userName."<br />
+		Email bénévole : <a href=\"mailto:".$this->user->email."\">".$this->user->email."</a><br />
+		<p><strong>".$mailModel->description."  -  ".date('d-m-Y',strtotime($mailModel->daytime_day))."  -  ".date('H:i',strtotime($mailModel->daytime_hour_start))."  -  ".date('H:i',strtotime($mailModel->daytime_hour_end))."</strong></p>";
+		
+		$email_responsable = $mailModel->email_responsable;
+		
+		define("BodyConfirmResponsable", $mailBody);
+		define("SubjectConfirmResponsable", "Confirmation de tranche horaire secteur ".$mailModel->name);
+		
+		$mail = JFactory::getMailer();
+		$mail->setBody(constant("BodyConfirmResponsable"));
+		$mail->setSubject(constant("SubjectConfirmResponsable"));
+		$mail->isHtml();
+		$mail->addRecipient($email_responsable);
 		$mail->Send();
 	}
 }

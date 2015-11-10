@@ -56,11 +56,13 @@ useSMTP
 class EstivoleHelpersMail
 {	
 	function sendMemberDaytimeToAdmin($member_id, $service_id, $daytime_id){
-		define("BodyMemberDaytimeToAdmin", "<h1>Nouvelle inscription à une tranche horaire</h1><p>Un bénévole s'est inscrit à un secteur / tranche horaire.</p><p><strong>Nom :</strong> %s <br /><strong>Secteur :</strong> %s<br /><strong>Date :</strong> %s<br /><strong>Tranche horaire :</strong> %s</p><p><a href=\"http://127.0.0.1/estivale2015/administrator/index.php?option=com_estivole&view=member&layout=edit&member_id=%s\">Cliquez ici</a> pour valider l'inscription et/ou recontacter le bénévole.</p>");
+		define("BodyMemberDaytimeToAdmin", "<h1>Nouvelle inscription à une tranche horaire</h1><p>Un bénévole s'est inscrit à un secteur / tranche horaire.</p><p><strong>Nom :</strong> %s <br /><strong>Secteur :</strong> %s<br /><strong>Date :</strong> %s<br /><strong>Tranche horaire :</strong> %s</p><p><a href=\"".JURI::root()."/administrator/index.php?option=com_estivole&view=member&layout=edit&member_id=%s\">Cliquez ici</a> pour valider l'inscription et/ou recontacter le bénévole.</p>");
 		define("SubjectMemberDaytimeToAdmin", "Nouvelle inscription à une tranche horaire");
 		
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
+		$this->user = JFactory::getUser();
+		$userName = $this->user->name; 
 
 		$query->select('*');
 		$query->from('#__estivole_members as b, #__estivole_services as s, #__estivole_daytimes as d');
@@ -71,7 +73,7 @@ class EstivoleHelpersMail
 		$mailModel = $db->loadObject();
 		
 		$mail = JFactory::getMailer();
-		$mail->setBody(sprintf(constant("BodyMemberDaytimeToAdmin"), $mailModel->firstname.' '.$mailModel->lastname, $mailModel->name, date('d-m-Y',strtotime($mailModel->daytime_day)), date('H:i',strtotime($mailModel->daytime_hour_start)).' - '.date('H:i',strtotime($mailModel->daytime_hour_end)), $mailModel->member_id));
+		$mail->setBody(sprintf(constant("BodyMemberDaytimeToAdmin"), $userName, $mailModel->name, date('d-m-Y',strtotime($mailModel->daytime_day)), date('H:i',strtotime($mailModel->daytime_hour_start)).' - '.date('H:i',strtotime($mailModel->daytime_hour_end)), $mailModel->member_id));
 		$mail->setSubject(constant("SubjectMemberDaytimeToAdmin"));
 		$mail->isHtml();
 		$recipient = array( 'benevoles@estivale.ch', $mailModel->email_responsable );

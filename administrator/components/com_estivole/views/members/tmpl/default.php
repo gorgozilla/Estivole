@@ -53,9 +53,6 @@ function tableOrdering( order, dir, task )
 							<?php echo JHTML::_( 'grid.sort', 'Nom', 'b.lastname', $this->sortDirection, $this->sortColumn); ?>
 						</th>
 						<th class="left">
-							<?php echo JHTML::_( 'grid.sort', 'Prénom', 'b.firstname', $this->sortDirection, $this->sortColumn); ?>
-						</th>
-						<th class="left">
 							<?php echo JHTML::_( 'grid.sort', 'Email', 'b.email', $this->sortDirection, $this->sortColumn); ?>
 						</th>
 						<th class="left">
@@ -81,12 +78,7 @@ function tableOrdering( order, dir, task )
 						<td><?php echo $this->pagination->getRowOffset($i); ?></td>
 						<td class="left">
 							<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $item->member_id); ?>">
-								<?php echo JText::_($item->lastname); ?>
-							</a>
-						</td>
-						<td class="left">
-							<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $item->member_id); ?>">
-							<?php echo JText::_($item->firstname); ?>
+								<?php echo JText::_($this->user->name); ?>
 							</a>
 						</td>
 						<td class="left">

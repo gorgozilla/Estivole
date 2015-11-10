@@ -46,6 +46,7 @@ class EstivoleControllerDaytime extends JControllerForm
 			$return['success'] = true;
 			$return['msg'] = 'Yes';
 			EstivoleHelpersMail::confirmMemberDaytime($member_daytime->member_id, $member_daytime->service_id, $member_daytime->daytime_id);
+			EstivoleHelpersMail::confirmResponsableDaytime($member_daytime->service_id, $member_daytime->daytime_id);
 		}
 	}
 	
