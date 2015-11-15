@@ -2,3 +2,20 @@ a.modal {
   display: block;
   position: relative;
 }
+
+.logo-image{
+		height:120px;
+		background-color:#E67A00;
+}
+
+.logo-img{
+		padding:5px;
+}
+
+div.custom, div.t3-mainbody {
+	padding-top:50px;
+}
+
+div.t3-mainbody {
+	padding-top:70px;
+}
