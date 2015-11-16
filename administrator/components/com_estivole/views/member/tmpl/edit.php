@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 JHtml::_('behavior.formvalidation');
 JHtml::_('formbehavior.chosen', 'select');
+
+
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
@@ -23,15 +25,15 @@ JHtml::_('formbehavior.chosen', 'select');
 </script>
 
 <div id="j-main-container" class="span12">
+	<h1>Membre "<?php echo $this->user->name; ?>"</h1>
 	<form action="<?php echo JRoute::_('index.php?option=com_estivole&view=member&layout=edit&member_id=' . (int) $this->member->member_id);?>" method="post" name="adminForm" id="member-form" class="form-validate">
 		<div class="form-inline form-inline-header">
-			<?php echo $this->form->getControlGroup('firstname'); ?>
-			<?php echo $this->form->getControlGroup('lastname'); ?>
-			<?php echo $this->form->getControlGroup('email'); ?>
-			<?php echo $this->form->getControlGroup('phone'); ?>
-			<?php echo $this->form->getControlGroup('address'); ?>
-			<?php echo $this->form->getControlGroup('npa'); ?>
-			<?php echo $this->form->getControlGroup('city'); ?>
+			<input type="text" class="form-control" name="jform[username]" placeholder="Username" value="<?php echo $this->user->name; ?>" />
+			<input type="text" class="form-control" name="jform[email]" placeholder="Email" value="<?php echo $this->user->email; ?>" />
+			<input type="text" class="form-control" name="jform[profile][phone]]" placeholder="Téléphone" value="<?php echo JText::_($this->userProfile->profile['phone']); ?>" />
+			<input type="text" class="form-control" name="jform[profile][address1]" placeholder="Adresse" value="<?php echo $this->userProfile->profile['address1']; ?>" />
+			<input type="text" class="form-control" name="jform[profile][zipcode]" placeholder="NPA" value="<?php echo $this->userProfile->profile['zipcode']; ?>" />
+			<input type="text" class="form-control" name="jform[profile][city]" placeholder="Ville" value="<?php echo $this->userProfile->profile['city']; ?>" />
 			<?php echo $this->form->getControlGroup('tshirtsize'); ?>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="jform[member_id]" value="<?php echo $this->member->member_id; ?>" />

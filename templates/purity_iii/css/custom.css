@@ -3,19 +3,28 @@ a.modal {
   position: relative;
 }
 
+.logo{
+		width:450px;
+}
+
+.logo a{
+	background:none;
+}
+
 .logo-image{
-		height:120px;
-		background-color:#E67A00;
+/* 		height:120px; */
 }
 
 .logo-img{
 		padding:5px;
 }
-
-div.custom, div.t3-mainbody {
-	padding-top:50px;
+.logo-image > a > img {
+    max-width: none;
 }
 
-div.t3-mainbody {
-	padding-top:70px;
+@media screen and (min-width: 991px){
+	.navbar-default .navbar-nav > li > a {
+		padding: 6px 0px 0px 0px;
+		line-height: 55px;
+	}
 }
