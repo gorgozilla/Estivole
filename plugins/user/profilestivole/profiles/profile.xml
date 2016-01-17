@@ -11,6 +11,7 @@
 				<option value="XL">XL</option>
 				<option value="XXL">XXL</option>
 			</field>
+			<field name="campingPlace" type="checkbox" label="Dormez-vous au camping ?" value="1" default="0" />
 		</fieldset>
 	</fields>
 </form>

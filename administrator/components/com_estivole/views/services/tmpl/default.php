@@ -40,6 +40,9 @@ function tableOrdering( order, dir, task )
 						<?php echo 'Description'; ?>
 					</th>
 					<th class="center">
+						<?php echo JText::_('Activé?'); ?>
+					</th>
+					<th class="center">
 						<?php echo JText::_('Actions'); ?>
 					</th>
 				</tr>
@@ -67,6 +70,8 @@ function tableOrdering( order, dir, task )
 					</td>
 					<td class="center">		
 						<?php echo JHtml::_('job.publishList', $item->published, $i); ?>
+					</td>
+					<td class="center">		
 						<?php echo JHtml::_('job.deleteList', $item->service_id, $i); ?>
 					</td>
 				</tr>

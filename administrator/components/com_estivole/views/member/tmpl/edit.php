@@ -12,7 +12,10 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.formvalidation');
 JHtml::_('formbehavior.chosen', 'select');
 
-
+//Get tshirt-size options
+JFormHelper::addFieldPath(JPATH_COMPONENT . '/models/fields');
+$membersOptions = JFormHelper::loadFieldType('Members', false);
+$tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set your field getOptions on public!!
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
@@ -28,15 +31,24 @@ JHtml::_('formbehavior.chosen', 'select');
 	<h1>Membre "<?php echo $this->user->name; ?>"</h1>
 	<form action="<?php echo JRoute::_('index.php?option=com_estivole&view=member&layout=edit&member_id=' . (int) $this->member->member_id);?>" method="post" name="adminForm" id="member-form" class="form-validate">
 		<div class="form-inline form-inline-header">
-			<input type="text" class="form-control" name="jform[username]" placeholder="Username" value="<?php echo $this->user->name; ?>" />
+			<input type="text" class="form-control" name="jform[name]" placeholder="Name" value="<?php echo $this->user->name; ?>" />
 			<input type="text" class="form-control" name="jform[email]" placeholder="Email" value="<?php echo $this->user->email; ?>" />
-			<input type="text" class="form-control" name="jform[profile][phone]]" placeholder="Téléphone" value="<?php echo JText::_($this->userProfile->profile['phone']); ?>" />
+			<input type="text" class="form-control" name="jform[profile][phone]" placeholder="Téléphone" value="<?php echo JText::_($this->userProfile->profile['phone']); ?>" />
 			<input type="text" class="form-control" name="jform[profile][address1]" placeholder="Adresse" value="<?php echo $this->userProfile->profile['address1']; ?>" />
-			<input type="text" class="form-control" name="jform[profile][zipcode]" placeholder="NPA" value="<?php echo $this->userProfile->profile['zipcode']; ?>" />
+			<input type="text" class="form-control" name="jform[profile][zipcode]" placeholder="NPA" value="<?php echo $this->userProfile->profile['postal_code']; ?>" />
 			<input type="text" class="form-control" name="jform[profile][city]" placeholder="Ville" value="<?php echo $this->userProfile->profile['city']; ?>" />
-			<?php echo $this->form->getControlGroup('tshirtsize'); ?>
+			<select name="jform[profilestivole][tshirtsize]" class="inputbox">
+				<option value=""> - Select tshirt-size - </option>
+				<?php echo JHtml::_('select.options', $tshirtOptions, 'value', 'text',  $this->userProfilEstivole->profilestivole['tshirtsize']);?>
+			</select>
+			<br />
+			<br />
+			<label>Dors au camping ?</label><br />
+			<input type="checkbox" name="jform[profilestivole][campingPlace]" value=1 <?php if($this->userProfilEstivole->profilestivole['campingPlace']=='1'){ ?> checked=checked <?php } ?> />
 			<input type="hidden" name="task" value="" />
+			<input type="hidden" name="jform[username]" value="<?php echo $this->user->username; ?>" />
 			<input type="hidden" name="jform[member_id]" value="<?php echo $this->member->member_id; ?>" />
+			<input type="hidden" name="jform[user_id]" value="<?php echo $this->user->id; ?>" />
 			<?php echo JHtml::_('form.token'); ?>
 		</div>
 	</form>

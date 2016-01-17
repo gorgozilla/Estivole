@@ -159,4 +159,118 @@ class EstivoleHelpersUser
                 return $return;     
         }
     }
+	
+    public static function updateUser($name, $username, $email, $formData)
+    {
+        $mainframe =& JFactory::getApplication('site');
+        $mainframe->initialise();
+        $user = clone(JFactory::getUser());
+        $pathway = & $mainframe->getPathway();
+        $config = & JFactory::getConfig();
+        $authorize = & JFactory::getACL();
+        $document = & JFactory::getDocument();
+         
+        $response = array();
+        $usersConfig = &JComponentHelper::getParams( 'com_users' );
+ 
+		// Initialize new usertype setting
+		jimport('joomla.user.user');
+		jimport('joomla.application.component.helper');
+ 
+        $db = JFactory::getDBO();
+		// Default group, 2=registered
+		$defaultUserGroup = 2;
+
+		jimport('joomla.user.helper');
+		$salt     = JUserHelper::genRandomPassword(32);
+		$password_clear = $password;
+
+		$crypted  = JUserHelper::getCryptedPassword($user->password, $salt);
+		$password = $crypted.':'.$salt;
+		$instance = JUser::getInstance();
+		$instance->set('id'         , $formData['user_id']);
+		$instance->set('name'           , $name);
+		$instance->set('username'       , $username);
+		//$instance->set('password' , $password);
+		//$instance->set('password_clear' , $password_clear);
+		$instance->set('email'          , $email);
+		$instance->set('usertype'       , 'deprecated');
+		$instance->set('groups'     , array($defaultUserGroup));
+		// Here is possible set user profile details
+		$instance->set('profile'    , array('gender' =>  $gender,
+											'city' => $formData['profile.city'],
+											'phone' => $formData['profile.phone'],
+											'postal_code' => $formData['profile.zipcode'],
+											'address1' => $formData['profile.address1']));
+											
+		$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'], 'campingPlace' => $formData['profilestivole.campingPlace']));
+
+		if (!$instance->save())
+		{             	
+			// Email already used!!!
+			$return->message = 'Email déjà utilisé!';
+			$return->success=false;
+			return $return;
+		}
+		else
+		{   
+			$db->setQuery("update #__users set email='$email' where username='$username'");
+			$db->query();
+
+			$db->setQuery("SELECT id FROM #__users WHERE email='$email'");
+			$db->query();
+			$newUserID = $db->loadResult();
+
+			$user = JFactory::getUser($newUserID);
+			
+			//Update member that has been created through user registration by plugin estivole
+			$user_id = $user->id;
+			$query="SELECT * FROM #__estivole_members WHERE user_id='$user_id'";
+
+			$db->setQuery($query);
+			$db->query();
+			$memberObj = $db->loadObject();
+			$member = JTable::getInstance('Member','Table');
+			$member->load($memberObj->member_id);
+			$member->firstname = $formData['firstname'];
+			$member->lastname = $formData['lastname'];
+			$member->birthday = $formData['birthday'];
+			$member->tshirtsize = $formData['tshirtsize'];
+			$member->city = $formData['city'];
+			$member->address = $formData['address'];
+			$member->npa = $formData['npa'];
+			
+			if(!$member->store()) 
+			{
+				$return->message = 'Problème update member!';
+				$return->success=false;
+				return $return;
+			}else{                        
+				$return->success=true;
+				$return->member_id=$memberObj->member_id;
+				return $return;
+			}
+		}
+    }
+	
+	public static function getProfilEstivole($userId = 0)
+	{
+		if ($userId == 0)
+		{
+			$user   = JFactory::getUser();
+			$userId = $user->id;
+		}
+
+		// Get the dispatcher and load the user's plugins.
+		$dispatcher = JEventDispatcher::getInstance();
+		JPluginHelper::importPlugin('user');
+
+		$data = new JObject;
+		$data->id = $userId;
+		
+		// Trigger the data preparation event.
+		$dispatcher->trigger('onContentPrepareData', array('com_users.profilestivole', &$data));
+
+		return $data;
+	}
 }

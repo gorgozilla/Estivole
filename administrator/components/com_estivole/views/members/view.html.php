@@ -8,6 +8,7 @@ class EstivoleViewMembers extends JViewLegacy
 		$this->state	= $this->get('State');
 		$this->pagination	= $this->get('Pagination');
 		$this->searchterms	= $this->state->get('filter.search');
+		$this->campingPlace	= $this->state->get('filter.campingPlace');
 		$this->user = JFactory::getUser();
 
 		//retrieve task list from model

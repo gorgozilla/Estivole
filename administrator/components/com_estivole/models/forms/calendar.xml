@@ -2,7 +2,7 @@
 <form>
     <fieldset>
         <field 
-            name="id_service" 
+            name="id_calendar" 
             type="hidden" />
         <field 
             name="name" 

@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 
 ?>
-	<link rel="stylesheet" href="/estivale2015/media/jui/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="/media/jui/css/bootstrap.min.css" type="text/css" />
 	<table id="availibilityTable" class="table">
 		<thead>
 			<tr>

@@ -26,7 +26,7 @@
 	function onContentPrepareData($context, $data)
 	{
 		// Check we are manipulating a valid form.
-		if (!in_array($context, array('com_users.profile','com_users.registration','com_users.user','com_admin.profile'))){
+		if (!in_array($context, array('com_users.profilestivole','com_users.profile','com_users.registration','com_users.user','com_admin.profile'))){
 			return true;
 		}
  
@@ -90,6 +90,13 @@
 			} else {
 				$form->removeField('tshirtsize', 'profilestivole');
 			}
+			
+			// Toggle whether the tshirtsize field is required.
+			if ($this->params->get('profile-require_campingPlace', 1) > 0) {
+				$form->setFieldAttribute('campingPlace', 'required', $this->params->get('profile-require_campingPlace') == 2, 'profilestivole');
+			} else {
+				$form->removeField('campingPlace', 'profilestivole');
+			}
 		}
  
 		//In this example, we treat the frontend registration and the back end user create or edit as the same. 
@@ -104,6 +111,13 @@
 				$form->setFieldAttribute('tshirtsize', 'required', $this->params->get('register-require_tshirtsize') == 2, 'profilestivole');
 			} else {
 				$form->removeField('tshirtsize', 'profilestivole');
+			}
+			
+			// Toggle whether the tshirtsize field is required.
+			if ($this->params->get('register-require_campingPlace', 1) > 0) {
+				$form->setFieldAttribute('campingPlace', 'required', $this->params->get('register-require_campingPlace') == 2, 'profilestivole');
+			} else {
+				$form->removeField('campingPlace', 'profilestivole');
 			}
 		}			
 	}
@@ -127,7 +141,7 @@
 				foreach ($data['profilestivole'] as $k => $v) {
 					$tuples[] = '('.$userId.', '.$db->quote('profilestivole.'.$k).', '.$db->quote(json_encode($v)).', '.$order++.')';
 				}
- 
+
 				$db->setQuery('INSERT INTO #__user_profiles VALUES '.implode(', ', $tuples));
 				if (!$db->query()) {
 					throw new Exception($db->getErrorMsg());

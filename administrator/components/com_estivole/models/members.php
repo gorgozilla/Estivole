@@ -7,7 +7,7 @@ jimport('joomla.application.component.modellist');
 class EstivoleModelMembers extends JModelList
 {
 	//Add this handy array with database fields to search in
-	protected $searchInFields = array('b.lastname','b.firstname', 'b.email');
+	protected $searchInFields = array('b.lastname','b.firstname', 'b.email', 'b.tshirtsize');
 	
 	function __construct()
 	{   
@@ -15,7 +15,8 @@ class EstivoleModelMembers extends JModelList
 			'b.lastname',
 			'b.firstname',
 			'b.email',
-			'b.city'
+			'b.city',
+			'b.tshirtsize'
 		);
 		$config['filter_fields']=array_merge($this->searchInFields,array('b.member'));
 		parent::__construct($config);  
@@ -33,8 +34,16 @@ class EstivoleModelMembers extends JModelList
 		//Omit double (white-)spaces and set state
 		$this->setState('filter.search', preg_replace('/\s+/',' ', $search));
 		
+		//Filter (dropdown) tshirt-size
+		$tshirtsizes= $app->getUserStateFromRequest($this->context.'.filter.tshirt_size', 'filter_tshirtsize', '', 'string');
+		$this->setState('filter.tshirt_size', $tshirtsizes);
+		
+		//Filter (dropdown) tshirt-size
+		$campingPlace= $app->getUserStateFromRequest($this->context.'.filter.campingPlace', 'filter_campingPlace', '', 'int');
+		$this->setState('filter.campingPlace', $campingPlace);
+		
 		// Get pagination request variables
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'string');
 		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
 
 		// In case limit has been changed, adjust it
@@ -91,6 +100,7 @@ class EstivoleModelMembers extends JModelList
 
 		$query->select('*');
 		$query->from('#__estivole_members as b');
+		$query->from('#__user_profiles as p');
 
 		return $query;
 	}
@@ -104,6 +114,8 @@ class EstivoleModelMembers extends JModelList
 	protected function _buildWhere(&$query)
 	{
 		$db = JFactory::getDBO();
+		$query->where('b.user_id=p.user_id');
+		
 		if(is_numeric($this->_member_id)) 
 		{
 			$query->where('b.member_id = ' . (int) $this->_member_id);
@@ -115,7 +127,18 @@ class EstivoleModelMembers extends JModelList
 			$regex=' REGEXP '.$db->quote($regex);
 			$query->where('('.implode($regex.' OR ',$this->searchInFields).$regex.')');
 		}
-
+		
+		$tshirtsize= $db->escape($this->getState('filter.tshirt_size'));
+		if (!empty($tshirtsize)) {
+			$query->where('b.tshirtsize=\''.$tshirtsize.'\'');
+		}
+		
+		// $campingPlace= $db->escape($this->getState('filter.campingPlace'));
+		// if (!empty($campingPlace)) {
+			// $query->where('p.profile_value=\''.$campingPlace.'\'');
+		// }
+		
+		$query->group('b.email');
 		return $query;
 	}
 

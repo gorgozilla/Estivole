@@ -51,7 +51,7 @@ function tableOrdering( order, dir, task )
 				</div>
 				<div class="btn-group pull-left">
 					<button type="submit" class="btn hasTooltip" title="Rechercher"><i class="icon-search"></i></button>
-					<button type="button" class="btn hasTooltip" title="Effacer" onclick="document.id('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
+					<button type="button" class="btn hasTooltip" title="Effacer" onclick="document.getElementById('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 				</div>
 				<div class="btn-group pull-right hidden-phone">
 					<select name="filter_services" class="inputbox" onchange="this.form.submit()">

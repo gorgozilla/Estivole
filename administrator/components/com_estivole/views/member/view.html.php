@@ -14,10 +14,11 @@ class EstivoleViewMember extends JViewLegacy
 		$this->state	= $this->get('State');
 		$this->member		= $this->get('Item');
 		$this->form		= $this->get('Form');
-		$this->user = JFactory::getUser();
 		
 		$userId = $this->member->user_id; 
+		$this->user = JFactory::getUser($userId);
 		$this->userProfile = JUserHelper::getProfile( $userId );
+		$this->userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
 		
 		if($this->member->member_id!=null){
 			$modelCalendars = new EstivoleModelCalendars();

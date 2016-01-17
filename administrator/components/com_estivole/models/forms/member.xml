@@ -53,14 +53,14 @@
             label="Ville"
             size="40"
             class="inputbox" />
-			<field name="tshirtsize"
-				type="list"
-				label="Taille du T-shirt">
-				<option value="S">S</option>
-				<option value="M">M</option>
-				<option value="L">L</option>
-				<option value="XL">XL</option>
-				<option value="XXL">XXL</option>
-			</field>
+		<field name="tshirtsize"
+			type="list"
+			label="Taille du T-shirt">
+			<option value="S">S</option>
+			<option value="M">M</option>
+			<option value="L">L</option>
+			<option value="XL">XL</option>
+			<option value="XXL">XXL</option>
+		</field>
     </fieldset>
 </form>

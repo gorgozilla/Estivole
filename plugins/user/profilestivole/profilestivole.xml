@@ -26,19 +26,23 @@
  
 			<fieldset name="basic">
  
-				<field name="profile-require-user" type="spacer"
-					label="PLG_USER_PROFILESTIVOLE_FIELD_NAME_PROFILE_REQUIRE_USER"
-				/>
+				<field name="profile-require-user" type="spacer" label="PLG_USER_PROFILESTIVOLE_FIELD_NAME_PROFILE_REQUIRE_USER" />
  
 				<field name="profile-require_tshirtsize" type="list"
 					description="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_DESC"
-					label="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_LABEL"
-				>
+					label="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_LABEL">
 					<option value="2">JOPTION_REQUIRED</option>
 					<option value="1">JOPTION_OPTIONAL</option>
 					<option value="0">JDISABLED</option>
 				</field>
  
+				<field name="profile-require_campingPlace" type="list"
+					description="PLG_USER_PROFILESTIVOLE_FIELD_CAMPINGPLACE_DESC"
+					label="PLG_USER_PROFILESTIVOLE_FIELD_CAMPINGPLACE_LABEL">
+					<option value="2">JOPTION_REQUIRED</option>
+					<option value="1">JOPTION_OPTIONAL</option>
+					<option value="0">JDISABLED</option>
+				</field>
 			</fieldset>
  
 		</fields>

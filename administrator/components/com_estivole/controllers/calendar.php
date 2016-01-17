@@ -23,6 +23,12 @@ class EstivoleControllerCalendar extends JControllerForm
 			$this->deleteListDaytime();
 		}elseif($task=='cancel'){
 			$this->cancel();
+		}else if($task=='apply'){
+			parent::save();
+			$app->enqueueMessage('Calendrier sauvé avec succès!');
+			$app->redirect($_SERVER['HTTP_REFERER']);
+		}else if($task=='save'){
+				parent::save();
 		}else{
 			$this->edit();
 		}
