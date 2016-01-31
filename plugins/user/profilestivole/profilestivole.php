@@ -97,6 +97,13 @@
 			} else {
 				$form->removeField('campingPlace', 'profilestivole');
 			}
+			
+			// Toggle whether the tshirtsize field is required.
+			if ($this->params->get('register-require_sex', 1) > 0) {
+				$form->setFieldAttribute('sex', 'required', $this->params->get('register-require_sex') == 2, 'profilestivole');
+			} else {
+				$form->removeField('sex', 'profilestivole');
+			}
 		}
  
 		//In this example, we treat the frontend registration and the back end user create or edit as the same. 
@@ -118,6 +125,13 @@
 				$form->setFieldAttribute('campingPlace', 'required', $this->params->get('register-require_campingPlace') == 2, 'profilestivole');
 			} else {
 				$form->removeField('campingPlace', 'profilestivole');
+			}
+			
+			// Toggle whether the tshirtsize field is required.
+			if ($this->params->get('register-require_sex', 1) > 0) {
+				$form->setFieldAttribute('sex', 'required', $this->params->get('register-require_sex') == 2, 'profilestivole');
+			} else {
+				$form->removeField('sex', 'profilestivole');
 			}
 		}			
 	}

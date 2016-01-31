@@ -3,13 +3,20 @@
 	<fields name="profilestivole">
 		<fieldset name="profilestivole" label="PLG_USER_PROFILESTIVOLE_SLIDER_LABEL">
 			<field name="tshirtsize" type="list"
-				description="PLG_USER_PROFILEESTIVOLE_FIELD_TSHIRTSIZE_DESC"
+				description="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_DESC"
 				label="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_LABEL">
 				<option value="S">S</option>
 				<option value="M">M</option>
 				<option value="L">L</option>
 				<option value="XL">XL</option>
 				<option value="XXL">XXL</option>
+				<option value="XXL">XXXL</option>
+			</field>
+			<field name="sex" type="list"
+				description="PLG_USER_PROFILESTIVOLE_FIELD_SEX_DESC"
+				label="PLG_USER_PROFILESTIVOLE_FIELD_SEX_LABEL">
+				<option value="M">Masculin</option>
+				<option value="F">Féminin</option>
 			</field>
 			<field name="campingPlace" type="checkbox" label="Dormez-vous au camping ?" value="1" default="0" />
 		</fieldset>

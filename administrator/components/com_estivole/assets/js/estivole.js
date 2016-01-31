@@ -52,6 +52,25 @@ function addAvailibilityModal(member_id, member_daytime_id)
 	});
 }
 
+function composeEmail(member_id, member_daytime_id)
+{
+	jQuery("#composeEmail").modal('show');
+	jQuery("#composeEmail #member_id").val(member_id);
+	jQuery("#composeEmail #member_daytime_id").val(member_daytime_id);
+	var calendar_id = jQuery("#calendar_selector").val();
+	getCalendarDates(calendar_id);
+	jQuery("#jformdaytime").chosen().change( function(){
+		var daytime = jQuery(this).val();
+		var service_id = jQuery("#jformservice_id").val();
+		getCalendarDaytimes(calendar_id, daytime, service_id);
+	});
+	jQuery("#jformservice_id").chosen().change( function(){
+		var service_id = jQuery(this).val();
+		var daytime = jQuery("#jformdaytime").val();
+		getCalendarDaytimes(calendar_id, daytime, service_id);
+	});
+}
+
 function deleteAvailibility(member_daytime_id)
 {
 	jQuery.ajax({

@@ -46,7 +46,6 @@ class JFormFieldMembers extends JFormFieldList
 	public function getOptionsCamping()
 	{
 		$arr = array(
-			JHTML::_('select.option','0', 'Ne dors pas au camping' ),
 			JHTML::_('select.option', '1', 'Dors au camping' )
 		);
 		return $arr;

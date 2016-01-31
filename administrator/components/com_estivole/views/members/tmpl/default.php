@@ -64,6 +64,9 @@ function tableOrdering( order, dir, task )
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<th width="1%" class="hidden-phone">
+							<?php echo JHtml::_('grid.checkall'); ?>
+						</th>
 						<th>#</th>
 						<th class="left">
 							<?php echo JHTML::_( 'grid.sort', 'Nom', 'b.lastname', $this->sortDirection, $this->sortColumn); ?>
@@ -96,10 +99,13 @@ function tableOrdering( order, dir, task )
 					$user = JFactory::getUser($userId);
 					$userProfile = JUserHelper::getProfile( $userId );
 					$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
-					if($this->campingPlace=='3' || ($this->campingPlace=='0' && !$userProfilEstivole->profilestivole['campingPlace']) || ($this->campingPlace=='1' && $userProfilEstivole->profilestivole['campingPlace']=='1')){
+					if($this->campingPlace=='3' || $this->campingPlace=='' || ($this->campingPlace=='1' && $userProfilEstivole->profilestivole['campingPlace']=='1')){
 						$itemNumber++;
 				?>
 					<tr class="row<?php echo $i % 2; ?>">
+						<td class="center hidden-phone">
+							<?php echo JHtml::_('grid.id', $i, $item->member_id); ?>
+						</td>
 						<td><?php echo $itemNumber; ?></td>
 						<td class="left">
 							<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $item->member_id); ?>">
@@ -124,9 +130,10 @@ function tableOrdering( order, dir, task )
 							<?php echo JText::_($userProfilEstivole->profilestivole['tshirtsize']); ?>
 						</td>
 						<td class="center">
-							<a class="btn" onClick="javascript:return confirm('Supprimera également toutes les inscriptions associées à ce membre. Êtes-vous sûr?')" href="index.php?option=com_estivole&controller=member&task=member.delete&member_id=<?php echo $item->member_id; ?>">
-								<i class="icon-trash"></i>
-							</a>
+							<!--<a class="btn" onclick="composeEmail('<?php echo $this->member->member_id; ?>')">
+								<i class="icon-mail"></i>
+							</a>-->
+							<?php echo JHtml::_('job.deleteListMember', $item->member_id, $i); ?>
 						</td>
 					</tr>
 				<?php 

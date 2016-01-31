@@ -62,7 +62,13 @@ class EstivoleHelpersUser
             $instance->set('usertype'       , 'deprecated');
             $instance->set('groups'     , array($defaultUserGroup));
             // Here is possible set user profile details
-            $instance->set('profile'    , array('gender' =>  $gender));
+		$instance->set('profile'    , array('gender' =>  $gender,
+											'city' => $formData['profile.city'],
+											'phone' => $formData['profile.phone'],
+											'postal_code' => $formData['profile.zipcode'],
+											'address1' => $formData['profile.address1']));
+											
+		$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'], 'campingPlace' => $formData['profilestivole.campingPlace']));
  
             // Email with activation link
             if($useractivation == 1)

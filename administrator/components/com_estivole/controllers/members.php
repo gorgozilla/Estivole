@@ -11,7 +11,7 @@ class EstivoleControllerMembers extends JControllerAdmin
 	public function execute($task=null)
 	{
 		$app      = JFactory::getApplication();
-		$modelName  = $app->input->get('model', 'Service');
+		$modelName  = $app->input->get('model', 'Member');
 
 		// Required objects 
 		$input = JFactory::getApplication()->input; 
@@ -21,40 +21,29 @@ class EstivoleControllerMembers extends JControllerAdmin
 		//Get model class
 		$this->model = $this->getModel($modelName);
 
-		if($task=='deleteListService'){
-			$this->deleteListService();
+		if($task=='deleteListMember'){
+			$this->deleteListMember();
 		}else{
 			$this->display();
 		}
 	}
 	
-	public function deleteListService()
+	public function deleteListMember()
 	{
 		$app      = JFactory::getApplication();
-		$service_id  = $app->input->get('service_id');
+		$member_id  = $app->input->get('member_id');
 		$return = array("success"=>false);
+        $ids    = JRequest::getVar('cid', array(), '', 'array');
 		
-		$modelDaytime = new EstivoleModelDaytime();
-
-		$memberDaytimes = $modelDaytime->getServiceDaytimes($service_id);
-		
-		foreach($memberDaytimes as $memberDaytime){
-			$daytime = JTable::getInstance('MemberDaytime','Table');
-			$daytime->load($memberDaytime->member_daytime_id);
-			if (!$daytime->delete()) 
-			{
-				return false;
+        if (empty($ids)) {
+            JError::raiseWarning(500, JText::_('JERROR_NO_ITEMS_SELECTED'));
+        }
+        else {
+			foreach($ids as $id){
+				$this->model->deleteMember($id);
 			}
-		}
-
-		if($this->model->deleteService($service_id)){
-			$return['success'] = true;
-			$return['msg'] = 'Yes';
-			$app->enqueueMessage('Secteur supprimé avec succès!');
-		}else{
-			$app->enqueueMessage('Erreur!');
-		}
-		$app->redirect( $_SERVER['HTTP_REFERER']);
+			$app->redirect( $_SERVER['HTTP_REFERER']);
+        }
 	}
 	/**
 	 * Method to provide child classes the opportunity to process after the delete task.

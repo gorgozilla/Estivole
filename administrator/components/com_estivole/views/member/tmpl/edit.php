@@ -32,6 +32,7 @@ $tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set
 	<form action="<?php echo JRoute::_('index.php?option=com_estivole&view=member&layout=edit&member_id=' . (int) $this->member->member_id);?>" method="post" name="adminForm" id="member-form" class="form-validate">
 		<div class="form-inline form-inline-header">
 			<input type="text" class="form-control" name="jform[name]" placeholder="Name" value="<?php echo $this->user->name; ?>" />
+			<input type="text" class="form-control" name="jform[username]" placeholder="Login" value="<?php echo $this->user->username; ?>" />
 			<input type="text" class="form-control" name="jform[email]" placeholder="Email" value="<?php echo $this->user->email; ?>" />
 			<input type="text" class="form-control" name="jform[profile][phone]" placeholder="Téléphone" value="<?php echo JText::_($this->userProfile->profile['phone']); ?>" />
 			<input type="text" class="form-control" name="jform[profile][address1]" placeholder="Adresse" value="<?php echo $this->userProfile->profile['address1']; ?>" />
@@ -46,7 +47,6 @@ $tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set
 			<label>Dors au camping ?</label><br />
 			<input type="checkbox" name="jform[profilestivole][campingPlace]" value=1 <?php if($this->userProfilEstivole->profilestivole['campingPlace']=='1'){ ?> checked=checked <?php } ?> />
 			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="jform[username]" value="<?php echo $this->user->username; ?>" />
 			<input type="hidden" name="jform[member_id]" value="<?php echo $this->member->member_id; ?>" />
 			<input type="hidden" name="jform[user_id]" value="<?php echo $this->user->id; ?>" />
 			<?php echo JHtml::_('form.token'); ?>

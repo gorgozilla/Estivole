@@ -51,10 +51,22 @@ JHtml::_('behavior.formvalidator');
 				</fieldset>
 			<?php endif;?>
 		<?php endforeach;?>
+		<div class="control-group">
+			<label>Camping accessible uniquement avec une tente (pas d'accès pour les camping car, voitures, bus, caravane, etc...)</label>
+		</div>
+		
+		<div class="control-group">
+			<div class="control-label">
+				<label for="conditions">J'ai lu et j'accepte la <a href="images/charte.pdf" target="_blank" title="Lire la charte">charte des bénévoles</a></label>
+			</div>
+			<div class="controls">
+				<input type="checkbox" name="conditions" id="conditions" class=required value="1">							
+			</div>
+		</div>
 
 		<div class="control-group">
 			<div class="controls">
-				<button type="submit" class="btn btn-primary validate"><?php echo JText::_('JREGISTER');?></button>sudhfsfdi
+				<button type="submit" class="btn btn-primary validate"><?php echo JText::_('JREGISTER');?></button>
 				<a class="btn" href="<?php echo JRoute::_('');?>" title="<?php echo JText::_('JCANCEL');?>"><?php echo JText::_('JCANCEL');?></a>
 				<input type="hidden" name="option" value="com_users" />
 				<input type="hidden" name="task" value="registration.register" />

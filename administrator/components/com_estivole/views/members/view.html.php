@@ -1,5 +1,7 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' ); 
 
+require_once JPATH_COMPONENT .'/helpers/job.php';
+
 class EstivoleViewMembers extends JViewLegacy
 {
 	function display($tpl=null)
@@ -33,5 +35,6 @@ class EstivoleViewMembers extends JViewLegacy
         $bar = JToolBar::getInstance('toolbar');
 		JToolbarHelper::title(JText::_('Gestion des bénévoles : Bénévoles'));
         JToolbarHelper::addNew('member.add');
+		JToolbarHelper::deleteList('Etes-vous sûr de vouloir supprimer le(s) membre(s)? Ceci supprimera également toutes les tranches horaires alloues à ce dernier. Alors?', 'members.deleteListMember');
     }
 }
