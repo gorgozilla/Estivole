@@ -33,11 +33,12 @@ class JFormFieldMembers extends JFormFieldList
 	public function getOptionsTshirtSize()
 	{
 		$arr = array(
-		  JHTML::_('select.option', 'S', JText::_('S') ),
-		  JHTML::_('select.option', 'M', JText::_('M') ),
+			JHTML::_('select.option', 'S', JText::_('S') ),
+			JHTML::_('select.option', 'M', JText::_('M') ),
 			JHTML::_('select.option', 'L', JText::_('L') ),
-		  JHTML::_('select.option', 'XL', JText::_('XL') ),
-		  JHTML::_('select.option', 'XXL', JText::_('XXL') )
+			JHTML::_('select.option', 'XL', JText::_('XL') ),
+			JHTML::_('select.option', 'XXL', JText::_('XXL')),
+			JHTML::_('select.option', 'XXXL', JText::_('XXXL'))
 		);
  
 		return $arr;
@@ -45,9 +46,7 @@ class JFormFieldMembers extends JFormFieldList
 	
 	public function getOptionsCamping()
 	{
-		$arr = array(
-			JHTML::_('select.option', '1', 'Dors au camping' )
-		);
+		$arr = array(JHTML::_('select.option', '1', 'Dors au camping' ));
 		return $arr;
 	}
 }

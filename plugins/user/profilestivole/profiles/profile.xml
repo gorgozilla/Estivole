@@ -10,7 +10,7 @@
 				<option value="L">L</option>
 				<option value="XL">XL</option>
 				<option value="XXL">XXL</option>
-				<option value="XXL">XXXL</option>
+				<option value="XXXL">XXXL</option>
 			</field>
 			<field name="sex" type="list"
 				description="PLG_USER_PROFILESTIVOLE_FIELD_SEX_DESC"

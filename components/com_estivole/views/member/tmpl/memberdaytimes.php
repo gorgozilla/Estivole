@@ -11,9 +11,9 @@ defined('_JEXEC') or die;
 
 JHTML::_('behavior.modal');
 
-	//If user not logged in, then display login form
-	if($this->user->guest){
-	$position = 'login';
+//If user not logged in, then display login form
+if($this->user->guest){
+	$position = 'position-3';
 	$modules =& JModuleHelper::getModules($position); 
 	foreach ($modules as $module) { 
 		echo JModuleHelper::renderModule($module); 

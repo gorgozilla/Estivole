@@ -17,6 +17,7 @@ JHtml::_('formbehavior.chosen', 'select');
 $lang = JFactory::getLanguage();
 $lang->load('plg_user_profile', JPATH_ADMINISTRATOR);
 ?>
+
 <div class="profile-edit<?php echo $this->pageclass_sfx?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
 		<div class="page-header">
@@ -122,6 +123,15 @@ $lang->load('plg_user_profile', JPATH_ADMINISTRATOR);
 		</fieldset>
 	<?php endif; ?>
 
+		<div class="control-group">
+			<div class="control-label">
+				<label for="conditions">J'ai lu et j'accepte la <a href="images/charte.pdf" target="_blank" title="Lire la charte">charte des bénévoles</a></label>
+			</div>
+			<div class="controls">
+				<input type="checkbox" name="conditions" id="conditions" checked="checked" class=required value="1">							
+			</div>
+		</div>
+	
 		<div class="control-group">
 			<div class="controls">
 				<button type="submit" class="btn btn-primary validate"><span><?php echo JText::_('JSUBMIT'); ?></span></button>
