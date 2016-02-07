@@ -70,16 +70,13 @@ function tableOrdering( order, dir, task )
 			<thead>
 				<tr>
 					<th class="left">
-						<?php echo JHTML::_( 'grid.sort', 'Nom', 'm.lastname', $this->sortDirection, $this->sortColumn); ?>
+						<?php echo JHTML::_( 'grid.sort', 'Nom', 'u.name', $this->sortDirection, $this->sortColumn); ?>
 					</th>
 					<th class="left">
-						<?php echo JHTML::_( 'grid.sort', 'Prénom', 'm.firstname', $this->sortDirection, $this->sortColumn); ?>
+						<?php echo JHTML::_( 'grid.sort', 'Email', 'u.email', $this->sortDirection, $this->sortColumn); ?>
 					</th>
 					<th class="left">
-						<?php echo JHTML::_( 'grid.sort', 'Email', 'm.email', $this->sortDirection, $this->sortColumn); ?>
-					</th>
-					<th class="left">
-						<?php echo JHTML::_( 'grid.sort', 'Secteur', 's.name', $this->sortDirection, $this->sortColumn); ?>
+						<?php echo JHTML::_( 'grid.sort', 'Secteur', 's.service_name', $this->sortDirection, $this->sortColumn); ?>
 					</th>
 					<th class="left">
 						<?php echo JHTML::_( 'grid.sort', 'Date', 'd.daytime_day', $this->sortDirection, $this->sortColumn); ?>
@@ -95,16 +92,14 @@ function tableOrdering( order, dir, task )
 				</tr>
 			</thead>
 			<tbody>
-			<?php foreach ($this->member_daytimes as $i => $item) : ?>
+			<?php foreach ($this->member_daytimes as $i => $item){
+					$userId = $item->user_id; 
+					$user = JFactory::getUser($userId);
+			?>
 				<tr class="row<?php echo $i % 2; ?>">
 					<td class="left">
 						<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $item->member_id); ?>">
-							<?php echo JText::_($item->lastname); ?>
-						</a>
-					</td>
-					<td class="left">
-						<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $item->member_id); ?>">
-						<?php echo JText::_($item->firstname); ?>
+							<?php echo JText::_($user->name); ?>
 						</a>
 					</td>
 					<td class="left">
@@ -113,7 +108,7 @@ function tableOrdering( order, dir, task )
 						</a>
 					</td>
 					<td class="left">
-						<?php echo JText::_($item->name.' - '.$item->description); ?>
+						<?php echo JText::_($item->service_name.' - '.$item->description); ?>
 					</td>
 					<td class="left">
 						<?php echo date('d-m-Y',strtotime($item->daytime_day)); ?>
@@ -138,7 +133,7 @@ function tableOrdering( order, dir, task )
 						</a>
 					</td>
 				</tr>
-				<?php endforeach; ?>
+			<?php } ?>
 			</tbody>
 			<tfoot>
 				<tr>

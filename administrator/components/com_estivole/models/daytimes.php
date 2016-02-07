@@ -4,7 +4,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  
 class EstivoleModelDaytimes extends JModelList
 {
-	protected $searchInFields = array('m.lastname','m.email','s.name', 'm.firstname', 'd.daytime_day', 'd.daytime_hour_start');
+	protected $searchInFields = array('u.name','u.email','s.service_name', 'd.daytime_day', 'd.daytime_hour_start');
 	
 	function __construct()
 	{
@@ -14,10 +14,9 @@ class EstivoleModelDaytimes extends JModelList
 		$this->_calendar_id = $app->input->get('calendar_id', null);
 	
 		$config['filter_fields'] = array(
-			'm.lastname',
-			'm.firstname',
-			'm.email',
-			's.name',
+			'u.name',
+			'u.email',
+			's.service_name',
 			'd.daytime_day',
 			'md.status_id'
 		);
@@ -98,8 +97,9 @@ class EstivoleModelDaytimes extends JModelList
 		$query = $db->getQuery(TRUE);
 
 		$query->select('*');
-		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md');
+		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md, #__users as u');
 		$query->where('md.member_id = m.member_id');
+		$query->where('m.user_id = u.id');
 		$query->where('md.service_id = s.service_id');
 		$query->where('md.daytime_id = d.daytime_id');
 		return $query;
@@ -203,7 +203,7 @@ class EstivoleModelDaytimes extends JModelList
 		$limit = $this->getState('limit');
 		$limitstart = $this->getState('limitstart');
 		$db = JFactory::getDBO();
-		$query->order($db->escape($this->getState('list.ordering', 'm.lastname')).' '.$db->escape($this->getState('list.direction', 'ASC')));
+		$query->order($db->escape($this->getState('list.ordering', 'u.name')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 		$db->setQuery($query, $limitstart, $limit);
 		$result = $db->loadObjectList();
 		return $result;

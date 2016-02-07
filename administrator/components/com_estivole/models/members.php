@@ -7,15 +7,13 @@ jimport('joomla.application.component.modellist');
 class EstivoleModelMembers extends JModelList
 {
 	//Add this handy array with database fields to search in
-	protected $searchInFields = array('b.lastname','b.firstname', 'b.email', 'b.tshirtsize');
+	protected $searchInFields = array('u.name', 'u.email', 'b.tshirtsize');
 	
 	function __construct()
 	{   
 		$config['filter_fields'] = array(
-			'b.lastname',
-			'b.firstname',
-			'b.email',
-			'b.city',
+			'u.name',
+			'u.email',
 			'b.tshirtsize'
 		);
 		$config['filter_fields']=array_merge($this->searchInFields,array('b.member'));
@@ -100,6 +98,7 @@ class EstivoleModelMembers extends JModelList
 
 		$query->select('*');
 		$query->from('#__estivole_members as b');
+		$query->from('#__users as u');
 		$query->from('#__user_profiles as p');
 
 		return $query;
@@ -115,6 +114,7 @@ class EstivoleModelMembers extends JModelList
 	{
 		$db = JFactory::getDBO();
 		$query->where('b.user_id=p.user_id');
+		$query->where('b.user_id=u.id');
 		
 		if(is_numeric($this->_member_id)) 
 		{
