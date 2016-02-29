@@ -130,7 +130,7 @@ class EstivoleModelMembers extends JModelList
 		
 		$tshirtsize= $db->escape($this->getState('filter.tshirt_size'));
 		if (!empty($tshirtsize)) {
-			$query->where('b.tshirtsize=\''.$tshirtsize.'\'');
+			$query->where('p.profile_value=\''.$tshirtsize.'\'');
 		}
 		
 		// $campingPlace= $db->escape($this->getState('filter.campingPlace'));
@@ -184,7 +184,7 @@ class EstivoleModelMembers extends JModelList
 		$limit = $this->getState('limit');
 		$limitstart = $this->getState('limitstart');
 		$db = JFactory::getDBO();
-		$query->order($db->escape($this->getState('list.ordering', 'b.lastname')).' '.$db->escape($this->getState('list.direction', 'ASC')));
+		$query->order($db->escape($this->getState('list.ordering', 'u.name')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 		$db->setQuery($query, $limitstart, $limit);
 		$result = $db->loadObjectList();
 		return $result;

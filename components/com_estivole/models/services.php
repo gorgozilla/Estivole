@@ -79,7 +79,7 @@ class EstivoleModelServices extends JModelLegacy
   {
     $query = $this->_buildQuery();    
     $query = $this->_buildWhere($query, $onlyPublished);
-	$query->order('b.name ASC');
+	$query->order('b.service_name ASC');
     $list = $this->_getList($query, $this->limitstart, $this->limit);
 
     return $list;

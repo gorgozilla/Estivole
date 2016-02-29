@@ -34,7 +34,7 @@ function tableOrdering( order, dir, task )
 						<?php echo JHtml::_('grid.checkall'); ?>
 					</th>
 					<th class="left">
-						<?php echo JHTML::_( 'grid.sort', 'Nom', 'b.name', $this->sortDirection, $this->sortColumn); ?>
+						<?php echo JHTML::_( 'grid.sort', 'Nom', 'b.service_name', $this->sortDirection, $this->sortColumn); ?>
 					</th>
 					<th class="left">
 						<?php echo JHTML::_( 'grid.sort', 'Email', 'b.email_responsable', $this->sortDirection, $this->sortColumn); ?>
@@ -65,7 +65,7 @@ function tableOrdering( order, dir, task )
 					</td>
 					<td class="left">
 						<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=service.edit&service_id='.(int) $item->service_id); ?>">
-						<?php echo JText::_($item->name); ?>
+						<?php echo JText::_($item->service_name); ?>
 						</a>
 					</td>
 					<td class="left">

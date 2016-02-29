@@ -60,7 +60,7 @@ class EstivoleHelpersHtml
 
 		foreach($this->services as $service) :
 			## Create $value ##
-			$options[] = JHTML::_('select.option', $service->service_id, $service->name);
+			$options[] = JHTML::_('select.option', $service->service_id, $service->service_name);
 		endforeach;
 		
 		## Create <select name="month" class="inputbox"></select> ##

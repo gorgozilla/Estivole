@@ -28,7 +28,11 @@ $tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set
 </script>
 
 <div id="j-main-container" class="span12">
-	<h1>Membre "<?php echo $this->user->name; ?>"</h1>
+	<?php if($this->user!=null){ ?>
+		<h1>Membre "<?php echo $this->user->name; ?>"</h1>
+	<?php }else{ ?>
+		<h1>Nouveau membre</h1>
+	<?php } ?>
 	<form action="<?php echo JRoute::_('index.php?option=com_estivole&view=member&layout=edit&member_id=' . (int) $this->member->member_id);?>" method="post" name="adminForm" id="member-form" class="form-validate">
 		<div class="form-inline form-inline-header">
 			<input type="text" class="form-control" name="jform[name]" placeholder="Name" value="<?php echo $this->user->name; ?>" />
@@ -93,7 +97,7 @@ $tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set
 					</td>
 					<td class="left">
 						<a href="index.php?option=com_estivole&view=service&layout=edit&service_id=<?php echo $item->service_id; ?>">
-							<?php echo JText::_($item->name); ?>
+							<?php echo JText::_($item->service_name); ?>
 						</a>
 					</td>
 					<td class="left">

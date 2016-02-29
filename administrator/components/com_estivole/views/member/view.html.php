@@ -16,7 +16,11 @@ class EstivoleViewMember extends JViewLegacy
 		$this->form		= $this->get('Form');
 		
 		$userId = $this->member->user_id; 
-		$this->user = JFactory::getUser($userId);
+		if($userId!=''){
+			$this->user = JFactory::getUser($userId);
+		}else{
+			$this->user=null;
+		}
 		$this->userProfile = JUserHelper::getProfile( $userId );
 		$this->userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
 		

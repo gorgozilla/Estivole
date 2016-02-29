@@ -34,7 +34,7 @@ class EstivoleControllerMember extends JControllerForm
 				$result = EstivoleHelpersUser::registerUser($this->formData['name'], $this->formData['username'], $this->formData['email'], 'est1val3', null, $this->formData);
 				if($result->success){
 					$app->enqueueMessage('Profil enregistré avec succès!');
-					$app->redirect('index.php?option=com_estivole&view=member&layout=edit&task=member.edit&controller=member&member_id='.$result->member_id);
+					$app->redirect('index.php?option=com_estivole&view=member&layout=edit&member_id='.$result->member_id);
 				}else{
 					$app->enqueueMessage($result->message, 'error');
 					$app->redirect($_SERVER['HTTP_REFERER']);

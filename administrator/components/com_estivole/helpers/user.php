@@ -150,7 +150,7 @@ class EstivoleHelpersUser
 										<p>Meilleures salutations et à bientôt,</p>
 										<p>Team Bénévoles Estivale Open Air</p>';
  
-                        $return = JFactory::getMailer()->sendMail('sender email', 'sender name', $user->email, $emailSubject, $emailBody, true);                             
+                        JFactory::getMailer()->sendMail('sender email', 'sender name', $user->email, $emailSubject, $emailBody, true);                             
 						$return->success=true;
 						$return->member_id=$memberObj->member_id;
                         return $return;

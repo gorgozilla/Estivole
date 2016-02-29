@@ -18,14 +18,14 @@ class EstivoleModelServices extends JModelList
     $this->_service_id = $app->input->get('service_id', null);
 	
 	$config['filter_fields'] = array(
-		'b.name'
+		'b.service_name'
 	);
     
     parent::__construct($config);       
   }
   
 	protected function populateState($ordering = null, $direction = null) {
-		parent::populateState('name', 'ASC');
+		parent::populateState('service_name', 'ASC');
 	}
  
   /**
@@ -101,7 +101,7 @@ class EstivoleModelServices extends JModelList
   protected function _getList($query, $limitstart = 0, $limit = 0)
   {
     $db = JFactory::getDBO();
-	$query->order($db->escape($this->getState('list.ordering', 'b.name')).' '.$db->escape($this->getState('list.direction', 'ASC')));
+	$query->order($db->escape($this->getState('list.ordering', 'b.service_name')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 	$db->setQuery($query, $limitstart, $limit);
     $result = $db->loadObjectList();
  

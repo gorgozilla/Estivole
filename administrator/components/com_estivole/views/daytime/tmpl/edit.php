@@ -58,7 +58,7 @@ JHtml::_('behavior.modal', 'a.modal');
 					<a href="javascript:void();" onclick="addDayTimeModal('<?php echo $item->daytime_id; ?>');"><?php echo date('d-m-Y',strtotime($item->daytime_day)); ?></a>
 				</td>
 				<td class="left">
-					<?php echo $item->service->name;  ?>
+					<?php echo $item->service->service_name;  ?>
 				</td>
 				<td class="left">
 					<?php echo $item->description; ?>

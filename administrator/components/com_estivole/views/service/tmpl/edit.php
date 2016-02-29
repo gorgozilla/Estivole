@@ -26,7 +26,7 @@ JHtml::_('formbehavior.chosen', 'select');
 		<div class="row-fluid">
 			<div class="span9">
 				<div class="form-vertical">			
-					<?php echo $this->form->getControlGroup('name'); ?>
+					<?php echo $this->form->getControlGroup('service_name'); ?>
 					<?php echo $this->form->getControlGroup('email_responsable'); ?>
 					<?php 
 						 $editor = JFactory::getEditor();

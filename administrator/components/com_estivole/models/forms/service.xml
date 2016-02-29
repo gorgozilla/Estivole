@@ -5,7 +5,7 @@
             name="id_service" 
             type="hidden" />
         <field 
-            name="name" 
+            name="service_name" 
             type="text" 
             label="Nom"
             size="40"

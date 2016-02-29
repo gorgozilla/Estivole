@@ -84,7 +84,7 @@ function tableOrdering( order, dir, task )
 							<?php echo JText::_('Ville'); ?>
 						</th>
 						<th class="left">
-							<?php echo JHTML::_( 'grid.sort', 'T-Shirt size', 'b.tshirtsize', $this->sortDirection, $this->sortColumn); ?>
+							<?php echo JText::_( 'T-Shirt size' ); ?>
 						</th>
 						<th class="center">
 							<?php echo JText::_('Actions'); ?>
