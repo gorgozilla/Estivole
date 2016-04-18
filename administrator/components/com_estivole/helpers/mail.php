@@ -74,7 +74,7 @@ class EstivoleHelpersMail
 
 		<p>Tout d'abord un grand merci à toi pour ta contribution à cette belle fête qu'est l'Estivale Open Air! Sans toi cette manifestation n'existerait pas et nous en sommes grandement reconnaissants! :)</p>
 
-		<p>Je suis le responsable du secteur ".$mailModel->name.". C'est donc moi qui m'occuperait de t'accueillir et te donner les consignes nécessaires pour remplir ta tâche.</p>
+		<p>Je suis le responsable du secteur ".$mailModel->service_name.". C'est donc moi qui m'occuperait de t'accueillir et te donner les consignes nécessaires pour remplir ta tâche.</p>
 		Cette dernière se veut assez simple, voici un résumé :</p>
 
 		<p>".$mailModel->summary."</p>
@@ -106,23 +106,34 @@ class EstivoleHelpersMail
 		$mail->Send();
 	}
 	
-	function confirmResponsableDaytime($service_id, $daytime_id)
+	function confirmResponsableDaytime($service_id, $daytime_id, $member_id)
 	{	
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
 
 		$query->select('*');
-		$query->from('#__estivole_services as s, #__estivole_daytimes as d');
+		$query->from('#__estivole_services as s, #__estivole_daytimes as d, #__estivole_members as m');
 		$query->where('s.service_id = ' . (int) $service_id);
 		$query->where('d.daytime_id = ' . (int) $daytime_id);
+		$query->where('m.member_id = ' . (int) $member_id);
 		$db->setQuery($query);
 		$mailModel = $db->loadObject();
-		$this->user = JFactory::getUser();
-		$userName = $this->user->name; 
+		$this->user = JFactory::getUser($mailModel->user_id);
 		
-		$mailBody = "<h1>Confirmation de tranche horaire secteur ".$mailModel->name."</h1>
+		// Get the dispatcher and load the user's plugins.
+		$dispatcher = JEventDispatcher::getInstance();
+		JPluginHelper::importPlugin('user');
+		$data = new JObject;
+		$data->id = $mailModel->user_id;
+		// Trigger the data preparation event.
+		$dispatcher->trigger('onContentPrepareData', array('com_users.profilestivole', &$data));
+
+		$userProfilEstivole=$data;
+		$userName = $userProfilEstivole->profilestivole['firstname'].' '.$userProfilEstivole->profilestivole['lastname'];
 		
-		<p>Cher (Chère) responsable du secteur ".$mailModel->name.",</p>
+		$mailBody = "<h1>Confirmation de tranche horaire secteur ".$mailModel->service_name."</h1>
+		
+		<p>Cher (Chère) responsable du secteur ".$mailModel->service_name.",</p>
 
 		<p><strong>Voici la date et tranche horaire confirmée :</strong></p>
 		
@@ -133,7 +144,7 @@ class EstivoleHelpersMail
 		$email_responsable = $mailModel->email_responsable;
 		
 		define("BodyConfirmResponsable", $mailBody);
-		define("SubjectConfirmResponsable", "Confirmation de tranche horaire secteur ".$mailModel->name);
+		define("SubjectConfirmResponsable", "Confirmation de tranche horaire secteur ".$mailModel->service_name);
 		
 		$mail = JFactory::getMailer();
 		$mail->setBody(constant("BodyConfirmResponsable"));

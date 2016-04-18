@@ -62,7 +62,16 @@ class EstivoleHelpersMail
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
 		$this->user = JFactory::getUser();
-		$userName = $this->user->name; 
+		// Get the dispatcher and load the user's plugins.
+		$dispatcher = JEventDispatcher::getInstance();
+		JPluginHelper::importPlugin('user');
+		$data = new JObject;
+		$data->id = $this->user->id;
+		// Trigger the data preparation event.
+		$dispatcher->trigger('onContentPrepareData', array('com_users.profilestivole', &$data));
+
+		$userProfilEstivole=$data;
+		$userName = $userProfilEstivole->profilestivole['firstname'].' '.$userProfilEstivole->profilestivole['lastname'];
 
 		$query->select('*');
 		$query->from('#__estivole_members as b, #__estivole_services as s, #__estivole_daytimes as d');

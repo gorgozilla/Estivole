@@ -84,6 +84,19 @@
 			JForm::addFormPath(dirname(__FILE__).'/profiles');
 			$form->loadFile('profile', false);
 
+			if ($this->params->get('profile-require_firstname', 1) > 0) {
+				$form->setFieldAttribute('firstname', 'required', $this->params->get('profile-require_firstname') == 2, 'profilestivole');
+			} else {
+				$form->removeField('firstname', 'profilestivole');
+			}
+			
+			if ($this->params->get('profile-require_lastname', 1) > 0) {
+				$form->setFieldAttribute('lastname', 'required', $this->params->get('profile-require_lastname') == 2, 'profilestivole');
+			} else {
+				$form->removeField('lastname', 'profilestivole');
+			}
+
+			
 			// Toggle whether the tshirtsize field is required.
 			if ($this->params->get('profile-require_tshirtsize', 1) > 0) {
 				$form->setFieldAttribute('tshirtsize', 'required', $this->params->get('profile-require_tshirtsize') == 2, 'profilestivole');
@@ -113,23 +126,35 @@
 			JForm::addFormPath(dirname(__FILE__).'/profiles');
 			$form->loadFile('profile', false);
  
+			if ($this->params->get('profile-require_firstname', 1) > 0) {
+				$form->setFieldAttribute('firstname', 'required', $this->params->get('profile-require_firstname') == 2, 'profilestivole');
+			} else {
+				$form->removeField('firstname', 'profilestivole');
+			}
+			
+			if ($this->params->get('profile-require_lastname', 1) > 0) {
+				$form->setFieldAttribute('lastname', 'required', $this->params->get('profile-require_lastname') == 2, 'profilestivole');
+			} else {
+				$form->removeField('lastname', 'profilestivole');
+			}
+
 			// Toggle whether the tshirtsize field is required.
-			if ($this->params->get('register-require_tshirtsize', 1) > 0) {
-				$form->setFieldAttribute('tshirtsize', 'required', $this->params->get('register-require_tshirtsize') == 2, 'profilestivole');
+			if ($this->params->get('profile-require_tshirtsize', 1) > 0) {
+				$form->setFieldAttribute('tshirtsize', 'required', $this->params->get('profile-require_tshirtsize') == 2, 'profilestivole');
 			} else {
 				$form->removeField('tshirtsize', 'profilestivole');
 			}
 			
 			// Toggle whether the tshirtsize field is required.
-			if ($this->params->get('register-require_campingPlace', 1) > 0) {
-				$form->setFieldAttribute('campingPlace', 'required', $this->params->get('register-require_campingPlace') == 2, 'profilestivole');
+			if ($this->params->get('profile-require_campingPlace', 1) > 0) {
+				$form->setFieldAttribute('campingPlace', 'required', $this->params->get('profile-require_campingPlace') == 2, 'profilestivole');
 			} else {
 				$form->removeField('campingPlace', 'profilestivole');
 			}
 			
 			// Toggle whether the tshirtsize field is required.
-			if ($this->params->get('register-require_sex', 1) > 0) {
-				$form->setFieldAttribute('sex', 'required', $this->params->get('register-require_sex') == 2, 'profilestivole');
+			if ($this->params->get('profile-require_sex', 1) > 0) {
+				$form->setFieldAttribute('sex', 'required', $this->params->get('profile-require_sex') == 2, 'profilestivole');
 			} else {
 				$form->removeField('sex', 'profilestivole');
 			}

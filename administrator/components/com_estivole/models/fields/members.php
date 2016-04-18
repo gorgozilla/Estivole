@@ -44,6 +44,16 @@ class JFormFieldMembers extends JFormFieldList
 		return $arr;
 	}
 	
+	public function getOptionsSex()
+	{
+		$arr = array(
+			JHTML::_('select.option', 'M', JText::_('Masculin')),
+			JHTML::_('select.option', 'F', JText::_('Féminin'))
+		);
+ 
+		return $arr;
+	}
+	
 	public function getOptionsCamping()
 	{
 		$arr = array(JHTML::_('select.option', '1', 'Dors au camping' ));

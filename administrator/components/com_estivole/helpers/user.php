@@ -62,13 +62,18 @@ class EstivoleHelpersUser
             $instance->set('usertype'       , 'deprecated');
             $instance->set('groups'     , array($defaultUserGroup));
             // Here is possible set user profile details
-		$instance->set('profile'    , array('gender' =>  $gender,
+			$instance->set('profile'    , array('gender' =>  $gender,
 											'city' => $formData['profile.city'],
 											'phone' => $formData['profile.phone'],
 											'postal_code' => $formData['profile.zipcode'],
+											'dob' => $formData['profile.birthdate'],
 											'address1' => $formData['profile.address1']));
 											
-		$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'], 'campingPlace' => $formData['profilestivole.campingPlace']));
+			$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'],
+													'campingPlace' => $formData['profilestivole.campingPlace'],
+													'sex' => $formData['profilestivole.sex'],
+													'firstname' => $formData['profilestivole.firstname'],
+													'lastname' => $formData['profilestivole.lastname']));
  
             // Email with activation link
             if($useractivation == 1)
@@ -147,6 +152,7 @@ class EstivoleHelpersUser
 										'<p>Votre nom d\'utilisateur ainsi que votre mot de passe vous sont parvenus dans un email séparé. 
 										Utilisez ces derniers pour vous connecter à votre compte,
 										vous pourrez ensuite modifier vos paramètres et sélectionnez les dates auxquelles vous souhaitez vous inscrire.</p>
+										<p><strong><a href=http://benevoles.estivale.ch/index.php/edit-profil>Modifiez votre nom d\'utilisateur ainsi que votre mot de passe afin de vous souvenir de ces derniers!</a></strong></p>
 										<p>Meilleures salutations et à bientôt,</p>
 										<p>Team Bénévoles Estivale Open Air</p>';
  
@@ -207,9 +213,14 @@ class EstivoleHelpersUser
 											'city' => $formData['profile.city'],
 											'phone' => $formData['profile.phone'],
 											'postal_code' => $formData['profile.zipcode'],
+											'dob' => $formData['profile.birthdate'],
 											'address1' => $formData['profile.address1']));
 											
-		$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'], 'campingPlace' => $formData['profilestivole.campingPlace']));
+			$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'],
+													'campingPlace' => $formData['profilestivole.campingPlace'],
+													'sex' => $formData['profilestivole.sex'],
+													'firstname' => $formData['profilestivole.firstname'],
+													'lastname' => $formData['profilestivole.lastname']));
 
 		if (!$instance->save())
 		{             	
