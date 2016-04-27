@@ -12,6 +12,6 @@ defined('_JEXEC') or die;
 	<h1>Espace benevole > Secteurs</h1>
 	
 	<?php foreach ($this->services as $i => $item){ ?>
-		<h2><?php echo $item->name; ?></h2>
+		<h2><?php echo $item->service_name; ?></h2>
 		<p><?php echo $item->summary; ?></p>
 	<?php } ?>
