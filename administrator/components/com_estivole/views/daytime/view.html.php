@@ -17,7 +17,6 @@ class EstivoleViewDaytime extends JViewLegacy
 		
 		for($i=0; $i<count($this->daytimes); $i++){
 			$this->daytimes[$i]->filledQuota = count($model->getQuotasByDaytime($this->daytimes[$i]->daytime_id));
-			$this->daytimes[$i]->service = $modelService->getItem($this->daytimes[$i]->service_id);
 		}
 		
 		$this->state	= $this->get('State');

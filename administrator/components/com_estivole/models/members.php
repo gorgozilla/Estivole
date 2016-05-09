@@ -52,17 +52,6 @@ class EstivoleModelMembers extends JModelList
 		
 		parent::populateState('lastname', 'ASC');
 	}
-	
-	function getData() 
-	{
-		// if data hasn't already been obtained, load it
-		if (empty($this->_data)) {
-			$query = $this->_buildQuery();
-			$query = $this->_buildWhere($query);
-			$this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));	
-		}
-		return $this->_data;
-	}
 
   function getTotal()
   {
@@ -130,13 +119,13 @@ class EstivoleModelMembers extends JModelList
 		
 		$tshirtsize= $db->escape($this->getState('filter.tshirt_size'));
 		if (!empty($tshirtsize)) {
-			$query->where('p.profile_value=\''.$tshirtsize.'\'');
+			$query->where('(p.profile_value=\'"'.$tshirtsize.'"\' AND p.profile_key=\'profilestivole.tshirtsize\')');
 		}
 		
-		// $campingPlace= $db->escape($this->getState('filter.campingPlace'));
-		// if (!empty($campingPlace)) {
-			// $query->where('p.profile_value=\''.$campingPlace.'\'');
-		// }
+		$campingPlace= $db->escape($this->getState('filter.campingPlace'));
+		if (!empty($campingPlace)) {
+			$query->where('(p.profile_value=\'"'.$campingPlace.'"\' AND p.profile_key=\'profilestivole.campingPlace\')');
+		}
 		
 		$query->group('b.email');
 		return $query;
@@ -164,7 +153,7 @@ class EstivoleModelMembers extends JModelList
 	{
 		$query = $this->_buildQuery();    
 		$query = $this->_buildWhere($query);
-		$list = $this->_getList($query, $limitstart, $limit);
+		$list = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
 		return $list;
 	}
 
@@ -181,8 +170,6 @@ class EstivoleModelMembers extends JModelList
 	*/
 	protected function _getList($query, $limitstart = 0, $limit = 0)
 	{
-		$limit = $this->getState('limit');
-		$limitstart = $this->getState('limitstart');
 		$db = JFactory::getDBO();
 		$query->order($db->escape($this->getState('list.ordering', 'u.name')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 		$db->setQuery($query, $limitstart, $limit);

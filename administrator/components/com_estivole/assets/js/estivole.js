@@ -104,13 +104,14 @@ function getCalendarDates(calendar_id)
 		{
 			if(data.success)
 			{
+				alert(data.calendar_dates[i].daytime_day);
 				var el = jQuery("#addAvailibilityModal #jformdaytime");
 				el.empty(); // remove old options
 				for(i=0;i<data.calendar_dates.length;i++){
-					el.append(jQuery("<option></option>").attr("value", data.calendar_dates[i].daytime_id).text(data.calendar_dates[i].daytime_day));
+					el.append(jQuery("<option></option>").attr("value", data.calendar_dates[i].daytime_day).text(data.calendar_dates[i].daytime_day));
 				}
 				jQuery("#addAvailibilityModal #jformdaytime").trigger("liszt:updated");
-				var service_id = jQuery("#jformservice_id").chosen().val();
+				var service_id = jQuery("#jformservice_id").val();
 				var daytime = jQuery("#jformdaytime").val();
 				getCalendarDaytimes(calendar_id, daytime, service_id);	
 			} else {
@@ -126,7 +127,7 @@ function getCalendarDates(calendar_id)
 function getCalendarDaytimes(calendar_id, daytime, service_id)
 {
 	var member_id = jQuery("#addDayTimeForm #member_id").val();
-	
+	//alert(daytime);
 	jQuery.ajax({
 		url:'index.php?option=com_estivole&controller=member&view=member&layout=_availibilitytable&format=raw&tmpl=component',
 		type:'POST',
@@ -162,13 +163,11 @@ function getDaytimesByService(calendar_id, service_id)
 				if(m<10)m='0'+m;
 				var y = formattedDate.getFullYear();
 				formattedDate = d + "-" + m + "-" + y;
-				
 				jQuery("#addDayTimeForm #jformdaytime").append(jQuery('<option></option>').val(item.daytime_day).text(formattedDate));
 			});
 			jQuery("#addDayTimeForm #jformdaytime").trigger('liszt:updated');
-			
-				var daytime = jQuery("#addDayTimeForm #jformdaytime").chosen().val();
-				var service_id = jQuery("#addDayTimeForm #jformservice_id").chosen().val();
+				var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
+				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
 				var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
 				getCalendarDaytimes(calendar_id, daytime, service_id);
 		},

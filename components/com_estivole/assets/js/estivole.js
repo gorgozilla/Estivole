@@ -37,7 +37,6 @@ function getDaytimesByService(calendar_id, service_id)
 function getCalendarDaytimes(calendar_id, daytime, service_id)
 {
 	var member_id = jQuery("#addDayTimeForm #member_id").val();
-
 	jQuery.ajax({
 		url:'index.php?option=com_estivole&controller=member&view=member&layout=_availibilitytable&format=raw&tmpl=component',
 		type:'POST',

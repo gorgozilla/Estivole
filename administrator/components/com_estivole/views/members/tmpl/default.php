@@ -54,7 +54,7 @@ function tableOrdering( order, dir, task )
 						<?php echo JHtml::_('select.options', $tshirtOptions, 'value', 'text', $this->state->get('filter.tshirt_size'));?>
 					</select>
 					<select name="filter_campingPlace" class="inputbox" onchange="this.form.submit()">
-						<option value="3"> - Camping - </option>
+						<option value=""> - Camping - </option>
 						<?php echo JHtml::_('select.options', $campingOptions, 'value', 'text', $this->state->get('filter.campingPlace'));?>
 					</select>
 					<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
@@ -93,14 +93,13 @@ function tableOrdering( order, dir, task )
 				</thead>
 				<tbody>
 				<?php 
-				$itemNumber=0;
+				$itemNumber = $this->limitstart;
 				foreach ($this->members as $i => $item){
 					$userId = $item->user_id; 
 					$user = JFactory::getUser($userId);
 					$userProfile = JUserHelper::getProfile( $userId );
 					$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
-					if($this->campingPlace=='3' || $this->campingPlace=='' || ($this->campingPlace=='1' && $userProfilEstivole->profilestivole['campingPlace']=='1')){
-						$itemNumber++;
+					$itemNumber++;
 				?>
 					<tr class="row<?php echo $i % 2; ?>">
 						<td class="center hidden-phone">
@@ -137,7 +136,6 @@ function tableOrdering( order, dir, task )
 						</td>
 					</tr>
 				<?php 
-					}
 				} 
 				?>
 				</tbody>

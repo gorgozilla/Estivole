@@ -44,6 +44,10 @@ if($this->user->guest){
 	
 	<p>Vous pouvez bien sûr ajouter autan de disponibilité que vous le souhaitez. Pour chaque disponibilité, une confirmation vous sera envoyée par email.</p>
 	
+		<p class="text-danger"><strong>Important :<br />
+		Pour les bénévoles travaillant le 1er août, soit durant la soirée gratuite, un billet vous sera offert l'année prochaine pour la soirée de votre choix!<br />
+		De plus, uniquement les tentes seront acceptées à l'intérieur du camping bénévoles, les minibus, camping-car et tout autre type de véhicule ne seront pas admis!</strong></p>
+	
 	<h2>Calendrier "<?php echo $this->calendars[0]->name; ?>"</h2>
 	
 	<table class="table" id="memberDaytimesTable">

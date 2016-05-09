@@ -15,22 +15,21 @@ JHtml::_('formbehavior.chosen', 'select');
 <?php if($this->member->member_id!=null){ ?>
 	<script type="text/javascript" language="javascript">
 		jQuery(document).ready(function() {
-			var daytime = jQuery("#addDayTimeForm #jformdaytime").chosen().val();
-			var service_id = jQuery("#addDayTimeForm #jformservice_id").chosen().val();
+			var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
+			var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
 			var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
-			
 			getCalendarDaytimes(calendar_id, daytime, service_id);
 			getDaytimesByService(calendar_id, service_id);
 			
-			jQuery("#addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").chosen().change(function() {
-				var daytime = jQuery("#addDayTimeForm #jformdaytime").chosen().val();
-				var service_id = jQuery("#addDayTimeForm #jformservice_id").chosen().val();
+			jQuery("#addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").change(function() {
+				var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
+				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
 				var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
 				getCalendarDaytimes(calendar_id, daytime, service_id);
 			});
 			
-			jQuery("#addDayTimeForm #jformservice_id").chosen().change(function() {
-				var service_id = jQuery("#addDayTimeForm #jformservice_id").chosen().val();
+			jQuery("#addDayTimeForm #jformservice_id").change(function() {
+				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
 				var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
 				getDaytimesByService(calendar_id, service_id);
 			});

@@ -55,7 +55,7 @@ class EstivoleControllerDaytime extends JControllerForm
 		$modeldaytime = new estivolemodeldaytime();
 		$this->daytimes = $modeldaytime->listitems();
 		
-		echo json_encode($this->daytimes);
+		print json_encode($this->daytimes);
 		exit;
 	}
 	

@@ -56,7 +56,7 @@ class EstivoleModelDaytime extends JModelAdmin
 		$query->select('*');
 	}
 	
-	$query->from('#__estivole_daytimes as b');
+	$query->from('#__estivole_daytimes as b, #__estivole_services as s');
 
     return $query;
   }
@@ -83,6 +83,7 @@ class EstivoleModelDaytime extends JModelAdmin
     {
       $query->where("b.service_id = '".(int) $this->_service_id."'");
     }
+    $query->where("b.service_id = s.service_id");
     return $query;
   }
   
@@ -129,7 +130,7 @@ class EstivoleModelDaytime extends JModelAdmin
 	  //Build and querydatabase
     $query = $this->_buildQuery();    
     $query = $this->_buildWhere($query);
-	$query->order('b.daytime_day');
+	$query->order('b.daytime_day, s.service_name, b.daytime_hour_start');
 	//Get list of data
     $list = $this->_getList($query, $this->limitstart, $this->limit);
 	

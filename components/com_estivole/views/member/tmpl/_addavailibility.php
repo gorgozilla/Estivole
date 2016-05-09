@@ -58,6 +58,8 @@ JHtml::_('formbehavior.chosen', 'select');
 			</div>
 		</div>
 		
+		<p class="text-danger"><strong>Important :<br />Pour les bénévoles travaillant le 1er août, soit durant la soirée gratuite, un billet vous sera offert l'année prochaine pour la soirée de votre choix!</strong></p>
+		
 		<div id="availibilityTableDiv">
 		
 		</div>
