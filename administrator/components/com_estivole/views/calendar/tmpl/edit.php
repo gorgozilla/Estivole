@@ -11,6 +11,11 @@ defined('_JEXEC') or die;
 
 JHtml::_('behavior.formvalidation');
 JHtml::_('formbehavior.chosen', 'select');
+
+//Get services options
+JFormHelper::addFieldPath(JPATH_COMPONENT . '/models/fields');
+$services = JFormHelper::loadFieldType('Services', false);
+$servicesOptions=$services->getOptions(); // works only if you set your field getOptions on public!!
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
@@ -42,10 +47,13 @@ JHtml::_('formbehavior.chosen', 'select');
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th class="left" colspan="2">
+				<th class="left">
 					<?php echo JText::_('Jour'); ?>
 				</th>
-
+				<th class="center">
+					<?php echo JText::_('Quota'); ?>
+				</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -65,6 +73,15 @@ JHtml::_('formbehavior.chosen', 'select');
 					<a href="index.php?option=com_estivole&view=daytime&layout=edit&calendar_id=<?php echo $this->calendar->calendar_id; ?>&daytime=<?php echo $item->daytime_day; ?>">
 						<?php echo date('d-m-Y', strtotime($item->daytime_day)); ?>
 					</a>
+				</td>
+				<td class="center">
+					<?php 
+						$totalquota=0;
+						foreach ($item->totalDaytimes as $daytime){
+							$totalquota+=$daytime->quota;
+						}
+						echo '<p '; echo $item->filledQuota==$totalquota ? 'style=font-weight:bold;background-color:#11aa00;padding:10px;>':'>'; echo $item->filledQuota.' / '.$totalquota.'</p>';
+					?>
 				</td>
 				<td class="center">
 					<a class="btn" onClick="javascript:return confirm('Supprimera également toutes les inscriptions associées à cette date. Êtes-vous sûr?')" href="index.php?option=com_estivole&task=calendar.deleteListDaytime&daytime_id=<?php echo $item->daytime_id; ?>">

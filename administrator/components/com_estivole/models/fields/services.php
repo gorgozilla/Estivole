@@ -41,7 +41,6 @@ class JFormFieldServices extends JFormFieldList
 		$query->select('service_id As value, service_name As text');
 		$query->from('#__estivole_services AS s');
 		$query->order('s.service_name');
-		$query->where('published = 1');
 
 		// Get the options.
 		$db->setQuery($query);

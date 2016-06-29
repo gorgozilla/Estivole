@@ -186,7 +186,19 @@ class EstivoleModelDaytimes extends JModelList
 		$result = $db->loadObjectList();
 		return $result;
 	}
+	
+	public function getDaytimesByDaytime($daytime){
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
 
+		$query->select('*');
+		$query->from('#__estivole_daytimes as d');
+		$query->where('d.daytime_day=\''.$daytime.'\'');
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+		return $result;
+	}
+	
 	/**
 	* Gets an array of objects from the results of database query.
 	*

@@ -1,6 +1,5 @@
 function addDayTimeModal(daytime_id)
 {
-	
 	jQuery.ajax({
 		url:'index.php?option=com_estivole&task=getDaytime&tmpl=component',
 		type:'POST',

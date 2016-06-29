@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.8" method="upgrade">
+	<name>com_cc_juserexport</name>
+	<author>ColorPack Creation</author>
+	<version>1.0.0</version>
+	<creationDate>17-04-2014</creationDate>
+	<copyright>(C) 2014 ColorPack Creation Co.,Ltd. All rights reserved.</copyright>
+	<authorEmail>office@colorpack.co.th</authorEmail>
+	<authorUrl>www.colorpack.co.th</authorUrl>
+	<license> http://www.gnu.org/licenses GNU/GPL</license>
+	<description>The Joomla export module allows the administrator to export in XLS format, all users except Joomla users belonging to the Super Users group. This XLS Excel file has the following format :  Name, Login, Email, Group users, active, Activated, and All User profile fields</description>
+
+	<administration>
+		<menu img="components/com_cc_juserexport/assets/export.png" link="option=com_cc_juserexport">COM_CC_JUSEREXPORT_MENU</menu>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>controller.php</filename>
+			<filename>cc_juserexport.php</filename>
+			<folder>assets</folder>
+			<folder>includes</folder>
+			<folder>views</folder>
+			<folder>controllers</folder>
+			<folder>language</folder>
+		</files>
+
+		<languages folder="admin">
+				   <language tag="en-GB">language/en-GB.com_cc_juserexport.ini</language>
+				   <language tag="en-GB">language/en-GB.com_cc_juserexport.sys.ini</language>
+		</languages>
+	</administration>
+</extension>

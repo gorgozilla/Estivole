@@ -61,6 +61,11 @@ function tableOrdering( order, dir, task )
 					<?php echo $this->pagination->getLimitBox(); ?>
 				</div>
 			</div>
+			<h3>Total t-shirts : <?php echo ($this->totalPolosF + $this->totalPolosM + $this->totalShirtsF + $this->totalShirtsM); ?></h3>
+			<h4>Total t-shirts terrain masculins : <?php echo $this->totalShirtsM!=null ? $this->totalShirtsM  : '0'; ?></h4>
+			<h4>Total t-shirts terrain féminins : <?php echo $this->totalShirtsF!=null ? $this->totalShirtsF  : '0'; ?></h4>
+			<h4>Total t-shirts loges masculins : <?php echo $this->totalPolosM!=null ? $this->totalPolosM  : '0'; ?></h4>
+			<h4>Total t-shirts loges féminins : <?php echo $this->totalPolosF!=null ? $this->totalPolosF  : '0'; ?></h4>
 			<table class="table table-striped">
 				<thead>
 					<tr>

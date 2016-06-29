@@ -1,5 +1,5 @@
 <?php
-
+require_once JPATH_COMPONENT . '/models/daytime.php';
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_weblinks
@@ -29,6 +29,8 @@ class EstivoleController extends JControllerLegacy
 	 *
 	 * @since   1.5
 	 */
+	public $daytime_id = null;
+	
 	public function display($cachable = false, $urlparams = false)
 	{	
 		// Get the document object.
@@ -64,7 +66,6 @@ class EstivoleController extends JControllerLegacy
 		$return = array("success"=>false);
 
 		// Get the model for the view.
-		$model = $this->getModel('calendars');
 		$modelDaytime = $this->getModel('daytime');
 		$this->daytimes = $modelDaytime->listItems();
 
@@ -77,8 +78,10 @@ class EstivoleController extends JControllerLegacy
   
 	public function getDaytime()
 	{
+		// Set the default view name and format from the Request.
+		$daytime_id   = $this->input->get('daytime_id');
 		$model = $this->getModel('daytime');
-		$daytime = $model->getItem($daytime_id);
+		$daytime = $model->getDaytime($daytime_id);
 		echo json_encode($daytime);
 		exit;
 	}

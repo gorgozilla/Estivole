@@ -1,5 +1,6 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' ); 
 require_once JPATH_COMPONENT . '/models/daytime.php';
+require_once JPATH_COMPONENT . '/models/daytimes.php';
   
 class EstivoleViewCalendar extends JViewLegacy
 {
@@ -13,7 +14,14 @@ class EstivoleViewCalendar extends JViewLegacy
 		$this->form		= $this->get('Form');
 		
 		$modelDaytime = new EstivoleModelDaytime();
+		$modelDaytimes = new EstivoleModelDaytimes();
+		
 		$this->daytimes = $modelDaytime->listItems();
+
+		for($i=0; $i<count($this->daytimes); $i++){
+			$this->daytimes[$i]->totalDaytimes=$modelDaytimes->getDaytimesByDaytime($this->daytimes[$i]->daytime_day);		
+			$this->daytimes[$i]->filledQuota = count($modelDaytime->getQuotasByDaytimeDay($this->daytimes[$i]->daytime_day));			
+		}
 		
 		EstivoleHelpersEstivole::addSubmenu('calendars');
 		$this->sidebar = JHtmlSidebar::render();

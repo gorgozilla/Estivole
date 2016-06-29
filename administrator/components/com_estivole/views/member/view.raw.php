@@ -16,7 +16,7 @@ class EstivoleViewMember extends JViewLegacy
 		
 		$this->daytimes = $modelDaytime->listItems();
 		for($i=0; $i<count($this->daytimes); $i++){
-			$this->daytimes[$i]->filledQuota = count($modelDaytime->getQuotasByDaytime($this->daytimes[$i]->daytime_id));
+			$this->daytimes[$i]->filledQuota = count($modelDaytime->getQuotasByDaytimeId($this->daytimes[$i]->daytime_id));
 			$this->daytimes[$i]->isAvailable = $modelDaytime->isDaytimeAvailableForMember($this->member_id, $this->daytimes[$i]->daytime_id);
 			$this->daytimes[$i]->isComplete = $modelDaytime->isDaytimeComplete($this->daytimes[$i]->daytime_id, $this->daytimes[$i]->filledQuota);
 		}

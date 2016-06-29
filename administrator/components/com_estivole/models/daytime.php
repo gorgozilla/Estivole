@@ -2,7 +2,7 @@
 
 defined('_JEXEC') or die;
  
-class EstivoleModelDaytime extends JModelAdmin
+class EstivoleModelDaytime extends JModelList
 {
 
   /**
@@ -20,6 +20,22 @@ class EstivoleModelDaytime extends JModelAdmin
     $this->_member_daytime_id = $app->input->get('member_daytime_id', null);
     parent::__construct();       
   }
+  
+	protected function populateState($ordering = null, $direction = null) {
+		$app = JFactory::getApplication();
+		
+		//Filter (dropdown) service
+		$services= $app->getUserStateFromRequest($this->context.'.filter.services_daytime', 'filter_servicesdaytime', '', 'string');
+		$this->setState('filter.services_daytime', $services);
+		
+		$service= $app->getUserState('filter.services_daytime');
+		if (!empty($service)) {
+			echo $service;
+			$this->_service_id = $service;
+		}
+		
+		parent::populateState('lastname', 'ASC');
+	}
   
     public function getForm($data = array(), $loadData = true)
     {
@@ -67,31 +83,34 @@ class EstivoleModelDaytime extends JModelAdmin
   * @return   object  Query object
   *
   */
-  protected function _buildWhere(&$query)
-  {
-    if(is_numeric($this->_calendar_id)) 
-    {
-      $query->where('b.calendar_id = ' . (int) $this->_calendar_id);
-    }
-
-    if($this->_daytime_day) 
-    {
-      $query->where("b.daytime_day = '".$this->_daytime_day."'");
-    }
-	
-    if($this->_service_id) 
-    {
-      $query->where("b.service_id = '".(int) $this->_service_id."'");
-    }
-    $query->where("b.service_id = s.service_id");
-    return $query;
-  }
-  
-	public function getItem($pk = null)
+	protected function _buildWhere(&$query)
 	{
-		$item = parent::getItem($pk);
-		return $item;
+		$db = JFactory::getDBO();
+		if(is_numeric($this->_calendar_id)) 
+		{
+			$query->where('b.calendar_id = ' . (int) $this->_calendar_id);
+		}
+
+		if($this->_daytime_day) 
+		{
+		$query->where("b.daytime_day = '".$this->_daytime_day."'");
+		}
+
+		if($this->_service_id) 
+		{
+			$query->where("b.service_id = '".(int) $this->_service_id."'");
+		}
+
+		$query->where("b.service_id = s.service_id");
+		return $query;
 	}
+  
+  public function getDaytime($daytime_id)
+  {
+    $daytime = JTable::getInstance('Daytime','Table');
+    $daytime->load($daytime_id);
+	return $daytime;
+  }
 	
   public function getMemberDaytime($member_daytime)
   {
@@ -137,29 +156,79 @@ class EstivoleModelDaytime extends JModelAdmin
     return $list;
   }
   
-  public function getMemberDaytimes($member_id, $calendar_id)
-  {
+	public function getMemberDaytimes($member_id, $calendar_id)
+	{
 
-    $query = $this->_buildQuery();   
-    $db = JFactory::getDBO();
-    $query = $db->getQuery(TRUE);
+		$query = $this->_buildQuery();   
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
 
-	$query->select('*');
-	$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md');
-	$query->where('md.member_id = ' . $member_id);
-	if($calendar_id!=null){
-		$query->where('d.calendar_id = ' . $calendar_id);
+		$query->select('*');
+		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md');
+		$query->where('md.member_id = ' . $member_id);
+		if($calendar_id!=null){
+			$query->where('d.calendar_id = ' . $calendar_id);
+		}
+		$query->where('md.member_id = m.member_id');
+		$query->where('md.service_id = s.service_id');
+		$query->where('md.daytime_id = d.daytime_id');
+		$query->order('d.daytime_day ASC');
+
+		$db->setQuery($query, 0, 0);
+		$result = $db->loadObjectList();
+
+		return $result;
 	}
-	$query->where('md.member_id = m.member_id');
-	$query->where('md.service_id = s.service_id');
-	$query->where('md.daytime_id = d.daytime_id');
-	$query->order('d.daytime_day ASC');
 	
-    $db->setQuery($query, 0, 0);
-    $result = $db->loadObjectList();
- 
-    return $result;
-  }
+	public function getMemberDaytimesForTshirt($member_id, $calendar_id)
+	{
+
+		$query = $this->_buildQuery();   
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
+
+		$query->select('*');
+		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md');
+		$query->where('md.member_id = ' . $member_id);
+		if($calendar_id!=null){
+			$query->where('d.calendar_id = ' . $calendar_id);
+		}
+		$query->where('md.service_id<>38 AND md.service_id<>36');
+		$query->where('md.member_id = m.member_id');
+		$query->where('md.service_id = s.service_id');
+		$query->where('md.daytime_id = d.daytime_id');
+		$query->order('d.daytime_day ASC');
+
+		$db->setQuery($query, 0, 0);
+		$result = $db->loadObjectList();
+
+		return $result;
+	}
+
+	public function getMemberDaytimesForPolo($member_id, $calendar_id)
+	{
+
+		$query = $this->_buildQuery();   
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
+
+		$query->select('*');
+		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md');
+		$query->where('md.member_id = ' . $member_id);
+		if($calendar_id!=null){
+			$query->where('d.calendar_id = ' . $calendar_id);
+		}
+		$query->where('(md.service_id=38 OR md.service_id=36)');
+		$query->where('md.member_id = m.member_id');
+		$query->where('md.service_id = s.service_id');
+		$query->where('md.daytime_id = d.daytime_id');
+		$query->order('d.daytime_day ASC');
+
+		$db->setQuery($query, 0, 0);
+		$result = $db->loadObjectList();
+
+		return $result;
+	}
   
   public function getServiceDaytimes($cid)
   {
@@ -232,7 +301,7 @@ class EstivoleModelDaytime extends JModelAdmin
 	}
   }
   
-  public function getQuotasByDaytime($daytime_id)
+  public function getQuotasByDaytimeId($daytime_id)
   {
     $query = $this->_buildQuery();   
     $db = JFactory::getDBO();
@@ -241,6 +310,23 @@ class EstivoleModelDaytime extends JModelAdmin
 	$query->select('*');
 	$query->from('#__estivole_daytimes as d, #__estivole_members_daytimes as md');
 	$query->where('md.daytime_id = ' . $daytime_id);
+	$query->where('md.daytime_id = d.daytime_id');
+	//echo $query;exit;
+    $db->setQuery($query, 0, 0);
+    $result = $db->loadObjectList();
+ 
+    return $result;
+  }
+  
+  public function getQuotasByDaytimeDay($daytime_day)
+  {
+    $query = $this->_buildQuery();   
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+	
+	$query->select('*');
+	$query->from('#__estivole_daytimes as d, #__estivole_members_daytimes as md');
+	$query->where('d.daytime_day = \'' . $daytime_day.'\'');
 	$query->where('md.daytime_id = d.daytime_id');
 	//echo $query;exit;
     $db->setQuery($query, 0, 0);

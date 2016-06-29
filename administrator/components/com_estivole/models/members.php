@@ -119,7 +119,7 @@ class EstivoleModelMembers extends JModelList
 		
 		$tshirtsize= $db->escape($this->getState('filter.tshirt_size'));
 		if (!empty($tshirtsize)) {
-			$query->where('(p.profile_value=\'"'.$tshirtsize.'"\' AND p.profile_key=\'profilestivole.tshirtsize\')');
+			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$tshirtsize.'"\' AND p.profile_key=\'profilestivole.tshirtsize\')) group by b.user_id)');
 		}
 		
 		$campingPlace= $db->escape($this->getState('filter.campingPlace'));
@@ -127,7 +127,7 @@ class EstivoleModelMembers extends JModelList
 			$query->where('(p.profile_value=\'"'.$campingPlace.'"\' AND p.profile_key=\'profilestivole.campingPlace\')');
 		}
 		
-		$query->group('b.email');
+		$query->group('b.user_id');
 		return $query;
 	}
 
@@ -154,6 +154,22 @@ class EstivoleModelMembers extends JModelList
 		$query = $this->_buildQuery();    
 		$query = $this->_buildWhere($query);
 		$list = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
+		return $list;
+	}
+	
+	/**
+	* Build query and where for protected _getList function and return a list
+	*
+	* @return array An array of results.
+	*/
+	public function getTotalItems($sex = null)
+	{
+		$query = $this->_buildQuery();  
+		$query = $this->_buildWhere($query);
+		if($sex != null){
+			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\')) group by b.user_id)');
+		}
+		$list = $this->_getList($query);
 		return $list;
 	}
 

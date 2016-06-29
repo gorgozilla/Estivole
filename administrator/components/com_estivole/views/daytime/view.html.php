@@ -2,28 +2,29 @@
 require_once JPATH_COMPONENT . '/models/daytime.php';
 require_once JPATH_COMPONENT . '/models/service.php';
 require_once JPATH_COMPONENT . '/models/calendar.php';
-  
+require_once JPATH_COMPONENT . '/helpers/estivole.php';
+
 class EstivoleViewDaytime extends JViewLegacy
 {
 	function display($tpl=null)
 	{
-
 		$app = JFactory::getApplication();
-		
 		$model = new EstivoleModelDaytime();
 		$modelService = new EstivoleModelService();
-
 		$this->daytimes = $model->listItems();
+		$modelCalendar = new EstivoleModelCalendar();
+		$this->calendar	= $modelCalendar->getItem($this->daytime->calendar_id);
 		
 		for($i=0; $i<count($this->daytimes); $i++){
-			$this->daytimes[$i]->filledQuota = count($model->getQuotasByDaytime($this->daytimes[$i]->daytime_id));
+			$this->daytimes[$i]->filledQuota = count($model->getQuotasByDaytimeId($this->daytimes[$i]->daytime_id));
 		}
 		
 		$this->state	= $this->get('State');
 		$this->daytime	= $this->daytimes[0];
 		$this->form		= $this->get('Form');
-		$modelCalendar = new EstivoleModelCalendar();
-		$this->calendar	= $modelCalendar->getItem($this->daytime->calendar_id);
+		
+		EstivoleHelpersEstivole::addSubmenu('daytime');
+		$this->sidebar = JHtmlSidebar::render();
 		
 		$this->addToolbar();
 
