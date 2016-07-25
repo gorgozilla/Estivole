@@ -104,7 +104,7 @@ class EstivoleControllerDaytime extends JControllerForm
 				$userId = $daytime->user_id; 
 				$userProfile = EstivoleHelpersUser::getProfileEstivole($userId);
 				$objPHPExcel->getActiveSheet()
-							->setCellValue("A".($cellCounter+1), $userProfile->profilestivole['firstname'].' '.$userProfile->profilestivole['lastname'])
+							->setCellValue("A".($cellCounter+1), $userProfile->profilestivole['lastname'].' '.$userProfile->profilestivole['firstname'])
 							->setCellValue("B".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
 							->setCellValue("C".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)));
 				

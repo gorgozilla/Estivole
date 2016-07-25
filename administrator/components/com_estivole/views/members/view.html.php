@@ -14,6 +14,7 @@ class EstivoleViewMembers extends JViewLegacy
 		$this->pagination	= $this->get('Pagination');
 		$this->searchterms	= $this->state->get('filter.search');
 		$this->campingPlace	= $this->state->get('filter.campingPlace');
+		$this->services_members	= $this->state->get('filter.services_members');
 		$this->user = JFactory::getUser();
 		$this->limitstart=$this->state->get('limitstart');
 

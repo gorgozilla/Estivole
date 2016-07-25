@@ -75,7 +75,7 @@ function tableOrdering( order, dir, task )
 			<h4>Total t-shirts terrain féminins : <?php echo $this->totalShirtsF!=null ? $this->totalShirtsF  : '0'; ?></h4>
 			<h4>Total t-shirts loges masculins : <?php echo $this->totalPolosM!=null ? $this->totalPolosM  : '0'; ?></h4>
 			<h4>Total t-shirts loges féminins : <?php echo $this->totalPolosF!=null ? $this->totalPolosF  : '0'; ?></h4>
-			<a href="index.php?option=com_estivole&task=members.exportMembersShirts" class="btn btn-large btn-success" role="button">
+			<a href="index.php?option=com_estivole&task=members.exportMembersShirts&service_id=<?php echo $this->services_members; ?>" class="btn btn-large btn-success" role="button">
 				<?php echo JText::_('Exporter les membres + t-shirts'); ?>
 			</a>
 			<table class="table table-striped">
