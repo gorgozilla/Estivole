@@ -40,6 +40,10 @@ class EstivoleModelMembers extends JModelList
 		$campingPlace= $app->getUserStateFromRequest($this->context.'.filter.campingPlace', 'filter_campingPlace', '', 'int');
 		$this->setState('filter.campingPlace', $campingPlace);
 		
+		//Filter (dropdown) service
+		$services= $app->getUserStateFromRequest($this->context.'.filter.services_members', 'filter_services_members', '', 'string');
+		$this->setState('filter.services_members', $services);
+		
 		// Get pagination request variables
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'string');
 		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
@@ -89,6 +93,7 @@ class EstivoleModelMembers extends JModelList
 		$query->from('#__estivole_members as b');
 		$query->from('#__users as u');
 		$query->from('#__user_profiles as p');
+		$query->from('#__estivole_members_daytimes as md');
 
 		return $query;
 	}
@@ -104,6 +109,7 @@ class EstivoleModelMembers extends JModelList
 		$db = JFactory::getDBO();
 		$query->where('b.user_id=p.user_id');
 		$query->where('b.user_id=u.id');
+		$query->where('md.member_id=b.member_id');
 		
 		if(is_numeric($this->_member_id)) 
 		{
@@ -119,12 +125,17 @@ class EstivoleModelMembers extends JModelList
 		
 		$tshirtsize= $db->escape($this->getState('filter.tshirt_size'));
 		if (!empty($tshirtsize)) {
-			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$tshirtsize.'"\' AND p.profile_key=\'profilestivole.tshirtsize\')) group by b.user_id)');
+			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$tshirtsize.'"\' AND p.profile_key=\'profilestivole.tshirtsize\') group by b.user_id)');
 		}
 		
 		$campingPlace= $db->escape($this->getState('filter.campingPlace'));
 		if (!empty($campingPlace)) {
 			$query->where('(p.profile_value=\'"'.$campingPlace.'"\' AND p.profile_key=\'profilestivole.campingPlace\')');
+		}
+		
+		$service= $this->getState('filter.services_members');
+		if (!empty($service)) {
+			$query->where("md.service_id = '".(int) $service."'");
 		}
 		
 		$query->group('b.user_id');
@@ -167,8 +178,9 @@ class EstivoleModelMembers extends JModelList
 		$query = $this->_buildQuery();  
 		$query = $this->_buildWhere($query);
 		if($sex != null){
-			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\')) group by b.user_id)');
+			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\') group by b.user_id)');
 		}
+		//echo $query;
 		$list = $this->_getList($query);
 		return $list;
 	}

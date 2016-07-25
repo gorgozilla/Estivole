@@ -25,6 +25,12 @@ class EstivoleModelServices extends JModelList
   }
   
 	protected function populateState($ordering = null, $direction = null) {
+		$app = JFactory::getApplication();
+		
+		//Filter (dropdown) service
+		$services= $app->getUserStateFromRequest($this->context.'.filter.services_daytime', 'filter_servicesdaytime', '', 'string');
+		$this->setState('filter.services_daytime', $services);
+		
 		parent::populateState('service_name', 'ASC');
 	}
  
@@ -60,33 +66,6 @@ class EstivoleModelServices extends JModelList
     return $query;
   }
   
-  public function getItem()
-  {
-    $db = JFactory::getDBO();
-
-    $query = $this->_buildQuery();
-    $this->_buildWhere($query);
-    $db->setQuery($query);
-
-    $item = $db->loadObject();
-
-    return $item;
-  }
-  
-  /**
-  * Build query and where for protected _getList function and return a list
-  *
-  * @return array An array of results.
-  */
-  public function listItems()
-  {
-    $query = $this->_buildQuery();    
-    $query = $this->_buildWhere($query);
-    $list = $this->_getList($query, $this->limitstart, $this->limit);
-
-    return $list;
-  }
-  
   /**
   * Gets an array of objects from the results of database query.
   *
@@ -106,5 +85,60 @@ class EstivoleModelServices extends JModelList
     $result = $db->loadObjectList();
  
     return $result;
+  }
+  
+  /**
+  * Build query and where for protected _getList function and return a list
+  *
+  * @return array An array of results.
+  */
+  public function listItems()
+  {
+    $query = $this->_buildQuery();    
+    $query = $this->_buildWhere($query);
+    $list = $this->_getList($query, $this->limitstart, $this->limit);
+
+    return $list;
+  }
+  
+  public function getItem()
+  {
+    $db = JFactory::getDBO();
+
+    $query = $this->_buildQuery();
+    $this->_buildWhere($query);
+    $db->setQuery($query);
+
+    $item = $db->loadObject();
+
+    return $item;
+  }
+  
+  /**
+  * Build query and where for protected _getList function and return a list
+  *
+  * @return array An array of results.
+  */
+  public function getServicesByDaytime($daytime_day)
+  {
+	$db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+
+    $query->select('*');
+    $query->from('#__estivole_services as b, #__estivole_members_daytimes as md, #__estivole_daytimes as d');
+	$query->where('d.daytime_day = \''.$daytime_day.'\'');
+    $query->where('b.service_id = md.service_id');
+    $query->where('md.daytime_id = d.daytime_id');
+	
+	$service= $this->getState('filter.services_daytime');
+	if (!empty($service)) {
+		$query->where("b.service_id = '".(int) $service."'");
+	}
+	
+    $query->group('md.service_id');
+    $db->setQuery($query);
+    $list = $db->loadObjectList();
+	
+    return $list;
   }
 }

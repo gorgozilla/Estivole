@@ -82,7 +82,11 @@ function tableOrdering( order, dir, task )
 						<?php echo JHTML::_( 'grid.sort', 'Date', 'd.daytime_day', $this->sortDirection, $this->sortColumn); ?>
 					</th>
 					<th class="left">
-						<?php echo JHTML::_( 'grid.sort', 'Horaire', 'd.daytime_hour_start', $this->sortDirection, $this->sortColumn); ?>					</th>
+						<?php echo JHTML::_( 'grid.sort', 'Horaire', 'd.daytime_hour_start', $this->sortDirection, $this->sortColumn); ?>					
+					</th>
+					<th class="left">
+						<?php echo 'Dors au camping?'; ?>					
+					</th>
 					<th class="left">
 						<?php echo JHTML::_( 'grid.sort', 'Status', 'md.status_id', $this->sortDirection, $this->sortColumn); ?>
 					</th>
@@ -95,6 +99,7 @@ function tableOrdering( order, dir, task )
 			<?php foreach ($this->member_daytimes as $i => $item){
 					$userId = $item->user_id; 
 					$user = JFactory::getUser($userId);
+					$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
 			?>
 				<tr class="row<?php echo $i % 2; ?>">
 					<td class="left">
@@ -115,6 +120,9 @@ function tableOrdering( order, dir, task )
 					</td>
 					<td class="left">
 						<?php echo date('H:i', strtotime($item->daytime_hour_start)).' - '.date('H:i', strtotime($item->daytime_hour_end)); ?>
+					</td>
+					<td class="center">
+						<?php if($userProfilEstivole->profilestivole['campingPlace']){ echo '<i class="icon-ok"></i>'; } ?>
 					</td>
 					<td class="left">
 						<?php if($item->status_id==0){ ?>

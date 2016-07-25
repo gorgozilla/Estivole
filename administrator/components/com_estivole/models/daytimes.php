@@ -144,20 +144,29 @@ class EstivoleModelDaytimes extends JModelList
 
 		return $query;
 	}
-
-	public function getItem()
+	
+	/**
+	* Gets an array of objects from the results of database query.
+	*
+	* @param   string   $query       The query.
+	* @param   integer  $limitstart  Offset.
+	* @param   integer  $limit       The number of records.
+	*
+	* @return  array  An array of results.
+	*
+	* @since   11.1
+	*/
+	protected function _getList($query, $limitstart = 0, $limit = 0)
 	{
+		$limit = $this->getState('limit');
+		$limitstart = $this->getState('limitstart');
 		$db = JFactory::getDBO();
-
-		$query = $this->_buildQuery();
-		$this->_buildWhere($query);
-		$db->setQuery($query);
-
-		$item = $db->loadObject();
-
-		return $item;
+		$query->order($db->escape($this->getState('list.ordering', 'u.name')).' '.$db->escape($this->getState('list.direction', 'ASC')));
+		$db->setQuery($query, $limitstart, $limit);
+		$result = $db->loadObjectList();
+		return $result;
 	}
-
+	
 	/**
 	* Build query and where for protected _getList function and return a list
 	*
@@ -186,6 +195,19 @@ class EstivoleModelDaytimes extends JModelList
 		$result = $db->loadObjectList();
 		return $result;
 	}
+
+	public function getItem()
+	{
+		$db = JFactory::getDBO();
+
+		$query = $this->_buildQuery();
+		$this->_buildWhere($query);
+		$db->setQuery($query);
+
+		$item = $db->loadObject();
+
+		return $item;
+	}
 	
 	public function getDaytimesByDaytime($daytime){
 		$db = JFactory::getDBO();
@@ -195,28 +217,6 @@ class EstivoleModelDaytimes extends JModelList
 		$query->from('#__estivole_daytimes as d');
 		$query->where('d.daytime_day=\''.$daytime.'\'');
 		$db->setQuery($query);
-		$result = $db->loadObjectList();
-		return $result;
-	}
-	
-	/**
-	* Gets an array of objects from the results of database query.
-	*
-	* @param   string   $query       The query.
-	* @param   integer  $limitstart  Offset.
-	* @param   integer  $limit       The number of records.
-	*
-	* @return  array  An array of results.
-	*
-	* @since   11.1
-	*/
-	protected function _getList($query, $limitstart = 0, $limit = 0)
-	{
-		$limit = $this->getState('limit');
-		$limitstart = $this->getState('limitstart');
-		$db = JFactory::getDBO();
-		$query->order($db->escape($this->getState('list.ordering', 'u.name')).' '.$db->escape($this->getState('list.direction', 'ASC')));
-		$db->setQuery($query, $limitstart, $limit);
 		$result = $db->loadObjectList();
 		return $result;
 	}

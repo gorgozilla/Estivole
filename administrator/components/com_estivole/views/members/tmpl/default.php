@@ -21,6 +21,11 @@ $tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set
 //Get camping options
 $campingOptions=$membersOptions->getOptionsCamping(); // works only if you set your field getOptions on public!!
 
+//Get services options
+JFormHelper::addFieldPath(JPATH_COMPONENT . '/models/fields');
+$services = JFormHelper::loadFieldType('Services', false);
+$servicesOptions=$services->getOptions(); // works only if you set your field getOptions on public!!
+
 ?>
 <script language="javascript" type="text/javascript">
 function tableOrdering( order, dir, task )
@@ -50,12 +55,16 @@ function tableOrdering( order, dir, task )
 				</div>
 				<div class="btn-group pull-right hidden-phone">
 					<select name="filter_tshirtsize" class="inputbox" onchange="this.form.submit()">
-						<option value=""> - Select tshirt-size - </option>
+						<option value=""> - Taille t-shirt - </option>
 						<?php echo JHtml::_('select.options', $tshirtOptions, 'value', 'text', $this->state->get('filter.tshirt_size'));?>
 					</select>
 					<select name="filter_campingPlace" class="inputbox" onchange="this.form.submit()">
 						<option value=""> - Camping - </option>
 						<?php echo JHtml::_('select.options', $campingOptions, 'value', 'text', $this->state->get('filter.campingPlace'));?>
+					</select>
+					<select name="filter_services_members" class="inputbox" onchange="this.form.submit()">
+						<option value=""> - Secteur - </option>
+					<?php echo JHtml::_('select.options', $servicesOptions, 'value', 'text', $this->state->get('filter.services_members'));?>
 					</select>
 					<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
 					<?php echo $this->pagination->getLimitBox(); ?>
@@ -66,6 +75,9 @@ function tableOrdering( order, dir, task )
 			<h4>Total t-shirts terrain féminins : <?php echo $this->totalShirtsF!=null ? $this->totalShirtsF  : '0'; ?></h4>
 			<h4>Total t-shirts loges masculins : <?php echo $this->totalPolosM!=null ? $this->totalPolosM  : '0'; ?></h4>
 			<h4>Total t-shirts loges féminins : <?php echo $this->totalPolosF!=null ? $this->totalPolosF  : '0'; ?></h4>
+			<a href="index.php?option=com_estivole&task=members.exportMembersShirts" class="btn btn-large btn-success" role="button">
+				<?php echo JText::_('Exporter les membres + t-shirts'); ?>
+			</a>
 			<table class="table table-striped">
 				<thead>
 					<tr>

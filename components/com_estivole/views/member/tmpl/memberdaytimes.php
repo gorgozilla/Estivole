@@ -81,7 +81,7 @@ if($this->user->guest){
 					
 					<?php echo date('d-m-Y',strtotime($daytime->daytime_day)); ?>
 				</td>
-				<td><?php echo $daytime->name; ?></td>
+				<td><?php echo $daytime->service_name; ?></td>
 				<td><?php echo $daytime->description; ?></td>
 				<td><?php echo date('H:i', strtotime($daytime->daytime_hour_start)).' - '.date('H:i', strtotime($daytime->daytime_hour_end));  ?></td>
 				<td class="center">

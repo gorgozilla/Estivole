@@ -57,17 +57,7 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($this->daytimes as $i => $item) :
-			// $canEdit   = $this->canDo->get('core.edit');
-			// $canChange = $loggeduser->authorise('core.edit.state',	'com_users');
-
-			// // If this group is super admin and this user is not super admin, $canEdit is false
-			// if ((!$loggeduser->authorise('core.admin')) && JAccess::check($item->id, 'core.admin'))
-			// {
-				// $canEdit   = false;
-				// $canChange = false;
-			// }
-		?>
+		<?php foreach ($this->daytimes as $i => $item) : ?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td class="left">
 					<a href="index.php?option=com_estivole&view=daytime&layout=edit&calendar_id=<?php echo $this->calendar->calendar_id; ?>&daytime=<?php echo $item->daytime_day; ?>">

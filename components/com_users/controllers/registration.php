@@ -133,7 +133,6 @@ class UsersControllerRegistration extends UsersController
 
 			return false;
 		}
-
 		$data = $model->validate($form, $requestData);
 
 		// Check for validation errors.
@@ -154,6 +153,7 @@ class UsersControllerRegistration extends UsersController
 					$app->enqueueMessage($errors[$i], 'warning');
 				}
 			}
+
 
 			// Save the data in the session.
 			$app->setUserState('com_users.registration.data', $requestData);

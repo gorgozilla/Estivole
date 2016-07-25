@@ -2,8 +2,6 @@
 
 defined('_JEXEC') or die;
  
- jimport('joomla.application.component.modellist');
- 
 class EstivoleModelDaytime extends JModelList
 {
 
@@ -29,6 +27,12 @@ class EstivoleModelDaytime extends JModelList
 		//Filter (dropdown) service
 		$services= $app->getUserStateFromRequest($this->context.'.filter.services_daytime', 'filter_servicesdaytime', '', 'string');
 		$this->setState('filter.services_daytime', $services);
+		
+		$service= $app->getUserState('filter.services_daytime');
+		if (!empty($service)) {
+			echo $service;
+			$this->_service_id = $service;
+		}
 		
 		parent::populateState('lastname', 'ASC');
 	}
@@ -82,7 +86,6 @@ class EstivoleModelDaytime extends JModelList
 	protected function _buildWhere(&$query)
 	{
 		$db = JFactory::getDBO();
-		$app = JFactory::getApplication();
 		if(is_numeric($this->_calendar_id)) 
 		{
 			$query->where('b.calendar_id = ' . (int) $this->_calendar_id);
@@ -90,12 +93,12 @@ class EstivoleModelDaytime extends JModelList
 
 		if($this->_daytime_day) 
 		{
-			$query->where("b.daytime_day = '".$this->_daytime_day."'");
+		$query->where("b.daytime_day = '".$this->_daytime_day."'");
 		}
-		
-		$service= $this->getState('filter.services_daytime');
-		if (!empty($service)) {
-			$query->where("b.service_id = '".(int) $service."'");
+
+		if($this->_service_id) 
+		{
+			$query->where("b.service_id = '".(int) $this->_service_id."'");
 		}
 
 		$query->where("b.service_id = s.service_id");
@@ -118,6 +121,7 @@ class EstivoleModelDaytime extends JModelList
     $db = JFactory::getDBO();
     $db->setQuery($query, $limitstart, $limit);
     $result = $db->loadObjectList();
+ 
     return $result;
   }
   
@@ -153,11 +157,6 @@ class EstivoleModelDaytime extends JModelList
 	if($this->_daytime_day) 
 	{
 		$query->where("b.daytime_day = '".$this->_daytime_day."'");
-	}
-	
-	$service= $this->getState('filter.services_daytime');
-	if (!empty($service)) {
-		$query->where("b.service_id = '".(int) $service."'");
 	}
 
 	$query->where("b.service_id = '".(int) $service_id."'");

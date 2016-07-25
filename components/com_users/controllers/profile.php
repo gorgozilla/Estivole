@@ -114,7 +114,6 @@ class UsersControllerProfile extends UsersController
 
 		// Validate the posted data.
 		$data = $model->validate($form, $data);
-
 		// Check for errors.
 		if ($data === false)
 		{

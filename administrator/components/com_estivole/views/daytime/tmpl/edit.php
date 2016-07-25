@@ -32,21 +32,21 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 </div>
 
 <div id="j-main-container" class="span10">
-		<h1>Calendriers > <?php echo $this->calendar->name; ?> > <?php echo date('d-m-Y', strtotime($this->daytime->daytime_day)); ?></h1>
-		<h2>Tranches horaire de la date</h2>
-	<!--<form action="<?php echo JRoute::_('index.php?option=com_estivole&view=daytime&layout=edit&daytime_id=' . (int) $this->daytime->daytime_id);?>" method="post" name="adminForm" id="daytime-form" class="form-validate">
-		<input type="hidden" name="calendar_id" value="<?php echo $this->daytime->calendar_id; ?>" />
-		<input type="hidden" name="daytime" value="<?php echo $this->daytime->daytime_day; ?>" />
+	<h1>Calendriers > <?php echo $this->calendar->name; ?> > <?php echo date('d-m-Y', strtotime($this->daytime)); ?></h1>
+	<h2>Tranches horaire de la date</h2>
+	<form action="<?php echo JRoute::_('index.php?option=com_estivole&view=daytime&layout=edit');?>" method="post" name="adminForm" id="daytime-form" class="form-validate">
+		<input type="hidden" name="calendar_id" value="<?php echo $this->calendar->calendar_id; ?>" />
+		<input type="hidden" name="daytime" value="<?php echo $this->daytime; ?>" />
 		<input type="hidden" name="task" value="" />
 		<div id="filter-bar" class="btn-toolbar">
 			<div class="btn-group pull-right hidden-phone">
 				<select name="filter_servicesdaytime" class="inputbox" onchange="this.form.submit()">
-					<option value=""> - Select secteur - </option>
+					<option value=""> - Secteur - </option>
 					<?php echo JHtml::_('select.options', $servicesOptions, 'value', 'text', $this->state->get('filter.services_daytime'));?>
 				</select>
 			</div>
 		</div>
-	</form>-->
+	</form>
 	<div id="j-main-container">
 		<table class="table table-striped">
 			<thead>
@@ -104,6 +104,11 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 		<a href="javascript:void(0);" class="btn btn-large btn-success" role="button" onclick="addDayTimeModal();">
 			<?php echo JText::_('Ajouter une tranche horaire'); ?>
 		</a>
+		 
+		<a href="index.php?option=com_estivole&task=daytime.exportDaytime&daytime=<?php echo $item->daytime_day; ?>&daytime_id=<?php echo $item->daytime_id; ?>" class="btn btn-large btn-success" role="button">
+			<?php echo JText::_('Exporter les tranches horaire'); ?>
+		</a>
 	</div>
 </div>
 <?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'daytime'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_addtime.php'); ?>
+<?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'daytime'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_export.php'); ?>

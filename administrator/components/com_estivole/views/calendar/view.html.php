@@ -15,6 +15,8 @@ class EstivoleViewCalendar extends JViewLegacy
 		
 		$modelDaytime = new EstivoleModelDaytime();
 		$modelDaytimes = new EstivoleModelDaytimes();
+
+		//$this->setState('filter.services_daytime', '');
 		
 		$this->daytimes = $modelDaytime->listItems();
 

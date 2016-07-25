@@ -290,4 +290,33 @@ class EstivoleHelpersUser
 
 		return $data;
 	}
+	
+	public function getProfileEstivole($userId)
+	{
+		// Load the profile data from the database.
+		$db = JFactory::getDbo();
+		$db->setQuery(
+			'SELECT profile_key, profile_value, email FROM #__user_profiles as p, #__users as u' .
+			' WHERE p.user_id = '.(int) $userId .
+			' AND p.user_id=u.id'.
+			' AND p.profile_key LIKE \'profilestivole.%\'' .
+			' ORDER BY ordering'
+		);
+		$results = $db->loadRowList();
+ 
+		// Check for a database error.
+		if ($db->getErrorNum()) {
+			$this->_subject->setError($db->getErrorMsg());
+			return false;
+		}
+ 
+		// Merge the profile data.
+		$data->profilestivole = array();
+		foreach ($results as $v) {
+			$k = str_replace('profilestivole.', '', $v[0]);
+			$data->profilestivole[$k] = json_decode($v[1], true);
+		}
+		
+		return $data;
+	}
 }
