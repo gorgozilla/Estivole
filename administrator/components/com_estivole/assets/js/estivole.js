@@ -1,22 +1,26 @@
-function addDayTimeModal(daytime_id)
+function addDayTimeModal(daytime_id, calendar_id, daytime_day)
 {
 	jQuery.ajax({
 		url:'index.php?option=com_estivole&task=getDaytime&tmpl=component',
 		type:'POST',
-		data: 'daytime_id='+daytime_id,
+		data: 'daytime_id='+daytime_id+'&calendar_id='+calendar_id+'&daytime_day='+daytime_day,
 		dataType: 'JSON',
 		success:function(data)
 		{
 			jQuery("#addDayTimeModal").modal('show');
-
-			if(daytime_id==''){
+			jQuery("#addDayTimeModal #calendar_id").val(data.calendar_id);	
+			jQuery("#addDayTimeModal #daytime_day").val(data.daytime_day);			
+			if(daytime_id==null){
 				jQuery("#addDayTimeModal #daytime_id").val('');	
 				jQuery("#addDayTimeModal #quota").val('');	
-				jQuery("#addDayTimeModal #description").val('');	
+				jQuery("#addDayTimeModal #description").val('');
+			alert(daytime_id);
+				jQuery("#addDayTimeModal #save_time_btn, #addDayTimeModal #myModalLabel").html('Ajouter la tranche horaire');	
 			}else{
 				jQuery("#addDayTimeModal #daytime_id").val(data.daytime_id);
+				jQuery("#addDayTimeModal #save_time_btn, #addDayTimeModal #myModalLabel").html('Modifier la tranche horaire');	
 			}
-
+			
 			jQuery("#addDayTimeModal #description").val(data.description);
 			jQuery("#addDayTimeModal #quota").val(data.quota);
 			jQuery("#addDayTimeModal #jformdaytime_hour_end").attr('value', data.daytime_hour_end);
@@ -26,9 +30,9 @@ function addDayTimeModal(daytime_id)
 			jQuery("#addDayTimeModal #jformservice_id").attr('value', data.service_id);
 			jQuery("#addDayTimeModal #jformservice_id").trigger("liszt:updated");
 		},
-       error : function(resultat, statut, erreur){
+		error : function(resultat, statut, erreur){
 			alert(erreur);
-       }
+		}
 	});
 }
 

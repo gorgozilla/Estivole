@@ -80,8 +80,12 @@ class EstivoleController extends JControllerLegacy
 	{
 		// Set the default view name and format from the Request.
 		$daytime_id   = $this->input->get('daytime_id');
+		$calendar_id   = $this->input->get('calendar_id');
+		$daytime_day   = $this->input->get('daytime_day');
 		$model = $this->getModel('daytime');
 		$daytime = $model->getDaytime($daytime_id);
+		$daytime->calendar_id=$calendar_id;
+		$daytime->daytime_day=$daytime_day;
 		echo json_encode($daytime);
 		exit;
 	}

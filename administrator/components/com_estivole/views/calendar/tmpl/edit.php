@@ -82,6 +82,6 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<a href="javascript:void(0);" class="btn btn-large btn-success" role="button" onclick="addDayTimeModal('<?php echo $this->calendar->calendar_id; ?>');"><?php echo JText::_('Ajouter une date'); ?></a>
+	<a href="javascript:void(0);" class="btn btn-large btn-success" role="button" onclick="addDayTimeModal(null, '<?php echo $this->calendar->calendar_id; ?>', null);"><?php echo JText::_('Ajouter une date'); ?></a>
 </div>
 <?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'calendar'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_adddaytime.php'); ?>

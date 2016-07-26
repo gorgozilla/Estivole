@@ -34,6 +34,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				</div>
 				
 				<input type="hidden" name="jform[calendar_id]" id="calendar_id" value="<?php echo $this->calendar->calendar_id; ?>" />
+				<input type="hidden" name="jform[service_id]" id="service_id" value="1" />
 				<input type="hidden" name="table" value="daytime" />
 				<input type="hidden" name="model" value="daytime" />
 				<input type="hidden" name="task" value="add.execute" />

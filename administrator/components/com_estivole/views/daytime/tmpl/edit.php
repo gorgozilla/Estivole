@@ -75,7 +75,7 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 			<?php foreach ($this->daytimes as $i => $item) : ?>
 				<tr class="row<?php echo $i % 2; ?>">
 					<td class="left">
-						<a href="#" onclick="addDayTimeModal(<?php echo $item->daytime_id; ?>);"><?php echo date('d-m-Y',strtotime($item->daytime_day)); ?></a>
+						<a href="#" onclick="addDayTimeModal(<?php echo $item->daytime_id; ?>,<?php echo $item->calendar_id; ?>,'<?php echo $item->daytime_day; ?>');"><?php echo date('d-m-Y',strtotime($item->daytime_day)); ?></a>
 					</td>
 					<td class="left">
 						<?php echo $item->service_name;  ?>
@@ -101,7 +101,7 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-		<a href="javascript:void(0);" class="btn btn-large btn-success" role="button" onclick="addDayTimeModal();">
+		<a href="javascript:void(0);" class="btn btn-large btn-success" role="button" onclick="addDayTimeModal(null, <?php echo $item->calendar_id; ?>,'<?php echo $item->daytime_day; ?>');">
 			<?php echo JText::_('Ajouter une tranche horaire'); ?>
 		</a>
 		 

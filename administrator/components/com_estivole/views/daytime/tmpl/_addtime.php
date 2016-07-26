@@ -21,7 +21,7 @@ JHtml::_('formbehavior.chosen', 'select');
 		<div class="row-fluid">
 			<form id="addDayTimeForm" method="POST" action="index.php?option=com_estivole&tmpl=component">
 				<div class="alert alert-info">
-					<?php echo JText::_($this->daytime->daytime_day); ?>
+					<?php echo JText::_($this->daytime); ?>
 				</div>
 				<div id="daytime-modal-info" class="media"></div>
 				<div class="control-group ">
@@ -45,7 +45,7 @@ JHtml::_('formbehavior.chosen', 'select');
 						<label id="jform_daytime_start_hour-lbl" for="jform_daytime_start_hour" class="required">Début de la tranche horaire : </label>
 					</div>
 					<div class="controls">
-						<?php echo EstivoleHelpersHtml::hoursList($this->daytime->daytime_day, 'jform[daytime_hour_start]',$this->daytime->daytime_hour_start); ?>
+						<?php echo EstivoleHelpersHtml::hoursList($this->daytime, 'jform[daytime_hour_start]',$this->daytime->daytime_hour_start); ?>
 					</div>
 				</div>
 				<div class="control-group ">
@@ -53,7 +53,7 @@ JHtml::_('formbehavior.chosen', 'select');
 						<label id="jform_daytime_end_hour-lbl" for="jform_daytime_end_hour" class="required">Fin de la tranche horaire : </label>
 					</div>
 					<div class="controls">
-						<?php echo EstivoleHelpersHtml::hoursList($this->daytime->daytime_day, 'jform[daytime_hour_end]',$this->daytime->daytime_hour_end); ?>
+						<?php echo EstivoleHelpersHtml::hoursList($this->daytime, 'jform[daytime_hour_end]',$this->daytime->daytime_hour_end); ?>
 					</div>
 				</div>
 				<div class="control-group ">
@@ -69,7 +69,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				<input type="hidden" name="table" value="daytime" />
 				<input type="hidden" name="model" value="daytime" />
 				<input type="hidden" name="task" value="add.execute" />
-				<input type="hidden" name="jform[daytime_day]" value="<?php echo $this->daytime->daytime_day; ?>" />
+				<input type="hidden" name="jform[daytime_day]" id="daytime_day" value="<?php echo $this->daytime->daytime_day; ?>" />
 				<input type="hidden" name="jform[daytime_id]"  id="daytime_id" value="<?php echo $this->daytime->daytime_id; ?>" />
 				<input type="hidden" name="jform[calendar_id]" id="calendar_id" value="<?php echo $this->daytime->calendar_id; ?>" />
 				<?php echo JHtml::_('form.token'); ?>
@@ -77,7 +77,7 @@ JHtml::_('formbehavior.chosen', 'select');
 	</div>
 	<div class="modal-footer">
 		<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo JText::_('Annuler'); ?></button>
-		<button class="btn btn-primary" onclick="this.form.submit();"><?php if($this->daytime->daytime_id==''){ echo JText::_('Ajouter la tranche horaire'); }else{ echo JText::_('Modifier la tranche horaire'); } ?></button>
+		<button class="btn btn-primary" id="save_time_btn" onclick="this.form.submit();">Set by jQuery</button>
 	</div>
 	</form>
 </div>

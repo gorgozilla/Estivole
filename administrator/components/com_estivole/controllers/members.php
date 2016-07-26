@@ -88,7 +88,7 @@ class EstivoleControllerMembers extends JControllerAdmin
 			$objPHPExcel->getActiveSheet()
 						->setCellValue("A".($cellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
 						->setCellValue("B".($cellCounter+1), $this->members[$i]->email)
-						->setCellValue("C".($cellCounter+1), $userProfile->profile['phone'])
+						->setCellValueExplicit("C".($cellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
 						->setCellValue("D".($cellCounter+1), round(count($this->members[$i]->member_daytimes)/2));
 						
 			$cellCounter++;

@@ -23,7 +23,7 @@ class EstivoleControllerAdd extends JControllerForm
 			$app->enqueueMessage('Assignation ajoutée avec succès!');
 		}else{
 			if ( $row = $this->model->saveTime($this->formData) ){
-				$app->enqueueMessage('Date ajoutée avec succès!');
+				$app->enqueueMessage('Enregistrement réussi!');
 			 }else{
 				$app->enqueueMessage('Erreur lors de la création!', 'error');
 			 }

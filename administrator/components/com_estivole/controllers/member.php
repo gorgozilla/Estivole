@@ -32,35 +32,30 @@ class EstivoleControllerMember extends JControllerForm
 		}else if($task=='apply'){
 			if($this->formData['member_id']==null){
 				$result = EstivoleHelpersUser::registerUser($this->formData['profilestivole.firstname'].' '.$this->formData['profilestivole.lastname'], $this->formData['username'], $this->formData['email'], 'est1val3', null, $this->formData);
-				if($result->success){
-					$app->enqueueMessage('Profil enregistré avec succès!');
-					$app->redirect('index.php?option=com_estivole&view=member&layout=edit&member_id='.$result->member_id);
-				}else{
-					$app->enqueueMessage($result->message, 'error');
-					$app->redirect($_SERVER['HTTP_REFERER']);
-				}
 			}else{
 				$result = EstivoleHelpersUser::updateUser($this->formData['profilestivole.firstname'].' '.$this->formData['profilestivole.lastname'], $this->formData['username'], $this->formData['email'], $this->formData);
-				if($result->success){
-					$app->enqueueMessage('Profil enregistré avec succès!');
-					$app->redirect('index.php?option=com_estivole&view=member&layout=edit&task=member.edit&controller=member&member_id='.$result->member_id);
-				}else{
-					$app->enqueueMessage($result->message, 'error');
-					$app->redirect($_SERVER['HTTP_REFERER']);
-				}
+			}
+			
+			if($result->success){
+				$app->enqueueMessage('Profil enregistré avec succès!');
+				$app->redirect('index.php?option=com_estivole&view=member&layout=edit&task=member.edit&controller=member&member_id='.$result->member_id);
+			}else{
+				$app->enqueueMessage($result->message, 'error');
+				$app->redirect($_SERVER['HTTP_REFERER']);
 			}
 		}else if($task=='save'){
 			if($this->formData['member_id']==null){
 				$result = EstivoleHelpersUser::registerUser($this->formData['profilestivole.firstname'].' '.$this->formData['profilestivole.lastname'], $this->formData['username'], $this->formData['email'], 'est1val3', null, $this->formData);
-				if($result->success){
-					$app->enqueueMessage('Profil enregistré avec succès!');
-					$app->redirect('index.php?option=com_estivole&view=members');
-				}else{
-					$app->enqueueMessage($result->message, 'error');
-					$app->redirect($_SERVER['HTTP_REFERER']);
-				}
 			}else{
-				parent::save();
+				$result = EstivoleHelpersUser::updateUser($this->formData['profilestivole.firstname'].' '.$this->formData['profilestivole.lastname'], $this->formData['username'], $this->formData['email'], $this->formData);
+			}
+			
+			if($result->success){
+				$app->enqueueMessage('Profil enregistré avec succès!');
+				$app->redirect('index.php?option=com_estivole&view=members');
+			}else{
+				$app->enqueueMessage($result->message, 'error');
+				$app->redirect($_SERVER['HTTP_REFERER']);
 			}
 		}else if($task=='cancel'){
 			parent::cancel();
