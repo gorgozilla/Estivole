@@ -97,6 +97,10 @@ class EstivoleModelDaytime extends JModelList
 		if (!empty($service)) {
 			$query->where("b.service_id = '".(int) $service."'");
 		}
+		
+		if (!empty($this->_service_id)) {
+			$query->where("b.service_id = '".(int) $this->_service_id."'");
+		}
 
 		$query->where("b.service_id = s.service_id");
 		return $query;
@@ -356,7 +360,6 @@ class EstivoleModelDaytime extends JModelList
 	$query->from('#__estivole_daytimes as d, #__estivole_members_daytimes as md');
 	$query->where('d.daytime_day = \'' . $daytime_day.'\'');
 	$query->where('md.daytime_id = d.daytime_id');
-	//echo $query;exit;
     $db->setQuery($query, 0, 0);
     $result = $db->loadObjectList();
  

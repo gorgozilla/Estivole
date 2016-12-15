@@ -22,7 +22,6 @@ $twofactormethods = UsersHelper::getTwoFactorMethods();
 <head>
 	<jdoc:include type="head" />
 	<link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/purity_iii/css/offline.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/purity_iii/css/general.css" type="text/css" />
 </head>
 <body>
 <jdoc:include type="message" />

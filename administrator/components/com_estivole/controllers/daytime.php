@@ -102,11 +102,16 @@ class EstivoleControllerDaytime extends JControllerForm
 			
 			foreach($this->daytimes as $daytime){
 				$userId = $daytime->user_id; 
-				$userProfile = EstivoleHelpersUser::getProfileEstivole($userId);
+				$userProfileEstivole = EstivoleHelpersUser::getProfileEstivole($userId);
+				$userProfile = JUserHelper::getProfile( $userId );
+				$user = JFactory::getUser($userId);
+				
 				$objPHPExcel->getActiveSheet()
-							->setCellValue("A".($cellCounter+1), $userProfile->profilestivole['lastname'].' '.$userProfile->profilestivole['firstname'])
-							->setCellValue("B".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
-							->setCellValue("C".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)));
+							->setCellValue("A".($cellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
+							->setCellValueExplicit("B".($cellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
+							->setCellValue("C".($cellCounter+1), $user->email)
+							->setCellValue("D".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
+							->setCellValue("E".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)));
 				
 				$cellCounter++;
 			}
@@ -131,7 +136,7 @@ class EstivoleControllerDaytime extends JControllerForm
 	
 	public function getDaytimesByService($calendar_id, $service_id)
 	{
-		$modeldaytime = new estivolemodeldaytime();
+		$modeldaytime = new EstivoleModelDaytime();
 		$this->daytimes = $modeldaytime->listitems();
 		print json_encode($this->daytimes);
 		exit;

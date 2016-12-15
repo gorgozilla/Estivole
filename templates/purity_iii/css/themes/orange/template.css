@@ -26,23 +26,23 @@
 }
 .t3-logo,
 .t3-logo-color {
-  background-image: url("http://joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-big-color.png");
+  background-image: url("//joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-big-color.png");
 }
 .t3-logo-small,
 .t3-logo-small.t3-logo-color {
-  background-image: url("http://joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-small-color.png");
+  background-image: url("//joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-small-color.png");
 }
 .t3-logo-dark {
-  background-image: url("http://joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-big-dark.png");
+  background-image: url("//joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-big-dark.png");
 }
 .t3-logo-small.t3-logo-dark {
-  background-image: url("http://joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-small-dark.png");
+  background-image: url("//joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-small-dark.png");
 }
 .t3-logo-light {
-  background-image: url("http://joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-big-light.png");
+  background-image: url("//joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-big-light.png");
 }
 .t3-logo-small.t3-logo-light {
-  background-image: url("http://joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-small-light.png");
+  background-image: url("//joomlart.s3.amazonaws.com/images/jat3v3-documents/logo-complete/t3logo-small-light.png");
 }
 @media (max-width: 990px) {
   .logo-control .logo-img-sm {
@@ -435,6 +435,10 @@ kbd,
 pre,
 samp {
   font-family: Consolas, Monaco, "Courier New", monospace;
+}
+.our-team {
+  clear: both;
+  overflow: hidden;
 }
 
 legend {
@@ -1441,6 +1445,7 @@ article .img_caption.left,
 article .pull-left.item-image,
 .article-intro .pull-left.item-image {
   margin-right: 20px;
+  max-width: 100%;
 }
 @media screen and (max-width: 767px) {
   article img[align=left],
@@ -1467,6 +1472,7 @@ article .img-intro-right,
 article .pull-right.item-image,
 .article-intro .pull-right.item-image {
   margin-left: 20px;
+  max-width: 100%;
 }
 @media screen and (max-width: 767px) {
   article img[align=right],
@@ -1907,6 +1913,18 @@ article aside .btn-group > .dropdown-toggle .caret {
 div.finder {
   margin-bottom: 20px;
 }
+.filter-branch:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.filter-branch .finder-selects {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.filter-branch .finder-selects .control-label {
+  margin-bottom: 10px;
+}
 .contact .contact-form .checkbox input#jform_contact_email_copy {
   margin-left: 0;
 }
@@ -2190,6 +2208,47 @@ div.finder {
 }
 div.calendar {
   width: 187px;
+}
+dl.tabs {
+  border-bottom: 1px solid #d9d9d9;
+  display: block;
+  clear: both;
+  margin-bottom: 0;
+}
+dl.tabs:before,
+dl.tabs:after {
+  content: " ";
+  display: table;
+}
+dl.tabs:after {
+  clear: both;
+}
+dl.tabs dt.tabs {
+  border: 1px solid #d9d9d9;
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 5px;
+  margin-bottom: -1px;
+}
+dl.tabs dt.tabs h3 {
+  margin: 0;
+  font-size: 14px;
+}
+dl.tabs dt.tabs h3 a {
+  color: #444444;
+  outline: none;
+}
+dl.tabs dt.tabs h3 a:hover,
+dl.tabs dt.tabs h3 a:focus,
+dl.tabs dt.tabs h3 a:active {
+  color: #b35f00;
+  text-decoration: none;
+}
+dl.tabs dt.tabs.open {
+  border-bottom-color: #ffffff;
+}
+dl.tabs dt.tabs.open a {
+  font-weight: bold;
 }
 .iframe-bordered {
   border: 1px solid #dddddd;
@@ -2584,10 +2643,10 @@ a.list-group-item.active:focus .list-group-item-text {
   background: transparent;
   color: #ffffff;
   height: 54px;
-  line-height: 55px;
+  line-height: 35px;
   position: relative;
   margin: 0;
-  padding: 0 15px 0 40px;
+  padding: 10px 15px 10px 40px;
   width: 0;
   -webkit-transition: width 0.2s;
   -o-transition: width 0.2s;
@@ -2612,11 +2671,17 @@ a.list-group-item.active:focus .list-group-item-text {
   -webkit-box-shadow: 0 0 0 1000px #0067a2 inset;
   -webkit-text-fill-color: #ffffff;
 }
+.head-search .form-control::-moz-placeholder {
+  color: #ffffff;
+}
 .navbar-toggle + .head-search {
   right: 55px;
   max-width: 57px;
 }
 @media screen and (max-width: 990px) {
+  .navbar-toggle + .head-search {
+    max-width: inherit;
+  }
   .navbar-toggle + .head-search:hover,
   .navbar-toggle + .head-search:focus,
   .navbar-toggle + .head-search:active {

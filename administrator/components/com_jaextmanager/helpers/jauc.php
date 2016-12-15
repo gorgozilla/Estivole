@@ -24,7 +24,7 @@ class JaextmanagerHelper extends JComponentHelper
 	var $defaultService;
 
 
-	function JaextmanagerHelper($params, $services)
+	function __construct($params, $services)
 	{
 		$this->params = $params;
 		$this->services = $services;

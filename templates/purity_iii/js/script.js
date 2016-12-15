@@ -87,13 +87,17 @@
 (function($){
 
 	$(document).ready(function(){
+		// fix mega menu 
+		 $('.t3-navbar .t3-megamenu ul li > a').click(function(e){
+    	if ($(this).hasClass('dropdown-toggle')) {
+    		window.location.href = $(this).attr('href');
+    	}
+    });
 		
 		//init count up
 		(function(){
 			$('[data-js="count-up"]').countup();
 		})();
-
-
 	});
 
 })(jQuery);

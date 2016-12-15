@@ -42,7 +42,7 @@ class jaMysqlHelper
 	 * @param unknown_type $mysql - path to mysql bin
 	 * @param unknown_type $mysqlDump - path to mysqldump bin
 	 */
-	function jaMysqlHelper($host, $user, $pass, $db, $prefix, $mysql = 'mysql', $mysqlDump = 'mysqldump')
+	function __construct($host, $user, $pass, $db, $prefix, $mysql = 'mysql', $mysqlDump = 'mysqldump')
 	{
 		@set_time_limit(0); // No time limit
 		$this->_host = $host;

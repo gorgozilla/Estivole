@@ -20,14 +20,14 @@
                     </a>
                 </p>
                 <p><strong>Documentation:</strong></p>
-                <p>Detailed Documentation and Usage instructions can be viewed at JoomlArt <a href="http://wiki.joomlart.com/wiki/JA_Exensions_Manager/Overview" target="_blank">Wiki Page</a>, Watch <a href="http://www.youtube.com/watch?v=bruMQxudvdI&amp;fmt=22" target="_blank">YouTube  Video for Local Repository Usage</a> and Watch <a href="http://www.youtube.com/watch?v=MaiCRUF2pQI&amp;fmt=22" target="_blank">YouTube  Video for See upgrades from online repository.</a></p>
+                <p>Detailed Documentation and Usage instructions can be viewed at JoomlArt <a href="https://www.joomlart.com/documentation/" target="_blank">Document Page</a>, Watch <a href="http://www.youtube.com/watch?v=bruMQxudvdI&amp;fmt=22" target="_blank">YouTube  Video for Local Repository Usage</a> and Watch <a href="http://www.youtube.com/watch?v=MaiCRUF2pQI&amp;fmt=22" target="_blank">YouTube  Video for See upgrades from online repository.</a></p>
                 <p> </p>
 				<br/>
                 <p><strong>Important things to do before using this component:</strong></p>
                 <ol>
                 <li>Make sure you have an working backup of the site, before you use this component. Although it works fine and has been tested, but the results might vary based on user environment.</li>
                 <li>If you have encountered files / folder permissions or ownership problems with other extensions. We strongly recommend to fix them before going ahead with this component.</li>
-                <li>If your extension upgrade involves database upgrades, please make sure your XML file contains the details for upgrade and downgrade (rollback). Check Wiki for details.</li>
+                <li>If your extension upgrade involves database upgrades, please make sure your XML file contains the details for upgrade and downgrade (rollback). Check Document page for details.</li>
                 <li>Make sure you understand the File Legends while comparing and upgrading.</li>
                 <li>This component is NOT capable of merging your customization into the new file. You will still have to redo your customization manually.</li>
                 <li>Based on the comparison, you can take the backup of your customized files and redo the customization on the new files.</li>
@@ -69,11 +69,11 @@
                 <p> </p>
                 <p><strong>Discussion:</strong></p>
                 <ul>
-                <li>Issues relating to this component can be discussed at <a href="http://www.joomlart.com/forums/forumdisplay.php?f=199" target="_blank" title="JoomlArt Forum - JA Extension Manager">JoomlArt.com Forums</a>.</li>
+                <li>Issues relating to this component can be discussed at <a href="https://www.joomlart.com/forums/forum/joomlart-public-forums/ja-extensions-manager-component/" target="_blank" title="JoomlArt Forum - JA Extension Manager">JoomlArt.com Forums</a>.</li>
                 </ul>
                 <p> </p>
             <p><span style="color: #008000;"><strong>Links:</strong></span></p>
-		<ul><li><a target="_blank" href="http://wiki.joomlart.com/wiki/JA_Extensions_Manager/Overview">JA Extension Manager Wiki</a></li><li><a target="_blank" href="http://pm.joomlart.com/browse/JAECCOMJAEXTMANAGER">Report Bug</a></li><li><a target="_blank" href="http://update.joomlart.com/">Updates &amp; Versions</a></li></ul>
-				<p>Copyright 2004 - 2012 <a href="http://www.joomlart.com/" title="Visit Joomlart.com!">JoomlArt.com</a>.</p>
+		<ul><li><a target="_blank" href="https://www.joomlart.com/documentation/joomla-component/ja-extension-manager">JA Extension Manager document</a></li><li><a target="_blank" href="http://pm.joomlart.com/browse/JAECCOMJAEXTMANAGER">Report Bug</a></li><li><a target="_blank" href="http://update.joomlart.com/">Updates &amp; Versions</a></li></ul>
+				<p>Copyright 2004 - 2016 <a href="http://www.joomlart.com/" title="Visit Joomlart.com!">JoomlArt.com</a>.</p>
 <!-- / message -->
 </fieldset>

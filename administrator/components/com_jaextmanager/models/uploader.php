@@ -140,7 +140,7 @@ class JaextmanagerModelUploader extends JAEMModel
 		
 		// Move uploaded file
 		jimport('joomla.filesystem.file');
-		$uploaded = JFile::upload($tmp_src, $tmp_dest);
+		$uploaded = JFile::upload($tmp_src, $tmp_dest,false,true);
 		
 		// Unpack the downloaded package file
 		$package = JInstallerHelper::unpack($tmp_dest);

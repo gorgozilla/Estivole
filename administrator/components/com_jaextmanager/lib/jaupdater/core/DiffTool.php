@@ -53,7 +53,7 @@ class jaDiffTool
 	var $numNextLinesCheck = 5;
 
 
-	function jaDiffTool()
+	function __construct()
 	{
 	}
 

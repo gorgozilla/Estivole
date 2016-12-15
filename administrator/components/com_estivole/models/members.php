@@ -93,7 +93,6 @@ class EstivoleModelMembers extends JModelList
 		$query->from('#__estivole_members as b');
 		$query->from('#__users as u');
 		$query->from('#__user_profiles as p');
-		$query->from('#__estivole_members_daytimes as md');
 
 		return $query;
 	}
@@ -109,7 +108,6 @@ class EstivoleModelMembers extends JModelList
 		$db = JFactory::getDBO();
 		$query->where('b.user_id=p.user_id');
 		$query->where('b.user_id=u.id');
-		$query->where('md.member_id=b.member_id');
 		
 		if(is_numeric($this->_member_id)) 
 		{
@@ -134,55 +132,14 @@ class EstivoleModelMembers extends JModelList
 		}
 		
 		$service= $this->getState('filter.services_members');
-		if (!empty($service)) {
+		if (!empty($service)){
+			$query->from('#__estivole_members_daytimes as md');
+			$query->where('b.member_id=md.member_id');
 			$query->where("md.service_id = '".(int) $service."'");
 		}
 		
 		$query->group('b.user_id');
 		return $query;
-	}
-
-	public function getItem()
-	{
-		$db = JFactory::getDBO();
-
-		$query = $this->_buildQuery();
-		$this->_buildWhere($query);
-		$db->setQuery($query);
-
-		$item = $db->loadObject();
-
-		return $item;
-	}
-
-	/**
-	* Build query and where for protected _getList function and return a list
-	*
-	* @return array An array of results.
-	*/
-	public function listItems()
-	{
-		$query = $this->_buildQuery();    
-		$query = $this->_buildWhere($query);
-		$list = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
-		return $list;
-	}
-	
-	/**
-	* Build query and where for protected _getList function and return a list
-	*
-	* @return array An array of results.
-	*/
-	public function getTotalItems($sex = null)
-	{
-		$query = $this->_buildQuery();  
-		$query = $this->_buildWhere($query);
-		if($sex != null){
-			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\') group by b.user_id)');
-		}
-		//echo $query;
-		$list = $this->_getList($query);
-		return $list;
 	}
 
 	/**
@@ -203,6 +160,61 @@ class EstivoleModelMembers extends JModelList
 		$db->setQuery($query, $limitstart, $limit);
 		$result = $db->loadObjectList();
 		return $result;
+	}
+	/**
+	* Build query and where for protected _getList function and return a list
+	*
+	* @return array An array of results.
+	*/
+	public function listItems()
+	{
+		$query = $this->_buildQuery();    
+		$query = $this->_buildWhere($query);
+		$list = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
+		return $list;
+	}
+	
+	/**
+	* Build query and where for protected _getList function and return a list
+	*
+	* @return array An array of results.
+	*/
+	public function getTotalItemsForExport()
+	{
+		$query = $this->_buildQuery();    
+		$query = $this->_buildWhere($query);
+		$query->from('#__estivole_members_daytimes as md');
+		$query->where('b.member_id=md.member_id');
+		$list = $this->_getList($query);
+		return $list;
+	}
+	
+	public function getItem()
+	{
+		$db = JFactory::getDBO();
+		$query = $this->_buildQuery();
+		$this->_buildWhere($query);
+		$db->setQuery($query);
+		$item = $db->loadObject();
+
+		return $item;
+	}
+	
+	/**
+	* Build query and where for protected _getList function and return a list
+	*
+	* @return array An array of results.
+	*/
+	public function getTotalItems($sex = null)
+	{
+		$query = $this->_buildQuery();  
+		$query = $this->_buildWhere($query);
+		if($sex != null){
+			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\') group by b.user_id)');
+		}
+		//echo $query;
+		$list = $this->_getList($query);
+		return $list;
 	}
 
 	/**

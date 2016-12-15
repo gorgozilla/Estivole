@@ -29,7 +29,7 @@ class Message
 	 * @param $from
 	 * @param $to
 	 */
-	function Message($content, $from, $to)
+	function __construct($content, $from, $to)
 	{
 		if (is_array($content)) {
 			$this->content = $content;

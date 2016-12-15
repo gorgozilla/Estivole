@@ -3,13 +3,13 @@
  * @package     Joomla.Site
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-require_once JPATH_COMPONENT . '/controller.php';
+JLoader::register('UsersController', JPATH_COMPONENT . '/controller.php');
 
 /**
  * Registration controller class for Users.
@@ -64,7 +64,7 @@ class UsersControllerRegistration extends UsersController
 		// Check for errors.
 		if ($return === false)
 		{
-			// Redirect back to the homepage.
+			// Redirect back to the home page.
 			$this->setMessage(JText::sprintf('COM_USERS_REGISTRATION_SAVE_FAILED', $model->getError()), 'warning');
 			$this->setRedirect('index.php');
 
@@ -133,6 +133,7 @@ class UsersControllerRegistration extends UsersController
 
 			return false;
 		}
+
 		$data = $model->validate($form, $requestData);
 
 		// Check for validation errors.
@@ -153,7 +154,6 @@ class UsersControllerRegistration extends UsersController
 					$app->enqueueMessage($errors[$i], 'warning');
 				}
 			}
-
 
 			// Save the data in the session.
 			$app->setUserState('com_users.registration.data', $requestData);

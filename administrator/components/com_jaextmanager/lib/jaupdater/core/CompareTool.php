@@ -42,7 +42,7 @@ class jaCompareTool
 	var $exceptions = array("jaupdater.checksum.json", "jaupdater.comment.txt"); //"jaupdater.info.json"
 
 
-	function jaCompareTool()
+	function __construct()
 	{
 	
 	}

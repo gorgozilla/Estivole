@@ -27,7 +27,7 @@ class UpdaterConfig
 	var $configHash = array();
 
 
-	function UpdaterConfig($configs = array())
+	function __construct($configs = array())
 	{
 		$this->id = rand();
 		$this->apply($configs);

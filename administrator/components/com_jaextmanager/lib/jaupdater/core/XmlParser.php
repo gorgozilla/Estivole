@@ -34,7 +34,7 @@ class jaXmlParser
 	var $stackNode = array();
 
 
-	function jaXmlParser()
+	function __construct()
 	{
 		$this->xml = "";
 	}

@@ -24,6 +24,8 @@ class T3Bot extends JObject
 {
 	// call before checking & loading T3
 	public static function preload () {
+		// NO NEED TO reupdate megamenu configuration
+		return;
 		// check if menu is alter, then turn a flag to reupdate megamenu configuration
 		$input = JFactory::getApplication()->input;
 		if ($input->get('option') == 'com_menus' && 
@@ -236,9 +238,8 @@ class T3Bot extends JObject
 
 					$currentconfig[$menukey] = $mmconfig;
 				}
-
 				// update  megamenu back to other template styles parameter
-				$mm_config = json_encode($currentconfig);
+				$mm_config = json_encode($currentconfig, JSON_UNESCAPED_UNICODE);
 
 				// update megamenu back to current template style parameter
 				$template = $app->getTemplate(true);
@@ -320,7 +321,7 @@ class T3Bot extends JObject
 				';
 							foreach ($extras as $extra) {
 								$_xml .= '
-							<field name="theme_extras_'.$extra.'" global="1" type="menuitem" multiple="true" default="" label="'.$extra.'" description="'.$extra.'" published="true" class="t3-extra-setting">
+							<field name="theme_extras_'.$extra.'" global="1" type="menuitem" multiple="true" default="" label="'.$extra.'" description="'.$extra.'" published="1" class="t3-extra-setting">
 									<option value="-1">T3_ADDON_THEME_EXTRAS_ALL</option>
 									<option value="0">T3_ADDON_THEME_EXTRAS_NONE</option>
 							</field>';

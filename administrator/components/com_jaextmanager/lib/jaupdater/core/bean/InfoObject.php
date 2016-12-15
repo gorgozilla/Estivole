@@ -29,7 +29,7 @@ class InfoObject
 	 * @param $location  string
 	 * @param $data JSON object to load into instead of load from description file
 	 */
-	function InfoObject($name, $version, $location = null, $data = null)
+	function __construct($name, $version, $location = null, $data = null)
 	{
 		if (!empty($data)) {
 			$this->loadData($data);

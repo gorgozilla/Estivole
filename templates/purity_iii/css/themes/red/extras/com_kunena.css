@@ -30,6 +30,9 @@
 .com_kunena #Kunena .kfile-input-button:active {
   color: #cc0000 !important;
 }
+.com_kunena #Kunena select {
+  display: inline-block;
+}
 .com_kunena #Kunena #kprofilebox .input span {
   display: inline-block;
   padding: 10px 20px 10px 0;

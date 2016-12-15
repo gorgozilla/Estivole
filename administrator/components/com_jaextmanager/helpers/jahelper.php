@@ -19,7 +19,7 @@ class JAFormHelpers
 {
 
 
-	function JAFormHelpers()
+	function __construct()
 	{
 	
 	}

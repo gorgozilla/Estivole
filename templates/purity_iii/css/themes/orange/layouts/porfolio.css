@@ -76,5 +76,6 @@
   background-position: center bottom;
 }
 .porfolio .item-demo-url {
-  margin-top: 10px;
+  display: inline-block;
+  margin-top: 20px;
 }

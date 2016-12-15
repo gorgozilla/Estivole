@@ -71,8 +71,11 @@ Joomla.submitbutton = function(pressbutton) {
 		/*]]>*/
 		</script>
         </td>
-        <td align="right" valign="top" width="300"><?php echo JText::_("FILTER");?>:
-          <input type="text" class="text_area" value="<?php echo $this->lists['search']; ?>" id="search" name="search"/>
+        <td align="right" valign="top" width="260">
+	        <?php echo JText::_("FILTER");?>:
+			<input type="text" class="text_area" value="<?php echo $this->lists['search']; ?>" id="search" name="search"/>
+        </td>
+        <td align="right" valign="top" width="260">
           <?php echo $this->boxType;?>
           <input type="button" onclick="this.form.submit();" value="<?php echo JText::_('GO'); ?>" />
         </td>

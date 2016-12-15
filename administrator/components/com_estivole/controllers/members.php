@@ -45,7 +45,7 @@ class EstivoleControllerMembers extends JControllerAdmin
 		$service=$modelService->getItem($service_id);
 		$service_name=$service->service_name!=''?$service->service_name:'Tous les membres';
 
-		$this->members = $model->getTotalItems();
+		$this->members = $model->getTotalItemsForExport();
 		for($i=0; $i<count($this->members); $i++){
 			$this->members[$i]->member_daytimes = $modelDaytime->getMemberDaytimes($this->members[$i]->member_id, $this->calendars[0]->calendar_id);
 		}
@@ -74,7 +74,8 @@ class EstivoleControllerMembers extends JControllerAdmin
 					->setCellValue("A4", "Nom")
 					->setCellValue("B4", "Email")
 					->setCellValue("C4", "Téléphone")
-					->setCellValue("D4", "Nbre t-shirts");
+					->setCellValue("D4", "Nbre t-shirts")
+					->setCellValue("E4", "Taille t-shirts");
 
 		// Rename worksheet
 		$objPHPExcel->getActiveSheet()->setTitle("Export");
@@ -85,11 +86,14 @@ class EstivoleControllerMembers extends JControllerAdmin
 			$userId = $this->members[$i]->user_id; 
 			$userProfileEstivole = EstivoleHelpersUser::getProfileEstivole($userId);
 			$userProfile = JUserHelper::getProfile( $userId );
+			$user = JFactory::getUser($userId);
+			
 			$objPHPExcel->getActiveSheet()
 						->setCellValue("A".($cellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
-						->setCellValue("B".($cellCounter+1), $this->members[$i]->email)
+						->setCellValue("B".($cellCounter+1), $user->email)
 						->setCellValueExplicit("C".($cellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
-						->setCellValue("D".($cellCounter+1), round(count($this->members[$i]->member_daytimes)/2));
+						->setCellValue("D".($cellCounter+1), round(count($this->members[$i]->member_daytimes)/2))
+						->setCellValue("E".($cellCounter+1), $userProfileEstivole->profilestivole['tshirtsize']);
 						
 			$cellCounter++;
 		}

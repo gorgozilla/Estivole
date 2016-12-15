@@ -24,7 +24,9 @@ JLoader::register('JAEMView', JPATH_COMPONENT.'/views/view.php');
 JLoader::register('JAEMModel', JPATH_COMPONENT.'/models/model.php');
 
 require_once (JPATH_COMPONENT . '/controller.php');
-
+require_once (JPATH_COMPONENT . "/jaupdate.php");
+$JaExtUpdatehelper = new JaExtUpdatehelper();
+$JaExtUpdatehelper->update();
 // Require constants
 require_once (JPATH_COMPONENT . "/constants.php");
 

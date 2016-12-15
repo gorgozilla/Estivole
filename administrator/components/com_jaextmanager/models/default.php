@@ -24,7 +24,6 @@ jimport('joomla.filesystem.file');
  */
 class JaextmanagerModelDefault extends JAEMModel
 {
-	
 	var $_components = array();
 	var $_updateComponents = array();
 	var $_updateExtensions = array();
@@ -200,7 +199,7 @@ class JaextmanagerModelDefault extends JAEMModel
 		$filter .= "AND (name LIKE '%{$keyword}%' OR '' = '{$keyword}') ";
 		
 		if($hideNoneJA) {
-			$filter .= "AND (name LIKE '%ja%' OR name LIKE '%t3%') ";
+			$filter .= "AND manifest_cache LIKE '%author\":\"JoomlArt%' ";
 		}
 		
 		//filter by extension id

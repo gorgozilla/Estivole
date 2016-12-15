@@ -32,7 +32,7 @@ class UpdaterClient
 	var $config, $lastAction;
 	
 
-	function UpdaterClient()
+	function __construct()
 	{
 		global $config;
 		

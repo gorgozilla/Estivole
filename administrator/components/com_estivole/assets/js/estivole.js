@@ -14,7 +14,6 @@ function addDayTimeModal(daytime_id, calendar_id, daytime_day)
 				jQuery("#addDayTimeModal #daytime_id").val('');	
 				jQuery("#addDayTimeModal #quota").val('');	
 				jQuery("#addDayTimeModal #description").val('');
-			alert(daytime_id);
 				jQuery("#addDayTimeModal #save_time_btn, #addDayTimeModal #myModalLabel").html('Ajouter la tranche horaire');	
 			}else{
 				jQuery("#addDayTimeModal #daytime_id").val(data.daytime_id);
@@ -141,7 +140,6 @@ function getCalendarDates(calendar_id)
 		{
 			if(data.success)
 			{
-				alert(data.calendar_dates[i].daytime_day);
 				var el = jQuery("#addAvailibilityModal #jformdaytime");
 				el.empty(); // remove old options
 				for(i=0;i<data.calendar_dates.length;i++){
@@ -164,7 +162,6 @@ function getCalendarDates(calendar_id)
 function getCalendarDaytimes(calendar_id, daytime, service_id)
 {
 	var member_id = jQuery("#addDayTimeForm #member_id").val();
-	//alert(daytime);
 	jQuery.ajax({
 		url:'index.php?option=com_estivole&controller=member&view=member&layout=_availibilitytable&format=raw&tmpl=component',
 		type:'POST',

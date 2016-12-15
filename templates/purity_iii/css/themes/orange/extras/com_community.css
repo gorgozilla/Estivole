@@ -15,6 +15,9 @@
 .com_community #community-wrap .js_dropDownParent li > a {
   height: 28px;
 }
+.com_community #community-wrap .joms-select {
+  box-shadow: none;
+}
 .com_community #community-wrap .js-toolbar .navbar-inner {
   min-height: 40px;
 }
@@ -32,9 +35,14 @@
   margin-left: 0;
   margin-right: 0;
 }
+.com_community #community-wrap .joms-postbox-input .inputbox {
+  box-shadow: none;
+}
 .com_community #community-wrap .joms-postbox-input .input-status {
-  overflow: hidden;
-  height: auto !important;
+  box-shadow: none;
+  padding: 10px;
+  overflow-y: auto;
+  min-height: 160px !important;
 }
 .com_community #community-wrap .joms-postbox-input {
   overflow-y: scroll !important;

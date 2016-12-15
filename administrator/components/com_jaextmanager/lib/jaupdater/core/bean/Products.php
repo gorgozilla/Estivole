@@ -41,7 +41,7 @@ class jaProducts
 	var $ignores = array("^\..*", "jabk", "jaupdater");
 
 
-	function jaProducts(&$row, $config, $refresh = false)
+	function __construct(&$row, $config, $refresh = false)
 	{
 		$this->config = $config;
 		
