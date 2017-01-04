@@ -26,8 +26,5 @@ class TableCalendar extends JTable
 	public function __construct(&$db)
 	{
 		parent::__construct('#__estivole_calendars', 'calendar_id', $db);
-
-		// JTableObserverTags::createObserver($this, array('typeAlias' => 'com_weblinks.weblink'));
-		// JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_weblinks.weblink'));
 	}
 }

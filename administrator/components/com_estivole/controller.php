@@ -89,4 +89,14 @@ class EstivoleController extends JControllerLegacy
 		echo json_encode($daytime);
 		exit;
 	}
+	
+	public function getCalendar()
+	{
+		// Set the default view name and format from the Request.
+		$calendar_id   = $this->input->get('calendar_id');
+		$model = $this->getModel('calendar');
+		$calendar = $model->getItem($calendar_id);
+		echo json_encode($calendar);
+		exit;
+	}
 }

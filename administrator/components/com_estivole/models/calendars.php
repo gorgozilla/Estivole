@@ -14,8 +14,6 @@ class EstivoleModelCalendars extends JModelLegacy
   {
     $app = JFactory::getApplication();
     $this->_calendar_id = $app->input->get('calendar_id', null);
-	
-    
     parent::__construct();       
   }
  
@@ -29,19 +27,8 @@ class EstivoleModelCalendars extends JModelLegacy
   {
     $db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
-
     $query->select('*');
     $query->from('#__estivole_calendars as b');
-
-    // $query->select('w.waitlist_id, w.user_id as borrower_id');
-    // $query->leftjoin('#__estivole_waitlists as w on w.member_id = b.member_id AND w.fulfilled = 0');
-
-    // $query->select('l.name as borrower');
-    // $query->leftjoin('#__users as l on l.id = b.lent_uid');
-
-    // $query->select('u.name as waitlist_user');
-    // $query->leftjoin('#__users AS u on u.id = w.user_id');
-
     return $query;
   }
 
@@ -53,28 +40,10 @@ class EstivoleModelCalendars extends JModelLegacy
   */
   protected function _buildWhere(&$query)
   {
-
     if(is_numeric($this->_calendar_id)) 
     {
       $query->where('b.calendar_id = ' . (int) $this->_calendar_id);
     }
-
-    // if(is_numeric($this->_user_id)) 
-    // {
-      // $query->where('b.user_id = ' . (int) $this->_user_id);
-    // }
-
-    // if(is_numeric($this->_library_id)) 
-    // {
-      // $query->where('b.library_id = ' . (int) $this->_library_id);
-    // }
-
-    // if($this->_waitlist)
-    // {
-      // $query->where('w.waitlist_id <> ""');
-    // }
-
-    // $query->where('b.published = ' . (int) $this->_published);
     return $query;
   }
   
@@ -83,7 +52,6 @@ class EstivoleModelCalendars extends JModelLegacy
 		$item = parent::getItem($pk);
 		return $item;
 	}
-	
   
   /**
   * Build query and where for protected _getList function and return a list

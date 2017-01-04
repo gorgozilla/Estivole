@@ -35,6 +35,26 @@ function addDayTimeModal(daytime_id, calendar_id, daytime_day)
 	});
 }
 
+function copyCalendarModal(calendar_id)
+{
+	jQuery.ajax({
+		url:'index.php?option=com_estivole&task=getCalendar&tmpl=component',
+		type:'POST',
+		data: 'calendar_id='+calendar_id,
+		dataType: 'JSON',
+		success:function(data)
+		{
+			jQuery("#copyCalendarModal").modal('show');
+			jQuery("#copyCalendarModal #calendar_id").val(calendar_id);
+			jQuery("#copyCalendarModal #description").val(data.description);
+			jQuery("#copyCalendarModal #name").val(data.name);
+		},
+		error : function(resultat, statut, erreur){
+			alert(erreur);
+		}
+	});
+}
+
 function exportModal(daytime_id)
 {
 	jQuery.ajax({

@@ -49,17 +49,26 @@ JHtml::_('behavior.modal', 'a.modal');
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th width="1%" class="hidden-phone">
+						<?php echo JHtml::_('grid.checkall'); ?>
+					</th>
 					<th class="left">
 						Nom
 					</th>
 					<th class="left">
 						Description
 					</th>
+					<th class="left">
+						Actions
+					</th>
 				</tr>
 			</thead>
 			<tbody>
 			<?php foreach ($this->calendars as $i => $item) : ?>
 				<tr class="row<?php echo $i % 2; ?>">
+					<td class="center hidden-phone">
+						<?php echo JHtml::_('grid.id', $i, $item->calendar_id); ?>
+					</td>
 					<td class="left">
 						<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=calendar.edit&calendar_id='.(int) $item->calendar_id); ?>">
 						<?php echo JText::_($item->name); ?>
@@ -67,6 +76,14 @@ JHtml::_('behavior.modal', 'a.modal');
 					</td>
 					<td class="left">
 						<?php echo JText::_($item->description); ?>
+					</td>
+					<td class="left">
+						<?php //echo JHtml::_('job.copyListCalendar', $item->calendar_id, $i); ?>
+						<!--onclick="return listItemTask(\'cb'.$i.'\',\'calendar.copyListCalendar\')"-->
+						<a class="btn" onclick="copyCalendarModal(<?php echo $item->calendar_id; ?>);" title="Copier le calendrier">
+							<i class="icon-copy"></i>
+						</a>
+						<?php echo JHtml::_('job.deleteListCalendar', $item->calendar_id, $i); ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
@@ -79,3 +96,4 @@ JHtml::_('behavior.modal', 'a.modal');
 		</div>
 	</form>
 </div>
+<?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'calendars'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_copycalendar.php'); ?>

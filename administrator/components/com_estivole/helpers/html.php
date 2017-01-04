@@ -50,6 +50,26 @@ class EstivoleHelpersHtml
 		return JHTML::_('select.genericlist', $options, $field_name, 'class="inputbox" id="'.$field_name.'"', 'value', 'text', $default);
 	}
 	
+	function yearsList($field_name, $default)
+	{
+		$years = array();
+		for($i=0; $i<=10; $i++){
+			$date = idate('Y');;
+			$years[$i] = ($date+$i);
+		};
+		
+		## Initialize array to store dropdown options ##
+		$options = array();
+		
+		foreach($years as $key=>$value) :
+			## Create $value ##
+			$options[] = JHTML::_('select.option', $value, $value);
+		endforeach;
+		
+		## Create <select name="month" class="inputbox"></select> ##
+		return JHTML::_('select.genericlist', $options, $field_name, 'class="inputbox" id="'.$field_name.'"', 'value', 'text', $default);
+	}
+	
 	function servicesList()
 	{
 		$serviceModel = new EstivoleModelServices();

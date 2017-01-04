@@ -43,7 +43,6 @@ class EstivoleViewDaytime extends JViewLegacy
 		JFactory::getApplication()->input->set('hidemainmenu', true);
 
 		JToolbarHelper::title(JText::_('Gestion des bénévoles : Editer un jour/horaire'));
-
 		JToolbarHelper::apply('daytime.apply');
 		JToolbarHelper::save('daytime.save');
 		JToolbarHelper::cancel('calendar.edit');

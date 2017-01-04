@@ -21,6 +21,8 @@ class EstivoleControllerAdd extends JControllerForm
 		if($task=='add_member_daytime'){
 			$this->add_member_daytime();
 			$app->enqueueMessage('Assignation ajoutée avec succès!');
+		}else if($task=='copy_calendar'){
+			$this->copy_calendar();
 		}else{
 			if ( $row = $this->model->saveTime($this->formData) ){
 				$app->enqueueMessage('Enregistrement réussi!');
@@ -53,5 +55,27 @@ class EstivoleControllerAdd extends JControllerForm
 				$this->model->saveMemberDaytime($this->formData);
 			}
 		}
+	}
+	
+	public function copy_calendar()
+	{
+		$app      = JFactory::getApplication();
+		$return = array("success"=>false);
+		$input = $app->input; 
+		$calendarId = $this->formData['calendar_id'];
+
+        if (empty($calendarId)) {
+            JError::raiseWarning(500, JText::_('JERROR_NO_ITEMS_SELECTED'));
+        }
+        else {
+			if($this->model->copyCalendar($calendarId, $this->formData)){
+				$return['success'] = true;
+				$return['msg'] = 'Yes';
+				$app->enqueueMessage('Calendrier(s) copié(s) avec succès!');
+			}else{
+				$app->enqueueMessage('Erreur!');
+			}
+			$app->redirect( $_SERVER['HTTP_REFERER']);
+        }
 	}
 }

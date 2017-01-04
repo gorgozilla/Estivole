@@ -197,7 +197,9 @@ class EstivoleModelDaytime extends JModelList
 
 		$query->select('*');
 		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md');
-		$query->where('md.member_id = ' . $member_id);
+		if($member_id!=null){
+			$query->where('md.member_id = ' . $member_id);
+		}
 		if($calendar_id!=null){
 			$query->where('d.calendar_id = ' . $calendar_id);
 		}
@@ -275,7 +277,6 @@ class EstivoleModelDaytime extends JModelList
 	
     $db->setQuery($query, 0, 0);
     $result = $db->loadObjectList();
- 
     return $result;
   }
   
@@ -291,7 +292,6 @@ class EstivoleModelDaytime extends JModelList
 
     $db->setQuery($query, 0, 0);
     $result = $db->loadObjectList();
- 
     return $result;
   } 
   
@@ -307,7 +307,6 @@ class EstivoleModelDaytime extends JModelList
 	$query->where('md.daytime_id = ' . $daytime_id);
     $db->setquery($query, 0, 0);
     $result = $db->loadObject();
-
     return $result;
   }
   

@@ -104,7 +104,6 @@ class EstivoleModelMember extends JModelAdmin
 	*/
 	public function deleteMember($member_id = null)
 	{
-
 		$app  = JFactory::getApplication();
 		$id   = $id ? $id : $member_id;
 

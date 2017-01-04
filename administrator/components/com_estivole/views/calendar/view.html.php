@@ -9,14 +9,11 @@ class EstivoleViewCalendar extends JViewLegacy
 		$app = JFactory::getApplication();
 		
 		$model = new EstivoleModelCalendar();
+		$modelDaytime = new EstivoleModelDaytime();
+		$modelDaytimes = new EstivoleModelDaytimes();
 		$this->state	= $this->get('State');
 		$this->calendar		= $this->get('Item');
 		$this->form		= $this->get('Form');
-		
-		$modelDaytime = new EstivoleModelDaytime();
-		$modelDaytimes = new EstivoleModelDaytimes();
-
-		//$this->setState('filter.services_daytime', '');
 		
 		$this->daytimes = $modelDaytime->listItems();
 
@@ -42,9 +39,7 @@ class EstivoleViewCalendar extends JViewLegacy
 	protected function addToolbar()
 	{
 		JFactory::getApplication()->input->set('hidemainmenu', true);
-		
 		JToolbarHelper::title(JText::_('Gestion des bénévoles : Editer un calendrier'));
-
 		JToolbarHelper::apply('calendar.apply');
 		JToolbarHelper::save('calendar.save');
 		JToolbarHelper::cancel('calendar.cancel');

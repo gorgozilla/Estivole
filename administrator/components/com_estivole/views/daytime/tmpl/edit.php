@@ -22,7 +22,6 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 	Joomla.submitbutton = function(task)
 	{
 		if (task == 'daytime.cancel' || document.formvalidator.isValid(document.id('daytime-form'))) {
-			<?php //echo $this->form->getField('summary')->save(); ?>
 			Joomla.submitform(task, document.getElementById('daytime-form'));
 		}
 	}

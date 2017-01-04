@@ -51,10 +51,6 @@ abstract class JHtmlJob
         return $html;
     }
 	
-    /**
-     * @param   int $value  The state value
-     * @param   int $i
-     */
     static function deleteListMember($value = 0, $i)
     {
         // Array of image, task, title, action
@@ -64,12 +60,32 @@ abstract class JHtmlJob
         );
         $state  = JArrayHelper::getValue($states, (int) $value, $states[1]);
         $html   = JHtml::_('image', 'admin/'.$state[0], JText::_($state[2]), NULL, true);
-        //if ($canChange) {
-            $html   = '<a class="btn" onclick="return listItemTask(\'cb'.$i.'\',\''.$state[1].'\')" title="'.JText::_($state[3]).'">
-							<i class="icon-trash"></i>
-						</a>';
-        //}
-
+		$html   = '<a class="btn" onclick="return listItemTask(\'cb'.$i.'\',\''.$state[1].'\')" title="'.JText::_($state[3]).'">
+						<i class="icon-trash"></i>
+					</a>';
+        return $html;
+    }
+	
+    static function deleteListCalendar($value = 0, $i)
+    {
+        // Array of image, task, title, action
+        $states = array(
+            0   => array('disabled.png',    'calendars.deleteListCalendar',  'Trash',   'Click to delete'),
+            1   => array('tick.png',        'calendars.deleteListCalendar',    'Trash',     'Click to delete'),
+        );
+        $state  = JArrayHelper::getValue($states, (int) $value, $states[1]);
+        $html   = JHtml::_('image', 'admin/'.$state[0], JText::_($state[2]), NULL, true);
+		$html   = '<a class="btn" onclick="return listItemTask(\'cb'.$i.'\',\''.$state[1].'\')" title="'.JText::_($state[3]).'">
+						<i class="icon-trash"></i>
+					</a>';
+        return $html;
+    }
+	
+    static function copyListCalendar($i)
+    {
+		$html   = '<a class="btn" onclick="return listItemTask(\'cb'.$i.'\',\'calendar.copyListCalendar\')" title="Copier le calendrier">
+						<i class="icon-copy"></i>
+					</a>';
         return $html;
     }
 }

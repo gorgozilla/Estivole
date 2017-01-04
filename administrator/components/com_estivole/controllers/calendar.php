@@ -1,6 +1,7 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' ); 
  require_once JPATH_COMPONENT . '/models/daytime.php';
- 
+ require_once JPATH_COMPONENT . '/models/calendar.php';
+  
 class EstivoleControllerCalendar extends JControllerForm
 {
 	public $formData = null;
@@ -21,6 +22,8 @@ class EstivoleControllerCalendar extends JControllerForm
 
 		if($task=='deleteListDaytime'){
 			$this->deleteListDaytime();
+		}elseif($task=='copyListCalendar'){
+			$this->copyListCalendar();
 		}elseif($task=='cancel'){
 			$this->cancel();
 		}else if($task=='apply'){
