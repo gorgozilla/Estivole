@@ -33,17 +33,7 @@ defined('_JEXEC') or die;
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($this->daytimes as $i => $item) :
-			// $canEdit   = $this->canDo->get('core.edit');
-			// $canChange = $loggeduser->authorise('core.edit.state',	'com_users');
-
-			// // If this group is super admin and this user is not super admin, $canEdit is false
-			// if ((!$loggeduser->authorise('core.admin')) && JAccess::check($item->id, 'core.admin'))
-			// {
-				// $canEdit   = false;
-				// $canChange = false;
-			// }
-		?>
+		<?php foreach ($this->daytimes as $i => $item) : ?>
 			<tr <?php if ($item->isAvailable!=null && $item->status_id==0){ ?>style="background-color:#F89406;"<?php }elseif($item->isAvailable!=null && $item->status_id==1){ ?>style="background-color:#00ff00;"<?php }elseif($item->isComplete){ ?>style="background-color:#ff0000;"<?php } ?>>
 				<td>
 					<?php if ($item->isAvailable!=null){ ?>

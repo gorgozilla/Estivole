@@ -85,7 +85,7 @@ class EstivoleModelDaytime extends JModelList
 		$app = JFactory::getApplication();
 		if(is_numeric($this->_calendar_id)) 
 		{
-			$query->where('b.calendar_id = ' . (int) $this->_calendar_id);
+			$query->where("b.calendar_id = '" . (int) $this->_calendar_id . "'");
 		}
 
 		if($this->_daytime_day) 

@@ -22,7 +22,7 @@ class EstivoleHelpersHtml
 		endforeach;
 		
 		## Create <select name="month" class="inputbox"></select> ##
-		return JHTML::_('select.genericlist', $options, 'calendar_selector', 'class="inputbox" id="calendar_selector"', 'value', 'text', $default);
+		return JHTML::_('select.genericlist', $options, 'jform[calendar_id]', 'class="inputbox" id="calendar_id"', 'value', 'text', $default);
 	}
 	
 	function hoursList($day, $field_name, $default)

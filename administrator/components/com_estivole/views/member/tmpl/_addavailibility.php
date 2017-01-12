@@ -17,20 +17,20 @@ JHtml::_('formbehavior.chosen', 'select');
 		jQuery(document).ready(function() {
 			var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
 			var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-			var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
+			var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
 			getCalendarDaytimes(calendar_id, daytime, service_id);
 			getDaytimesByService(calendar_id, service_id);
 			
-			jQuery("#addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").change(function() {
+			jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").change(function() {
 				var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
 				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-				var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
+				var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
 				getCalendarDaytimes(calendar_id, daytime, service_id);
 			});
 			
-			jQuery("#addDayTimeForm #jformservice_id").change(function() {
+			jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformservice_id").change(function() {
 				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-				var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
+				var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
 				getDaytimesByService(calendar_id, service_id);
 			});
 		});
@@ -47,7 +47,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				<div id="availibility-modal-info" class="media"></div>
 				<div class="control-group ">
 					<div class="control-label">
-						<label id="jform_service_id" for="jform_service_id" class="required">Calendrier : </label>
+						<label id="jform_calendar_id" for="jform_calendar_id" class="required">Calendrier : </label>
 					</div>
 					<div class="controls">
 						<?php echo EstivoleHelpersHtml::calendarsList(); ?>

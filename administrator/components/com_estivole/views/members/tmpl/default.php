@@ -31,12 +31,29 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 function tableOrdering( order, dir, task )
 {
 	var form = document.adminForm;
- 
 	form.filter_order.value = order;
 	form.filter_order_Dir.value = dir;
 	document.adminForm.submit( task );
 }
 </script>
+
+	<script type="text/javascript" language="javascript">
+		jQuery(document).ready(function() {
+			jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").change(function() {
+				var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
+				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
+				var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
+				getCalendarDaytimes(calendar_id, daytime, service_id);
+			});
+			
+			jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformservice_id").change(function() {
+				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
+				var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
+				getDaytimesByService(calendar_id, service_id);
+			});
+		});
+	</script>
+
 <div id="j-sidebar-container" class="span2">
 	<?php echo $this->sidebar; ?>
 </div>
@@ -146,9 +163,12 @@ function tableOrdering( order, dir, task )
 							<?php echo JText::_($userProfilEstivole->profilestivole['tshirtsize']); ?>
 						</td>
 						<td class="center">
-							<!--<a class="btn" onclick="composeEmail('<?php echo $this->member->member_id; ?>')">
+							<!--<a class="btn" onclick="composeEmail('<?php echo $item->member_id; ?>')">
 								<i class="icon-mail"></i>
 							</a>-->
+							<a class="btn" href="javascript:void(0);" onclick="addAvailibilityModal('<?php echo $item->member_id; ?>');" title="Assigner une tranche horaire">
+								<i class="icon-time"></i>
+							</a>
 							<?php echo JHtml::_('job.deleteListMember', $item->member_id, $i); ?>
 						</td>
 					</tr>
@@ -178,3 +198,5 @@ function tableOrdering( order, dir, task )
 		</div>
 	</form>
 </div>
+
+<?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'member'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_addavailibility.php'); ?>

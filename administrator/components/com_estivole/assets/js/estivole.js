@@ -222,7 +222,7 @@ function getDaytimesByService(calendar_id, service_id)
 			jQuery("#addDayTimeForm #jformdaytime").trigger('liszt:updated');
 				var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
 				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-				var calendar_id = jQuery("#addDayTimeForm #calendar_id").val();
+				var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
 				getCalendarDaytimes(calendar_id, daytime, service_id);
 		},
        error : function(resultat, statut, erreur){
