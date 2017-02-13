@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_weblinks
  * @since       1.5
  */
-class TableMember extends JTable
+class TableMemberType extends JTable
 {
 	/**
 	 * Constructor
@@ -25,6 +25,6 @@ class TableMember extends JTable
 	 */
 	public function __construct(&$db)
 	{
-		parent::__construct('#__estivole_members', 'member_id', $db);
+		parent::__construct('#__estivole_members_types', 'member_type_id', $db);
 	}
 }

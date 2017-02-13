@@ -46,11 +46,9 @@ class EstivoleController extends JControllerLegacy
 		{
 			// Get the model for the view.
 			$model = $this->getModel($vName);
-
 			// Push the model into the view (as default).
 			$view->setModel($model, true);
 			$view->setLayout($lName);
-
 
 			// Push document object into the view.
 			$view->document = $document;

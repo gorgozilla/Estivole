@@ -92,6 +92,9 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 						<?php echo $item->filledQuota !='' ? $item->filledQuota : '0'; echo ' / '.JText::_($item->quota); ?>
 					</td>
 					<td class="center">
+						<a class="btn" href="javascript:void(0);" onclick="assignAvailibilityModal('<?php echo $item->service_id.'\', \''.$item->daytime_id; ?>');" title="Assigner une tranche horaire">
+							<i class="icon-time"></i>
+						</a>
 						<a class="btn" onClick="javascript:return confirm('Supprimera également toutes les inscriptions associées à cette tranche horaire. Êtes-vous sûr?')" href="index.php?option=com_estivole&task=daytime.deleteListDaytime&daytime_id=<?php echo $item->daytime_id; ?>">
 							<i class="icon-trash"></i>
 						</a>
@@ -109,5 +112,6 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 		</a>
 	</div>
 </div>
+<?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'daytime'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_assignavailibility.php'); ?>
 <?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'daytime'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_addtime.php'); ?>
 <?php include_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'daytime'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'_export.php'); ?>

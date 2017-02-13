@@ -22,7 +22,6 @@ $tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set
 $campingOptions=$membersOptions->getOptionsCamping(); // works only if you set your field getOptions on public!!
 
 //Get services options
-JFormHelper::addFieldPath(JPATH_COMPONENT . '/models/fields');
 $services = JFormHelper::loadFieldType('Services', false);
 $servicesOptions=$services->getOptions(); // works only if you set your field getOptions on public!!
 

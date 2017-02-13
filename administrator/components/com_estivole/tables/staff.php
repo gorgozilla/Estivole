@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_weblinks
  * @since       1.5
  */
-class TableMember extends JTable
+class TableStaff extends JTable
 {
 	/**
 	 * Constructor

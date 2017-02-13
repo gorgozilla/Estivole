@@ -108,6 +108,13 @@ function addAvailibilityModal(member_id, member_daytime_id)
 	});
 }
 
+function assignAvailibilityModal(service_id, daytime_id)
+{
+	jQuery("#assignAvailibilityModal").modal('show');
+	jQuery("#assignAvailibilityModal #service_id").val(service_id);
+	jQuery("#assignAvailibilityModal #daytime_id").val(daytime_id);
+}
+
 function composeEmail(member_id, member_daytime_id)
 {
 	jQuery("#composeEmail").modal('show');

@@ -44,17 +44,20 @@ class EstivoleHelpersEstivole extends JHelperContent
 	public static function addSubmenu($vName)
     {
         JHtmlSidebar::addEntry(
-            'Membres',
+            'Bénévoles',
             'index.php?option=com_estivole&view=members',
             $vName == 'members'
         );
-		
+        JHtmlSidebar::addEntry(
+            'Staffs',
+            'index.php?option=com_estivole&view=staffs',
+            $vName == 'staffs'
+        );
 		JHtmlSidebar::addEntry(
             'Secteurs',
             'index.php?option=com_estivole&view=services',
             $vName == 'services'
         );
-		
 		JHtmlSidebar::addEntry(
             'Calendriers',
             'index.php?option=com_estivole&view=calendars',

@@ -21,6 +21,8 @@ class EstivoleControllerAdd extends JControllerForm
 		if($task=='add_member_daytime'){
 			$this->add_member_daytime();
 			$app->enqueueMessage('Assignation ajoutée avec succès!');
+		}else if($task=='assign_member_daytime'){
+			$this->assign_member_daytime();
 		}else if($task=='copy_calendar'){
 			$this->copy_calendar();
 		}else{
@@ -54,6 +56,25 @@ class EstivoleControllerAdd extends JControllerForm
 				$this->formData['daytime_id']=$daytime_id;
 				$this->model->saveMemberDaytime($this->formData);
 			}
+		}
+	}
+	
+	public function assign_member_daytime()
+	{
+		$app      = JFactory::getApplication();
+		// Required objects 
+		$input = JFactory::getApplication()->input; 
+
+		// Get the daytimes checkboxes data 
+		$cid = $this->formData['member_id'];
+
+		if (empty($cid))
+		{
+			JError::raiseWarning(500, JText::_('JERROR_NO_ITEMS_SELECTED'));
+		}
+		else
+		{
+				$this->model->saveMemberDaytime($this->formData);
 		}
 	}
 	

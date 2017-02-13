@@ -60,9 +60,17 @@
 					<option value="0">JDISABLED</option>
 				</field>
 			
-			<field name="profile-require_sex" type="list"
+				<field name="profile-require_sex" type="list"
 					description="PLG_USER_PROFILESTIVOLE_FIELD_SEX_DESC"
 					label="PLG_USER_PROFILESTIVOLE_FIELD_SEX_LABEL">
+					<option value="2">JOPTION_REQUIRED</option>
+					<option value="1">JOPTION_OPTIONAL</option>
+					<option value="0">JDISABLED</option>
+				</field>
+				
+				<field name="profile-require_service_id" type="list"
+					description="PLG_USER_PROFILESTIVOLE_FIELD_SERVICE_DESC"
+					label="PLG_USER_PROFILESTIVOLE_FIELD_SERVICE_LABEL">
 					<option value="2">JOPTION_REQUIRED</option>
 					<option value="1">JOPTION_OPTIONAL</option>
 					<option value="0">JDISABLED</option>

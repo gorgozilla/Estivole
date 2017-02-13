@@ -2,8 +2,9 @@
 require_once JPATH_COMPONENT . '/models/daytime.php';
 require_once JPATH_COMPONENT . '/models/services.php';
 require_once JPATH_COMPONENT . '/models/calendars.php';
+require_once JPATH_COMPONENT . '/models/member.php';
 
-class EstivoleViewMember extends JViewLegacy
+class EstivoleViewStaff extends JViewLegacy
 {
 	function display($tpl=null)
 	{
@@ -50,18 +51,18 @@ class EstivoleViewMember extends JViewLegacy
 	{
 		JFactory::getApplication()->input->set('hidemainmenu', true);
 
-		JToolbarHelper::title(JText::_('Gestion des bénévoles : Editer un bénévole'));
+		JToolbarHelper::title(JText::_('Gestion des staffs : Editer un staff'));
 
-		JToolbarHelper::apply('member.apply');
-		JToolbarHelper::save('member.save');
+		JToolbarHelper::apply('staff.apply');
+		JToolbarHelper::save('staff.save');
 
 		if (empty($this->item->id))
 		{
-			JToolbarHelper::cancel('member.cancel');
+			JToolbarHelper::cancel('staff.cancel');
 		}
 		else
 		{
-			JToolbarHelper::cancel('member.cancel', 'JTOOLBAR_CLOSE');
+			JToolbarHelper::cancel('staff.cancel', 'JTOOLBAR_CLOSE');
 		}
 	}
 }

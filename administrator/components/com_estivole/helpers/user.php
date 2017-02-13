@@ -69,7 +69,8 @@ class EstivoleHelpersUser
 											'dob' => $formData['profile.birthdate'],
 											'address1' => $formData['profile.address1']));
 											
-			$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'],
+			$instance->set('profilestivole', array('service_id' => $formData['profilestivole.service_id'],
+													'tshirtsize' => $formData['profilestivole.tshirtsize'],
 													'campingPlace' => $formData['profilestivole.campingPlace'],
 													'sex' => $formData['profilestivole.sex'],
 													'firstname' => $formData['profilestivole.firstname'],
@@ -102,8 +103,16 @@ class EstivoleHelpersUser
 				
 				//Update member that has been created through user registration by plugin estivole
 				$user_id = $user->id;
+				
+				//IF STAFF, ADD TO ADMIN GROUP
+				if($formData['member_type_id']==2){
+					$group_id = 7;
+					jimport( 'joomla.user.helper' );
+					JUserHelper::addUserToGroup($user_id, $group_id);
+				}
+				
+				//UPDATE MEMBER
 				$query="SELECT * FROM #__estivole_members WHERE user_id='$user_id'";
-
                 $db->setQuery($query);
                 $db->query();
 				$memberObj = $db->loadObject();
@@ -116,6 +125,7 @@ class EstivoleHelpersUser
 				$member->city = $formData['city'];
 				$member->address = $formData['address'];
 				$member->npa = $formData['npa'];
+				$member->member_type_id = $formData['member_type_id'];
 				
 				if(!$member->store()) 
 				{
@@ -146,7 +156,20 @@ class EstivoleHelpersUser
 						// Append this URL in your email body						
                         $user_activation_url = JURI::root().'index.php?option=com_users&task=registration.activate&token='.$user->activation; 
                         $emailSubject = 'Activation compte Estivale Open Air';
-                        $emailBody = '	<p>Merci pour votre inscription en tant que bénévole, prépare-toi à kiffer la vibe, du moins nous allons tout faire pour que ce soit le cas! :)</p>
+						
+						//IF STAFF, ADD TO ADMIN GROUP
+						if($formData['member_type_id']==2){
+							$emailBody = '<p>Vous avez été inscrit en tant que staff de l\'Estivale Open Air par un administrateur, bienvenue dans la famille! :)</p>
+										<p>Afin de finaliser votre inscription et valider votre compte, merci de cliquer sur le lien suivant :<br />'
+										.$user_activation_url.
+										'<p>Votre nom d\'utilisateur ainsi que votre mot de passe vous sont parvenus dans un email séparé. 
+										Utilisez ces derniers pour vous connecter à votre compte,
+										vous pourrez ensuite accéder à <a href=http://benevoles.estivale.ch/administrator/index.php?option=com_estivole>l\'administration de la gestion des bénévoles</a> pour votre secteur.</p>
+										<p><strong><a href=http://benevoles.estivale.ch/index.php/edit-profil>Modifiez votre nom d\'utilisateur ainsi que votre mot de passe afin de vous souvenir de ces derniers!</a></strong></p>
+										<p>Meilleures salutations et à bientôt,</p>
+										<p>Team Bénévoles Estivale Open Air</p>';
+						}else{
+							$emailBody = '<p>Merci pour votre inscription en tant que bénévole, prépare-toi à kiffer la vibe, du moins nous allons tout faire pour que ce soit le cas! :)</p>
 										<p>Afin de finaliser votre inscription et valider votre compte, merci de cliquer sur le lien suivant :<br />'
 										.$user_activation_url.
 										'<p>Votre nom d\'utilisateur ainsi que votre mot de passe vous sont parvenus dans un email séparé. 
@@ -155,6 +178,7 @@ class EstivoleHelpersUser
 										<p><strong><a href=http://benevoles.estivale.ch/index.php/edit-profil>Modifiez votre nom d\'utilisateur ainsi que votre mot de passe afin de vous souvenir de ces derniers!</a></strong></p>
 										<p>Meilleures salutations et à bientôt,</p>
 										<p>Team Bénévoles Estivale Open Air</p>';
+						}
  
                         JFactory::getMailer()->sendMail('sender email', 'sender name', $user->email, $emailSubject, $emailBody, true);                             
 						$return->success=true;
@@ -203,8 +227,6 @@ class EstivoleHelpersUser
 		$instance->set('id'         , $formData['user_id']);
 		$instance->set('name'           , $name);
 		$instance->set('username'       , $username);
-		//$instance->set('password' , $password);
-		//$instance->set('password_clear' , $password_clear);
 		$instance->set('email'          , $email);
 		$instance->set('usertype'       , 'deprecated');
 		$instance->set('groups'     , array($defaultUserGroup));
@@ -216,7 +238,8 @@ class EstivoleHelpersUser
 											'dob' => $formData['profile.birthdate'],
 											'address1' => $formData['profile.address1']));
 											
-			$instance->set('profilestivole', array('tshirtsize' => $formData['profilestivole.tshirtsize'],
+			$instance->set('profilestivole', array('service_id' => $formData['profilestivole.service_id'],
+													'tshirtsize' => $formData['profilestivole.tshirtsize'],
 													'campingPlace' => $formData['profilestivole.campingPlace'],
 													'sex' => $formData['profilestivole.sex'],
 													'firstname' => $formData['profilestivole.firstname'],
@@ -256,6 +279,7 @@ class EstivoleHelpersUser
 			$member->city = $formData['city'];
 			$member->address = $formData['address'];
 			$member->npa = $formData['npa'];
+			$member->service_id = $formData['service_id'];
 			
 			if(!$member->store()) 
 			{

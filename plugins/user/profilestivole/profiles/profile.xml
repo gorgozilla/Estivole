@@ -24,6 +24,10 @@
 				<option value="M">Masculin</option>
 				<option value="F">Féminin</option>
 			</field>
+			<field name="service_id" type="list"
+				description="PLG_USER_PROFILESTIVOLE_FIELD_SERVICE_DESC"
+				label="PLG_USER_PROFILESTIVOLE_FIELD_SERVICE_LABEL">
+			</field>
 			<field name="campingPlace" type="checkbox" label="Dormez-vous au camping ?" value="1" default="0" />
 		</fieldset>
 	</fields>

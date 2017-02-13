@@ -123,7 +123,7 @@ class EstivoleModelCalendar extends JModelAdmin
 		$last_calendar_id = $db->insertid();
 		
 		$modelDaytime = new EstivoleModelDaytime();
-		$daytimes = $modelDaytime->listItems();
+		$daytimes = $modelDaytime->listItems($formData['calendar_id']);
 		
 		$daytimeColumns = array('calendar_id', 'service_id', 'daytime_day', 'daytime_hour_start', 'daytime_hour_end', 'quota', 'description', 'created', 'modified', 'published');
 		foreach($daytimes as $daytime){
@@ -154,12 +154,12 @@ class EstivoleModelCalendar extends JModelAdmin
 		$calendar->load($id);
 		
 		$modelDaytime = new EstivoleModelDaytime();
-		$memberDaytimes = $modelDaytime->getMemberDaytimes(null, $id);
+		$memberDaytimes = $modelDaytime->listItems($id);
 		
 		foreach($memberDaytimes as $memberDaytime){
 			$daytime = JTable::getInstance('Daytime','Table');
 			$daytime->load($memberDaytime->daytime_id);
-			if ($daytime->delete()) 
+			if (!$daytime->delete()) 
 			{
 				return false;
 			}

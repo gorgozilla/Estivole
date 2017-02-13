@@ -4,6 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 require_once JPATH_COMPONENT . '/models/daytime.php';
 require_once JPATH_COMPONENT . '/models/services.php';
 require_once JPATH_COMPONENT . '/models/calendars.php';
+require_once JPATH_COMPONENT . '/models/members.php';
 
 class EstivoleHelpersHtml
 {
@@ -102,5 +103,24 @@ class EstivoleHelpersHtml
 		
 		## Create <select name="month" class="inputbox"></select> ##
 		return JHTML::_('select.genericlist', $options, 'jform[daytime]', 'class="inputbox" id="jform_daytime"', 'value', 'text', $default);
+	}
+	
+	function membersList()
+	{
+		$membersModel = new EstivoleModelMembers();
+
+		$this->members = $membersModel->getTotalItems();
+		
+		## Initialize array to store dropdown options ##
+		$options = array();
+		
+		foreach($this->members as $member) :
+			$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $member->user_id );
+			## Create $value ##
+			$options[] = JHTML::_('select.option', $member->member_id, $userProfilEstivole->profilestivole['firstname'].' '.$userProfilEstivole->profilestivole['lastname']);
+		endforeach;
+		
+		## Create <select name="month" class="inputbox"></select> ##
+		return JHTML::_('select.genericlist', $options, 'jform[member_id]', 'class="inputbox" id="member_id"', 'value', 'text', $default);
 	}
 }
