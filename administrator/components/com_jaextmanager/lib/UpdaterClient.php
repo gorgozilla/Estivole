@@ -109,6 +109,20 @@ class UpdaterClient
 		return $result;
 	}
 
+	function getLoginStatus($service)
+	{
+		$content["service"] = "authUser";
+		$content["args"]["account"] = $service;
+		$message = $this->buildMessage($content);
+		$messageData = "json=" . json_encode($message);
+		
+		$content = $message->content;
+		$account = $content["args"]["account"];
+		$serviceUrl = $account->ws_uri;
+		$result = NetworkHelper::doPOST($serviceUrl, $messageData);
+		$result = $this->getJsonObject($result);
+		return $result;
+	}
 
 	/**
 	 *

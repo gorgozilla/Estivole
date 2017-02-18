@@ -130,7 +130,7 @@ class EstivoleModelDaytime extends JModelList
   *
   * @return array An array of results.
   */
-  public function listItems($calendar_id)
+  public function listItems($calendar_id=null)
   {
 	  //Build and querydatabase
     $query = $this->_buildQuery();    

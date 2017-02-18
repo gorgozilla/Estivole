@@ -1,20 +1,25 @@
-
+.com_mijoshop .common-home #content_oc h1,
+.com_mijoshop .common-home #content_oc h2 {
+  font-size: 24px;
+}
 .com_mijoshop .box_oc .box-product {
   margin-right: 0;
+  padding: 20px;
 }
 .com_mijoshop .box_oc .box-product > div {
   float: right;
   margin: 0;
-  width: 25%;
+  margin-left: 20px;
+  width: 100%;
 }
 .com_mijoshop .box_oc .box-product > div .image {
+  display: inline-block;
   border: 1px solid #eeeeee;
-  margin: 0 10px;
   padding: 5px;
-  text-align: center;
+  text-align: right;
 }
 .com_mijoshop .box_oc .box-product > div .image a {
-  display: block;
+  display: inline-block;
 }
 .com_mijoshop .box_oc .box-product > div .image img {
   border: 0;
@@ -22,7 +27,16 @@
 }
 .com_mijoshop .box_oc .box-product > div .name {
   padding: 10px 0;
-  text-align: center;
+  text-align: right;
+}
+.com_mijoshop .box_oc .box-product > div .price {
+  margin: 10px 0;
+}
+.com_mijoshop .box_oc #tab-related .box-product > div {
+  width: auto;
+}
+.com_mijoshop .box_oc .box-content .content_oc p * {
+  margin: 10px 0 10px 10px;
 }
 .com_mijoshop #header_oc {
   margin: 0 0 20px;
@@ -57,14 +71,56 @@
   bottom: 0;
   top: auto;
 }
-.com_mijoshop #content_oc .box-heading {
-  background: #eeeeee;
-  border-radius: 0;
-  padding: 10px 20px;
+.com_mijoshop #currency .dropdown-menu > li,
+.com_mijoshop #top-links .dropdown-menu > li {
+  border-color: #eeeeee;
 }
-.com_mijoshop #content_oc .box-content {
-  border-radius: 0;
-  padding: 20px;
+.com_mijoshop #currency .dropdown-menu > li a:hover,
+.com_mijoshop #top-links .dropdown-menu > li a:hover,
+.com_mijoshop #currency .dropdown-menu > li a:focus,
+.com_mijoshop #top-links .dropdown-menu > li a:focus {
+  color: #ffffff;
+}
+.com_mijoshop #currency .open a,
+.com_mijoshop #top-links .open a {
+  color: #444444;
+}
+.com_mijoshop .mijoshop .product-thumb .image img {
+  max-width: 100%;
+  width: 100%;
+}
+.com_mijoshop .mijoshop .product-thumb .caption {
+  padding: 15px !important;
+}
+.com_mijoshop .mijoshop .product-thumb .caption h4 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+.com_mijoshop .mijoshop .product-thumb .caption h4 a {
+  color: #444444;
+}
+.com_mijoshop .mijoshop .product-thumb .caption h4 a:hover,
+.com_mijoshop .mijoshop .product-thumb .caption h4 a:focus {
+  color: #ff8800;
+}
+.com_mijoshop .mijoshop .product-thumb .caption .price {
+  font-weight: 700;
+  color: #ff8800;
+  margin-top: 10px !important;
+}
+.com_mijoshop .mijoshop .product-thumb .caption .price .price-tax {
+  color: #999999;
+  font-weight: 400;
+}
+.com_mijoshop #content_oc > h2 {
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+.com_mijoshop #content_oc > p {
+  padding: 10px 20px;
+  border: 1px solid #eeeeee;
+  margin-bottom: 20px !important;
+  margin-top: 10px !important;
 }
 .com_mijoshop #content_oc .product-filter {
   padding-bottom: 10px;
@@ -72,43 +128,25 @@
 .com_mijoshop #content_oc .product-filter .display {
   padding-top: 15px;
 }
-.com_mijoshop #content_oc .product-compare {
-  padding-top: 20px;
-  margin-bottom: 20px;
+.com_mijoshop #content_oc .product-grid .product-thumb .caption {
+  min-height: 200px !important;
 }
-.com_mijoshop #content_oc .product-grid {
-  width: auto;
-  margin: 0 -10px -20px;
+.com_mijoshop #content_oc .product-list .product-thumb .image {
+  padding: 0 0 0 20px;
+  height: 200px;
 }
-.com_mijoshop #content_oc .product-grid:before,
-.com_mijoshop #content_oc .product-grid:after {
-  content: " ";
-  display: table;
+.com_mijoshop #content_oc .product-list .product-thumb .image > a {
+  height: 100%;
 }
-.com_mijoshop #content_oc .product-grid:after {
-  clear: both;
-}
-.com_mijoshop #content_oc .product-grid > div {
-  float: right;
-  width: 25%;
-  margin-left: 0;
-  margin-bottom: 20px;
-}
-.com_mijoshop #content_oc .product-grid > div > div {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-.com_mijoshop #content_oc .product-grid > div > div.wishlist,
-.com_mijoshop #content_oc .product-grid > div > div.compare {
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-.com_mijoshop #content_oc .product-grid > div img {
+.com_mijoshop #content_oc .product-list .product-thumb .image img {
   max-width: 100%;
+  max-height: 100%;
 }
-.com_mijoshop #content_oc .product-grid > div:nth-child(4n + 1) {
-  clear: both;
+.com_mijoshop #content_oc .product-list .product-thumb .caption {
+  overflow: hidden;
+  margin: 0;
+  padding: 20px 0 20px 20px !important;
+  min-height: 161px !important;
 }
 .com_mijoshop .product-info .left {
   width: 30% !important;
@@ -159,4 +197,18 @@
 }
 .com_mijoshop .cart-module #shipping table td {
   padding: 10px 20px;
+}
+.com_mijoshop .box-category ul li {
+  padding: 10px 0 10px 10px;
+}
+.com_mijoshop #colorbox {
+  box-sizing: unset !important;
+}
+.com_mijoshop #column-right .row > div {
+  width: 100%;
+  float: none;
+}
+.com_mijoshop .t3-sidebar .mijoshop .container_oc .row > div {
+  width: 100%;
+  float: none;
 }

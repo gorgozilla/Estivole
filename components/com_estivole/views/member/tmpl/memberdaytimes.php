@@ -20,18 +20,6 @@ if($this->user->guest){
 	}
 }else{
 	// Else display member edit form ?>
-	<script type="text/javascript" language="javascript">
-		jQuery(document).ready(function() {
-			<?php if(count($this->calendars[0]->member_daytimes)>0){ ?>
-			jQuery('#memberDaytimesTable').DataTable({
-				"paging":   false,
-				"info":     false,
-				"searching":	false
-			});
-			<?php } ?>
-			
-		});
-	</script>
 	<h1>Espace benevole > Mon calendrier</h1>
 	
 	<p>C'est ici que vous réservez votre place pour devenir bénévole. Pour se faire, c'est très simple : </p>

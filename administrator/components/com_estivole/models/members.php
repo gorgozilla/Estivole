@@ -36,9 +36,13 @@ class EstivoleModelMembers extends JModelList
 		$tshirtsizes= $app->getUserStateFromRequest($this->context.'.filter.tshirt_size', 'filter_tshirtsize', '', 'string');
 		$this->setState('filter.tshirt_size', $tshirtsizes);
 		
-		//Filter (dropdown) tshirt-size
+		//Filter (dropdown) camping
 		$campingPlace= $app->getUserStateFromRequest($this->context.'.filter.campingPlace', 'filter_campingPlace', '', 'int');
 		$this->setState('filter.campingPlace', $campingPlace);
+		
+		//Filter (dropdown) member status
+		$memberStatus= $app->getUserStateFromRequest($this->context.'.filter.member_status', 'filter_memberStatus', '', 'int');
+		$this->setState('filter.member_status', $memberStatus);
 		
 		//Filter (dropdown) service
 		$services= $app->getUserStateFromRequest($this->context.'.filter.services_members', 'filter_services_members', '', 'string');
@@ -93,7 +97,6 @@ class EstivoleModelMembers extends JModelList
 		$query->from('#__estivole_members as b');
 		$query->from('#__users as u');
 		$query->from('#__user_profiles as p');
-
 		return $query;
 	}
 
@@ -130,6 +133,13 @@ class EstivoleModelMembers extends JModelList
 		$campingPlace= $db->escape($this->getState('filter.campingPlace'));
 		if (!empty($campingPlace)) {
 			$query->where('(p.profile_value=\'"'.$campingPlace.'"\' AND p.profile_key=\'profilestivole.campingPlace\')');
+		}
+		
+		$memberStatus= $db->escape($this->getState('filter.member_status'));
+		if ($memberStatus==0) {
+			$query->where('(b.member_id NOT IN (SELECT member_id FROM #__estivole_members_daytimes))');
+		}else if($memberStatus==1){
+			$query->where('(b.member_id IN (SELECT member_id FROM #__estivole_members_daytimes))');			
 		}
 		
 		$service= $this->getState('filter.services_members');

@@ -83,7 +83,7 @@ class JaextmanagerViewServices extends JAEMView
 		$pageNav = new JPagination($total, $lists['limitstart'], $lists['limit']);
 		
 		//$services = $model->getList ('', 't.ws_name ASC', $lists ['limitstart'], $lists ['limit'] );
-		$services = $model->getList('', '', $lists['limitstart'], $limit);
+		$services = $model->getList('', 't.id asc', $lists['limitstart'], $limit);
 		
 		$this->assign('services', $services);
 		

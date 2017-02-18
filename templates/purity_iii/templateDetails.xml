@@ -2,8 +2,8 @@
 <!DOCTYPE install PUBLIC "-//Joomla! 1.6//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
 <extension version="2.5" type="template" method="upgrade" client="site">
 	<name>purity_III</name>
-	<version>1.1.8</version>
-	<creationDate>06 Dec 2016</creationDate>
+	<version>1.1.9</version>
+	<creationDate>16 Feb 2017</creationDate>
 	<author>JoomlArt.com</author>
 	<authorEmail>webmaster@joomlart.com</authorEmail>
 	<authorUrl>http://www.t3-framework.org</authorUrl>
@@ -21,7 +21,7 @@
 				<p> </p>
 				<span style="color:#FF0000">Note: Purity III requires T3 plugin to be installed and enabled.</span>
 				<p> </p>
-				<p>Copyright 2004 - 2016 <a href='http://www.joomlart.com/' title='Visit Joomlart.com!'>JoomlArt.com</a>.</p>
+				<p>Copyright 2004 - 2017 <a href='http://www.joomlart.com/' title='Visit Joomlart.com!'>JoomlArt.com</a>.</p>
 			</div>
 			<style>table.adminform{width: 100%;}</style>
 		</div>
@@ -60,15 +60,22 @@
 	<positions>
 		<position>languageswitcherload</position>
 		<position>head-search</position>
+		<position>magazine-articles</position>
 		<position>mainnav</position>
 		<position>navhelper</position>
 		<position>breadcrumbs</position>
+		<position>slideshow</position>
+		<position>masthead</position>
 		<position>off-canvas</position>
 		<position>sidebar-1</position>
 		<position>sidebar-2</position>
 		<position>mast-col</position>
+		<position>after-content</position>
 		<position>footer</position>
+		<position>mega</position>
+		<position>sitemapload</position>
 		<position>features-intro-1</position>
+		<position>features-intro-2</position>
 		<position>position-0</position>
 		<position>position-1</position>
 		<position>position-2</position>
@@ -96,6 +103,14 @@
 		<position>footer-8</position>
 		<position>footer-9</position>
 		<position>footer-10</position>
+		<position>home-1</position>
+		<position>home-2</position>
+		<position>home-3</position>
+		<position>home-4</position>
+		<position>home-5</position>
+		<position>home-6</position>
+		<position>tab-1</position>
+		<position>tab-2</position>
 		<position>debug</position>
 	</positions>
 
@@ -126,7 +141,7 @@
 	</config>
 
 	<updateservers>
-		<server type="collection">http://update.joomlart.com/service/tracking/list.xml</server>
+		<server type="extension">http://update.joomlart.com/service/tracking/j31/purity_iii.xml</server>
 	</updateservers>
 
 </extension>

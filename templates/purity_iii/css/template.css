@@ -2174,6 +2174,10 @@ div.finder {
 .alert-error .alert-link {
   color: #953b39;
 }
+.alert-error .alert-message {
+  background: transparent;
+  color: inherit;
+}
 .tip-wrap {
   background: #fff6df;
   border: 1px solid #fb3;

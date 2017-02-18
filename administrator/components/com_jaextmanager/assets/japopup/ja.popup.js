@@ -24,7 +24,10 @@ function jaCreatePopup(target, jaWidth, jaHeight, title, dsave, titlesave, locat
 			'style': ''
 		}).html(' ').appendTo('#toolbar-box');
 	}
-	//
+	// when popup created but user still click to edit button
+	if (jQuery('#ja-wrap-content').length) {
+		jQuery('#ja-wrap-content').remove();
+	}
 	var Obj = document.getElementById('jaForm');
 	if (!Obj) {
 		var content = jQuery('<div>').attr({
@@ -237,8 +240,8 @@ function jaCreatePopup(target, jaWidth, jaHeight, title, dsave, titlesave, locat
 			left: event.offsetX
 		});
 	});
-
-
+	
+	jQuery( document ).trigger( "afterCreatePopup" );
 }
 
 function hiddenMessage() {
@@ -368,12 +371,14 @@ function submitbuttonAdmin() {
 			iframe.find("#adminForm").submit();
 			return false;
 		}
+		if (iframe.find("#adminForm").length > 0) {
+			jQuery.post("index.php", iframe.find("#adminForm").serialize(), function (res) {
+				jaFormHideIFrame();
+				window.parent.document.location.reload();
+				parseData_admin(res);
+			}, 'json');
+		}
 		
-		jQuery.post("index.php", iframe.find("#adminForm").serialize(), function (res) {
-			jaFormHideIFrame();
-			//window.parent.document.location.reload();
-			parseData_admin(res);
-		}, 'json');
 	} else {
 		alert("Invalid data! Please insert information again!");
 	}

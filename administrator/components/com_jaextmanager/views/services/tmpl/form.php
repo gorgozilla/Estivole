@@ -15,7 +15,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 
 $item=$this->item;
 ?>
-<form name="adminForm" id="adminForm" action="index.php" method="post">
+<form name="adminForm" id="service_info" action="index.php" method="post">
   <input type="hidden" name="option" value="com_jaextmanager" />
   <input type="hidden" name="view" value="services" />
   <input type="hidden" name="task" value="saveIFrame" />
@@ -70,7 +70,7 @@ $item=$this->item;
   <?php endif; ?>
 </form>
 
-
+<!--
 <script type="text/javascript">
 /*<![CDATA[*/
 jQuery(document).ready(function(){
@@ -110,4 +110,4 @@ jQuery(document).ready(function(){
 	});
 });
 /*]]>*/
-</script>
+</script>-->

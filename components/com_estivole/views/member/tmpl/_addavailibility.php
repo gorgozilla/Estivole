@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 
 JHtml::_('behavior.formvalidation');
-JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen');
 ?>
 	<script type="text/javascript" language="javascript">
 		jQuery(document).ready(function() {

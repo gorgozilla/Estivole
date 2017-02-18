@@ -54,6 +54,16 @@ class JFormFieldMembers extends JFormFieldList
 		return $arr;
 	}
 	
+	public function getOptionsMemberStatus()
+	{
+		$arr = array(
+			JHTML::_('select.option', '1', JText::_('Actif')),
+			JHTML::_('select.option', '0', JText::_('Non-actif (pas inscrit à aucune tranche horaire)'))
+		);
+ 
+		return $arr;
+	}
+	
 	public function getOptionsCamping()
 	{
 		$arr = array(JHTML::_('select.option', '1', 'Dors au camping' ));

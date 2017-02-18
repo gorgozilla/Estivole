@@ -21,6 +21,9 @@ $tshirtOptions=$membersOptions->getOptionsTshirtSize(); // works only if you set
 //Get camping options
 $campingOptions=$membersOptions->getOptionsCamping(); // works only if you set your field getOptions on public!!
 
+//Get member status options
+$memberStatusOptions=$membersOptions->getOptionsMemberStatus(); // works only if you set your field getOptions on public!!
+
 //Get services options
 $services = JFormHelper::loadFieldType('Services', false);
 $servicesOptions=$services->getOptions(); // works only if you set your field getOptions on public!!
@@ -70,6 +73,10 @@ function tableOrdering( order, dir, task )
 					<button type="button" class="btn hasTooltip" title="Effacer" onclick="document.getElementById('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 				</div>
 				<div class="btn-group pull-right hidden-phone">
+					<select name="filter_memberStatus" class="inputbox" onchange="this.form.submit()">
+						<option value="1000"> - Status - </option>
+						<?php echo JHtml::_('select.options', $memberStatusOptions, 'value', 'text', $this->state->get('filter.member_status'));?>
+					</select>
 					<select name="filter_tshirtsize" class="inputbox" onchange="this.form.submit()">
 						<option value=""> - Taille t-shirt - </option>
 						<?php echo JHtml::_('select.options', $tshirtOptions, 'value', 'text', $this->state->get('filter.tshirt_size'));?>
