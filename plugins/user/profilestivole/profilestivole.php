@@ -112,13 +112,19 @@
 			}
 			
 			// Toggle whether the tshirtsize field is required.
-			if ($this->params->get('register-require_sex', 1) > 0) {
-				$form->setFieldAttribute('sex', 'required', $this->params->get('register-require_sex') == 2, 'profilestivole');
+			if ($this->params->get('profile-require_sex', 1) > 0) {
+				$form->setFieldAttribute('sex', 'required', $this->params->get('profile-require_sex') == 2, 'profilestivole');
 			} else {
 				$form->removeField('sex', 'profilestivole');
 			}
+			
+			// Toggle whether the service id field is required.
+			if ($this->params->get('register-require_service_id', 1) > 0) {
+				$form->setFieldAttribute('service_id', 'required', $this->params->get('register-require_service_id') == 2, 'profilestivole');
+			} else {
+				$form->removeField('service_id', 'profilestivole');
+			}
 		}
- 
 		//In this example, we treat the frontend registration and the back end user create or edit as the same. 
 		elseif ($form->getName()=='com_users.registration' || $form->getName()=='com_users.user' )
 		{		
@@ -136,6 +142,12 @@
 				$form->setFieldAttribute('lastname', 'required', $this->params->get('profile-require_lastname') == 2, 'profilestivole');
 			} else {
 				$form->removeField('lastname', 'profilestivole');
+			}
+			
+			if ($this->params->get('register-require_specialfood', 1) > 0) {
+				$form->setFieldAttribute('specialfood', 'required', $this->params->get('register-require_specialfood') == 2, 'profilestivole');
+			} else {
+				$form->removeField('specialfood', 'profilestivole');
 			}
 
 			// Toggle whether the tshirtsize field is required.
@@ -157,6 +169,14 @@
 				$form->setFieldAttribute('sex', 'required', $this->params->get('profile-require_sex') == 2, 'profilestivole');
 			} else {
 				$form->removeField('sex', 'profilestivole');
+			}
+			
+			// Toggle whether the service id field is required.
+			if ($this->params->get('register-require_service_id', 1) > 0) {
+				$form->setFieldAttribute('service_id', 'required', $this->params->get('register-require_service_id') == 2, 'profilestivole');
+			} else {
+				$form->removeField('service_id', 'profilestivole');
+				$form->removeField('service_id', 'profilestivole');
 			}
 		}			
 	}

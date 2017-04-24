@@ -123,7 +123,11 @@ class EstivoleModelCalendar extends JModelAdmin
 		$last_calendar_id = $db->insertid();
 		
 		$modelDaytime = new EstivoleModelDaytime();
-		$daytimes = $modelDaytime->listItems($formData['calendar_id']);
+		if($formData['withDaytimes']){
+			$daytimes = $modelDaytime->listItemsCopyCalWithDaytimes($formData['calendar_id']);
+		}else{
+			$daytimes = $modelDaytime->listItems($formData['calendar_id']);
+		}
 		
 		$daytimeColumns = array('calendar_id', 'service_id', 'daytime_day', 'daytime_hour_start', 'daytime_hour_end', 'quota', 'description', 'created', 'modified', 'published');
 		foreach($daytimes as $daytime){

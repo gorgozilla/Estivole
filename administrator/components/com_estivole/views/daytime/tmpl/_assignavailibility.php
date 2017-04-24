@@ -12,30 +12,6 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.formvalidation');
 JHtml::_('formbehavior.chosen', 'select');
 ?>
-<?php if($this->member->member_id!=null){ ?>
-	<script type="text/javascript" language="javascript">
-		jQuery(document).ready(function() {
-			// var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
-			// var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-			// var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
-			// getCalendarDaytimes(calendar_id, daytime, service_id);
-			// getDaytimesByService(calendar_id, service_id);
-			
-			// jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").change(function() {
-				// var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
-				// var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-				// var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
-				// getCalendarDaytimes(calendar_id, daytime, service_id);
-			// });
-			
-			// jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformservice_id").change(function() {
-				// var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-				// var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
-				// getDaytimesByService(calendar_id, service_id);
-			// });
-		});
-	</script>
-<?php } ?>
 <div id="assignAvailibilityModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newAssignAvailibilityModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

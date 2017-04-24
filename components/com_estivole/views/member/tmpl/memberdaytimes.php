@@ -30,7 +30,7 @@ if($this->user->guest){
 	<li>La liste des tranches horaires s'affiche, sélectionnez celle de votre choix en fonction de votre disponibilité et de la tâche vous arrangeant.</li>
 	</ul>
 	
-	<p>Vous pouvez bien sûr ajouter autan de disponibilité que vous le souhaitez. Pour chaque disponibilité, une confirmation vous sera envoyée par email.</p>
+	<p>Vous pouvez bien sûr ajouter autant de disponibilités que vous le souhaitez. Pour chaque disponibilité, une confirmation vous sera envoyée par email.</p>
 	
 		<p class="text-danger"><strong>Important :<br />
 		Pour les bénévoles travaillant le 1er août, soit durant la soirée gratuite, un billet vous sera offert l'année prochaine pour la soirée de votre choix!<br />

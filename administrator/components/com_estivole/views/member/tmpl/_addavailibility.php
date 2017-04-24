@@ -41,7 +41,7 @@ JHtml::_('formbehavior.chosen', 'select');
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 		<h3 id="myModalLabel"><?php echo JText::_('Ajouter une tranche horaire'); ?></h3>
 	</div>
-	<div class="modal-body" style="height:500px;">
+	<div class="modal-body">
 		<div class="row-fluid">
 			<form id="addDayTimeForm" method="POST" action="index.php?option=com_estivole&task=add.add_member_daytime&controller=add&tmpl=component">
 				<div id="availibility-modal-info" class="media"></div>

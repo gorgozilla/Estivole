@@ -43,7 +43,7 @@ $lang->load('plg_user_profile', JPATH_ADMINISTRATOR);
 		}
 	</script>
 
-	<form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_users&task=profile.save'); ?>" method="post" class="form-validate form-horizontal well" enctype="multipart/form-data">
+	<form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_users&task=profile.save'); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
 	<?php foreach ($this->form->getFieldsets() as $group => $fieldset):// Iterate through the form fieldsets and display each one.?>
 		<?php $fields = $this->form->getFieldset($group);?>
 		<?php if (count($fields)):?>

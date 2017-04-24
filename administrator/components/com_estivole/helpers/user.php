@@ -140,7 +140,6 @@ class EstivoleHelpersUser
                     // Auto registration
                     if($useractivation == 0)
                     {
-                         
                         $emailSubject = 'Confirmation inscription bénévole Estivale Open Air';
                         $emailBody = '<p>Merci pour votre inscription en tant que bénévole, prépare-toi à kiffer la vibe, du moins nous allons tout faire pour que ce soit le cas! :)</p>';
 										
@@ -186,13 +185,12 @@ class EstivoleHelpersUser
                         return $return;
                     }
                 }
-             }
- 
+            }
         } else {
             // Registration CLOSED!
-				$return->message = 'Enregistrement déjà utilisé utilisé!';
-				$return->success=false;
-                return $return;     
+			$return->message = 'Enregistrement déjà utilisé utilisé!';
+			$return->success=false;
+			return $return;     
         }
     }
 	

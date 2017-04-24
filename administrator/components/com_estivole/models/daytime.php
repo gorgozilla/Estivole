@@ -60,16 +60,8 @@ class EstivoleModelDaytime extends JModelList
   {
     $db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
-	
-	if($this->_daytime_day==''){
-		$query->select('*');
-		$query->group('daytime_day');
-	}else{
-		$query->select('*');
-	}
-	
+	$query->select('*');
 	$query->from('#__estivole_daytimes as b, #__estivole_services as s');
-
     return $query;
   }
 
@@ -135,7 +127,25 @@ class EstivoleModelDaytime extends JModelList
 	  //Build and querydatabase
     $query = $this->_buildQuery();    
     $query = $this->_buildWhere($query);
-	if($calendar_id!=''){
+	if($calendar_id!=null){
+		$query = $query->where("b.calendar_id = '".(int) $calendar_id."'");
+	}
+	if($this->_daytime_day==null){
+		$query->group('daytime_day');
+	}
+	$query->order('b.daytime_day, s.service_name, b.daytime_hour_start');
+	//Get list of data
+    $list = $this->_getList($query, $this->limitstart, $this->limit);
+	
+    return $list;
+  }
+  
+   public function listItemsCopyCalWithDaytimes($calendar_id=null)
+  {
+	  //Build and querydatabase
+    $query = $this->_buildQuery();    
+    $query = $this->_buildWhere($query);
+	if($calendar_id!=null){
 		$query = $query->where("b.calendar_id = '".(int) $calendar_id."'");
 	}
 	$query->order('b.daytime_day, s.service_name, b.daytime_hour_start');
@@ -345,7 +355,6 @@ class EstivoleModelDaytime extends JModelList
 	$query->from('#__estivole_daytimes as d, #__estivole_members_daytimes as md');
 	$query->where('md.daytime_id = ' . $daytime_id);
 	$query->where('md.daytime_id = d.daytime_id');
-	//echo $query;exit;
     $db->setQuery($query, 0, 0);
     $result = $db->loadObjectList();
  

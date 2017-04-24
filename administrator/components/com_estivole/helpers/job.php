@@ -21,11 +21,8 @@ abstract class JHtmlJob
         );
         $state  = JArrayHelper::getValue($states, (int) $value, $states[1]);
         $html   = JHtml::_('image', 'admin/'.$state[0], JText::_($state[2]), NULL, true);
-        //if ($canChange) {
-            $html   = '<a href="#" class="btn" onclick="return listItemTask(\'cb'.$i.'\',\''.$state[1].'\')" title="'.JText::_($state[3]).'">'
-                    . $html.'</a>';
-        //}
-
+		$html   = '<a href="#" class="btn" onclick="return listItemTask(\'cb'.$i.'\',\''.$state[1].'\')" title="'.JText::_($state[3]).'">'
+				. $html.'</a>';
         return $html;
     }
 	
@@ -42,12 +39,9 @@ abstract class JHtmlJob
         );
         $state  = JArrayHelper::getValue($states, (int) $value, $states[1]);
         $html   = JHtml::_('image', 'admin/'.$state[0], JText::_($state[2]), NULL, true);
-        //if ($canChange) {
-            $html   = '<a class="btn" onclick="return listItemTask(\'cb'.$i.'\',\''.$state[1].'\')" title="'.JText::_($state[3]).'">
-							<i class="icon-trash"></i>
-						</a>';
-        //}
-
+		$html   = '<a class="btn" onclick="return listItemTask(\'cb'.$i.'\',\''.$state[1].'\')" title="'.JText::_($state[3]).'">
+						<i class="icon-trash"></i>
+					</a>';
         return $html;
     }
 	
@@ -55,8 +49,8 @@ abstract class JHtmlJob
     {
         // Array of image, task, title, action
         $states = array(
-            0   => array('disabled.png',    'members.deleteListMember',  'Trash',   'Click to delete'),
-            1   => array('tick.png',        'members.deleteListMember',    'Trash',     'Click to delete'),
+            0   => array('disabled.png',    'members.deleteListMember',  'Trash',   'Supprimer le bénévole'),
+            1   => array('tick.png',        'members.deleteListMember',    'Trash',     'Supprimer le bénévole'),
         );
         $state  = JArrayHelper::getValue($states, (int) $value, $states[1]);
         $html   = JHtml::_('image', 'admin/'.$state[0], JText::_($state[2]), NULL, true);
@@ -70,8 +64,8 @@ abstract class JHtmlJob
     {
         // Array of image, task, title, action
         $states = array(
-            0   => array('disabled.png',    'calendars.deleteListCalendar',  'Trash',   'Click to delete'),
-            1   => array('tick.png',        'calendars.deleteListCalendar',    'Trash',     'Click to delete'),
+            0   => array('disabled.png',    'calendars.deleteListCalendar',  'Trash',   'Supprimer le calendrier'),
+            1   => array('tick.png',        'calendars.deleteListCalendar',    'Trash',     'Supprimer le calendrier'),
         );
         $state  = JArrayHelper::getValue($states, (int) $value, $states[1]);
         $html   = JHtml::_('image', 'admin/'.$state[0], JText::_($state[2]), NULL, true);

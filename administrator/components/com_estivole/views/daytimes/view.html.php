@@ -1,6 +1,7 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' ); 
 require_once JPATH_COMPONENT . '/helpers/estivole.php';
- 
+require_once JPATH_COMPONENT . '/models/calendars.php';
+
 class EstivoleViewDaytimes extends JViewLegacy
 {
 	function display($tpl=null)
@@ -9,6 +10,9 @@ class EstivoleViewDaytimes extends JViewLegacy
 		$this->state	= $this->get('State');
 		$this->pagination	= $this->get('Pagination');
 		$this->searchterms	= $this->state->get('filter.search');
+		$modelCalendars = new EstivoleModelCalendars();
+		$this->calendars = $modelCalendars->listItems();
+		$this->filterCalendarId	= $this->state->get('filter.calendar_id') == null ? $this->calendars[0]->calendar_id : $this->state->get('filter.calendar_id');
 
 		//retrieve task list from model
 		$model = new EstivoleModelDaytimes();

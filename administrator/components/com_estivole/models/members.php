@@ -41,8 +41,16 @@ class EstivoleModelMembers extends JModelList
 		$this->setState('filter.campingPlace', $campingPlace);
 		
 		//Filter (dropdown) member status
-		$memberStatus= $app->getUserStateFromRequest($this->context.'.filter.member_status', 'filter_memberStatus', '', 'int');
+		$memberStatus= $app->getUserStateFromRequest($this->context.'.filter.member_status', 'filter_memberStatus', '', 'string');
 		$this->setState('filter.member_status', $memberStatus);
+		
+		//Filter (dropdown) member status
+		$validationStatus= $app->getUserStateFromRequest($this->context.'.filter.validationStatus', 'filter_validationStatus', '', 'string');
+		$this->setState('filter.validationStatus', $validationStatus);
+		
+		//Filter (dropdown) calendar id
+		$calendarId= $app->getUserStateFromRequest($this->context.'.filter.calendar_id', 'filter_calendar_id', '', 'int');
+		$this->setState('filter.calendar_id', $calendarId);
 		
 		//Filter (dropdown) service
 		$services= $app->getUserStateFromRequest($this->context.'.filter.services_members', 'filter_services_members', '', 'string');
@@ -95,8 +103,6 @@ class EstivoleModelMembers extends JModelList
 
 		$query->select('*');
 		$query->from('#__estivole_members as b');
-		$query->from('#__users as u');
-		$query->from('#__user_profiles as p');
 		return $query;
 	}
 
@@ -109,9 +115,17 @@ class EstivoleModelMembers extends JModelList
 	protected function _buildWhere(&$query)
 	{
 		$db = JFactory::getDBO();
+		$query->from('#__users as u');
+		$query->from('#__user_profiles as p');
+		$query->from('#__estivole_members_daytimes as md');
+		$query->from('#__estivole_daytimes as d');
+		$query->from('#__estivole_calendars as c');
 		$query->where('b.member_type_id=1');
 		$query->where('b.user_id=p.user_id');
 		$query->where('b.user_id=u.id');
+		$query->where('b.member_id=md.member_id');
+		$query->where('md.daytime_id=d.daytime_id');
+		$query->where('d.calendar_id=c.calendar_id');
 		
 		if(is_numeric($this->_member_id)) 
 		{
@@ -136,19 +150,33 @@ class EstivoleModelMembers extends JModelList
 		}
 		
 		$memberStatus= $db->escape($this->getState('filter.member_status'));
-		if ($memberStatus==0) {
+		if ($memberStatus=='N') {
 			$query->where('(b.member_id NOT IN (SELECT member_id FROM #__estivole_members_daytimes))');
-		}else if($memberStatus==1){
+		}else if($memberStatus=='Y'){
 			$query->where('(b.member_id IN (SELECT member_id FROM #__estivole_members_daytimes))');			
+		}
+		
+		$calendarId= $db->escape($this->getState('filter.calendar_id'));
+		if (!empty($calendarId) && $calendarId!=1000) {
+			$query->where('(c.calendar_id='.$calendarId.')');
+		}else{
+			if($calendarId!=1000){
+				$query_cal = $db->getQuery(TRUE);
+				$query_cal->select('*');
+				$query_cal->from('#__estivole_calendars as c');
+				$query_cal->order('c.calendar_id DESC');
+				$db->setQuery($query_cal);
+				$cal_id = $db->loadObjectList();
+				$cal_id = $cal_id[0]->calendar_id;
+				$query->where('(c.calendar_id='.$cal_id.')');
+			}
 		}
 		
 		$service= $this->getState('filter.services_members');
 		if (!empty($service)){
-			$query->from('#__estivole_members_daytimes as md');
 			$query->where('b.member_id=md.member_id');
 			$query->where("md.service_id = '".(int) $service."'");
 		}
-		
 		$query->group('b.user_id');
 		return $query;
 	}
@@ -194,7 +222,6 @@ class EstivoleModelMembers extends JModelList
 	{
 		$query = $this->_buildQuery();    
 		$query = $this->_buildWhere($query);
-		$query->from('#__estivole_members_daytimes as md');
 		$query->where('b.member_id=md.member_id');
 		$list = $this->_getList($query);
 		return $list;
@@ -207,7 +234,6 @@ class EstivoleModelMembers extends JModelList
 		$this->_buildWhere($query);
 		$db->setQuery($query);
 		$item = $db->loadObject();
-
 		return $item;
 	}
 	
@@ -216,15 +242,17 @@ class EstivoleModelMembers extends JModelList
 	*
 	* @return array An array of results.
 	*/
-	public function getTotalItems($sex = null)
+	public function getTotalItems($sex = null, $currentYearOnly = true)
 	{
 		$query = $this->_buildQuery();  
-		$query = $this->_buildWhere($query);
+		if($currentYearOnly){
+			$query = $this->_buildWhere($query);
+		}
 		$query->order('b.firstname', 'asc');
 		if($sex != null){
 			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\') group by b.user_id)');
 		}
-		//echo $query;
+		
 		$list = $this->_getList($query);
 		return $list;
 	}

@@ -43,7 +43,15 @@
 					<option value="1">JOPTION_OPTIONAL</option>
 					<option value="0">JDISABLED</option>
 				</field>
- 
+				
+				<field name="profile-require_specialfood" type="list"
+					description="PLG_USER_PROFILESTIVOLE_FIELD_SPECIALFOOD_DESC"
+					label="PLG_USER_PROFILESTIVOLE_FIELD_SPECIALFOOD_LABEL">
+					<option value="2">JOPTION_REQUIRED</option>
+					<option value="1">JOPTION_OPTIONAL</option>
+					<option value="0">JDISABLED</option>
+				</field>
+				
 				<field name="profile-require_tshirtsize" type="list"
 					description="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_DESC"
 					label="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_LABEL">
@@ -68,7 +76,7 @@
 					<option value="0">JDISABLED</option>
 				</field>
 				
-				<field name="profile-require_service_id" type="list"
+				<field name="register-require_service_id" type="list"
 					description="PLG_USER_PROFILESTIVOLE_FIELD_SERVICE_DESC"
 					label="PLG_USER_PROFILESTIVOLE_FIELD_SERVICE_LABEL">
 					<option value="2">JOPTION_REQUIRED</option>

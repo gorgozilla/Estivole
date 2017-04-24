@@ -62,6 +62,7 @@ class EstivoleModelCalendars extends JModelLegacy
   {
     $query = $this->_buildQuery();    
     $query = $this->_buildWhere($query);
+	$query = $query->order('b.calendar_id DESC');
 
     $list = $this->_getList($query, $this->limitstart, $this->limit);
 

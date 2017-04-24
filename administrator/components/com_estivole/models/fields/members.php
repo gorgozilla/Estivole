@@ -40,7 +40,6 @@ class JFormFieldMembers extends JFormFieldList
 			JHTML::_('select.option', 'XXL', JText::_('XXL')),
 			JHTML::_('select.option', 'XXXL', JText::_('XXXL'))
 		);
- 
 		return $arr;
 	}
 	
@@ -50,17 +49,24 @@ class JFormFieldMembers extends JFormFieldList
 			JHTML::_('select.option', 'M', JText::_('Masculin')),
 			JHTML::_('select.option', 'F', JText::_('Féminin'))
 		);
- 
 		return $arr;
 	}
 	
 	public function getOptionsMemberStatus()
 	{
 		$arr = array(
-			JHTML::_('select.option', '1', JText::_('Actif')),
-			JHTML::_('select.option', '0', JText::_('Non-actif (pas inscrit à aucune tranche horaire)'))
+			JHTML::_('select.option', 'Y', JText::_('Actif')),
+			JHTML::_('select.option', 'N', JText::_('Non-actif (pas inscrit à aucune tranche horaire)'))
 		);
- 
+		return $arr;
+	}
+	
+	public function getOptionsValidationStatus()
+	{
+		$arr = array(
+			JHTML::_('select.option', 'Y', JText::_('Validé')),
+			JHTML::_('select.option', 'N', JText::_('En attente'))
+		);
 		return $arr;
 	}
 	

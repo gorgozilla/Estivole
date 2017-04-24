@@ -22,8 +22,6 @@ class EstivoleControllerCalendar extends JControllerForm
 
 		if($task=='deleteListDaytime'){
 			$this->deleteListDaytime();
-		}elseif($task=='copyListCalendar'){
-			$this->copyListCalendar();
 		}elseif($task=='cancel'){
 			$this->cancel();
 		}else if($task=='apply'){

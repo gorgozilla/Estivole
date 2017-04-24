@@ -23,6 +23,10 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 
 $dates = JFormHelper::loadFieldType('Dates', false);
 $datesOptions=$dates->getOptions(); // works only if you set your field getOptions on public!!
+
+//Get calendars options
+$calendars = JFormHelper::loadFieldType('Calendars', false);
+$calendarsOptions=$calendars->getOptions(); // works only if you set your field getOptions on public!!
 ?>
 <script language="javascript" type="text/javascript">
 function tableOrdering( order, dir, task )
@@ -54,6 +58,10 @@ function tableOrdering( order, dir, task )
 					<button type="button" class="btn hasTooltip" title="Effacer" onclick="document.getElementById('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 				</div>
 				<div class="btn-group pull-right hidden-phone">
+					<select name="filter_calendar_id" class="inputbox" onchange="this.form.submit()">
+						<option value="1000"> - Calendrier - </option>
+						<?php echo JHtml::_('select.options', $calendarsOptions, 'value', 'text',  $this->filterCalendarId);?>
+					</select>
 					<select name="filter_services" class="inputbox" onchange="this.form.submit()">
 						<option value=""> - Select secteur - </option>
 						<?php echo JHtml::_('select.options', $servicesOptions, 'value', 'text', $this->state->get('filter.services'));?>

@@ -8,7 +8,7 @@ require_once JPATH_COMPONENT . '/models/members.php';
 
 class EstivoleHelpersHtml
 {
-	function calendarsList()
+	function calendarsList($default=null)
 	{
 		$calendarsModel = new EstivoleModelCalendars();
 
@@ -36,7 +36,9 @@ class EstivoleHelpersHtml
 				$prefix='0';
 			}
 			$hours[$day.' '.$prefix.$i.':00:00'] = $prefix.$i.':00';
+			$hours[$day.' '.$prefix.$i.':15:00'] = $prefix.$i.':15';
 			$hours[$day.' '.$prefix.$i.':30:00'] = $prefix.$i.':30';
+			$hours[$day.' '.$prefix.$i.':45:00'] = $prefix.$i.':45';
 		};
 		
 		## Initialize array to store dropdown options ##
@@ -51,7 +53,7 @@ class EstivoleHelpersHtml
 		return JHTML::_('select.genericlist', $options, $field_name, 'class="inputbox" id="'.$field_name.'"', 'value', 'text', $default);
 	}
 	
-	function yearsList($field_name, $default)
+	function yearsList($field_name=null, $default=null)
 	{
 		$years = array();
 		for($i=0; $i<=10; $i++){
@@ -109,7 +111,7 @@ class EstivoleHelpersHtml
 	{
 		$membersModel = new EstivoleModelMembers();
 
-		$this->members = $membersModel->getTotalItems();
+		$this->members = $membersModel->getTotalItems(null, false);
 		
 		## Initialize array to store dropdown options ##
 		$options = array();

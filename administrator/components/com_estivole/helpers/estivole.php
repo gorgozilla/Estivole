@@ -60,7 +60,7 @@ class EstivoleHelpersEstivole extends JHelperContent
         );
 		JHtmlSidebar::addEntry(
             'Calendriers',
-            'index.php?option=com_estivole&view=calendars',
+            'index.php?option=com_estivole&view=calendar&layout=edit&calendar_id=5',
             $vName == 'calendars'
         );
 		JHtmlSidebar::addEntry(

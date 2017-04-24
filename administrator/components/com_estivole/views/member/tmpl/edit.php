@@ -51,7 +51,7 @@ function generateRandomString($length = 10) {
 			<input type="text" class="form-control required" name="jform[email]" placeholder="Email" value="<?php echo $this->user->email; ?>" />
 			<input type="text" class="form-control required" name="jform[profilestivole][firstname]" placeholder="Prénom" value="<?php echo $this->userProfilEstivole->profilestivole['firstname']; ?>" />
 			<input type="text" class="form-control required" name="jform[profilestivole][lastname]" placeholder="Nom" value="<?php echo $this->userProfilEstivole->profilestivole['lastname']; ?>" />
-			<input type="date" class="form-control" name="jform[profile][birthdate]" placeholder="Date de naissance" value="<?php echo $this->userProfile->profile['dob']; ?>" />
+			<input type="text" class="form-control" name="jform[profile][birthdate]" placeholder="Ex. : 23-08-1984" value="<?php echo $this->userProfile->profile['dob']!='' ? date("d-m-Y", strtotime($this->userProfile->profile['dob'])) : ''; ?>" />
 			<input type="text" class="form-control" name="jform[profile][phone]" placeholder="Téléphone" value="<?php echo JText::_($this->userProfile->profile['phone']); ?>" />
 			<input type="text" class="form-control" name="jform[profile][address1]" placeholder="Adresse" value="<?php echo $this->userProfile->profile['address1']; ?>" />
 			<input type="text" class="form-control" name="jform[profile][zipcode]" placeholder="NPA" value="<?php echo $this->userProfile->profile['postal_code']; ?>" />

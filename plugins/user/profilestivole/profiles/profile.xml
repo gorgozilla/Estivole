@@ -2,12 +2,15 @@
 <form>
 	<fields name="profilestivole">
 		<fieldset name="profilestivole" label="PLG_USER_PROFILESTIVOLE_SLIDER_LABEL">
-			<field name="firstname" type="text"
+			<field name="firstname" type="text" class="required"
 				description="PLG_USER_PROFILESTIVOLE_FIELD_FIRSTNAME_DESC"
 				label="PLG_USER_PROFILESTIVOLE_FIELD_FIRSTNAME_LABEL"/>
-			<field name="lastname" type="text"
+			<field name="lastname" type="text"  class="required"
 				description="PLG_USER_PROFILESTIVOLE_FIELD_LASTNAME_DESC"
 				label="PLG_USER_PROFILESTIVOLE_FIELD_LASTNAME_LABEL"/>
+			<field name="specialfood" type="textarea"
+				description="PLG_USER_PROFILESTIVOLE_FIELD_SPECIALFOOD_DESC"
+				label="PLG_USER_PROFILESTIVOLE_FIELD_SPECIALFOOD_LABEL"/>
 			<field name="tshirtsize" type="list"
 				description="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_DESC"
 				label="PLG_USER_PROFILESTIVOLE_FIELD_TSHIRTSIZE_LABEL">

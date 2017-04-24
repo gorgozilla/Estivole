@@ -39,6 +39,7 @@ class plgUserEstivole extends JPlugin
 			$member = JTable::getInstance('Member','Table');
 			$member->user_id = $user['id'];
 			$member->email = $user['email'];
+			$member->member_type_id=1;
 			$member->published = 1;
 			$member->created = date("Y-m-d H:i:s");
 			$member->modified = date("Y-m-d H:i:s");

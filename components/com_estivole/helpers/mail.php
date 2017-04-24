@@ -85,7 +85,8 @@ class EstivoleHelpersMail
 		$mail->setBody(sprintf(constant("BodyMemberDaytimeToAdmin"), $userName, $mailModel->service_name, date('d-m-Y',strtotime($mailModel->daytime_day)), date('H:i',strtotime($mailModel->daytime_hour_start)).' - '.date('H:i',strtotime($mailModel->daytime_hour_end)), $mailModel->member_id));
 		$mail->setSubject(constant("SubjectMemberDaytimeToAdmin"));
 		$mail->isHtml();
-		$recipient = array( 'benevoles@estivale.ch', $mailModel->email_responsable );
+		//$recipient = array( 'benevoles@estivale.ch', $mailModel->email_responsable );
+		$recipient = array( 'benevoles@estivale.ch' );
 		$mail->addRecipient($recipient);
 		$mail->Send('estivole@estivale.ch');
 	}

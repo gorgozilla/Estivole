@@ -46,6 +46,12 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 			</div>
 		</div>
 	</form>
+		<a href="javascript:void(0);" class="btn btn-large btn-success" role="button" onclick="addDayTimeModal(null, <?php echo $this->daytimes[0]->calendar_id; ?>,'<?php echo $this->daytimes[0]->daytime_day; ?>');">
+			<?php echo JText::_('Ajouter une tranche horaire'); ?>
+		</a>
+		<a href="index.php?option=com_estivole&task=daytime.exportDaytime&daytime=<?php echo $this->daytimes[0]->daytime_day; ?>&daytime_id=<?php echo $this->daytimes[0]->daytime_id; ?>" class="btn btn-large btn-success" role="button">
+			<?php echo JText::_('Exporter les tranches horaire'); ?>
+		</a>
 	<div id="j-main-container">
 		<table class="table table-striped">
 			<thead>
@@ -92,8 +98,8 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 						<?php echo $item->filledQuota !='' ? $item->filledQuota : '0'; echo ' / '.JText::_($item->quota); ?>
 					</td>
 					<td class="center">
-						<a class="btn" href="javascript:void(0);" onclick="assignAvailibilityModal('<?php echo $item->service_id.'\', \''.$item->daytime_id; ?>');" title="Assigner une tranche horaire">
-							<i class="icon-time"></i>
+						<a class="btn" href="javascript:void(0);" onclick="assignAvailibilityModal('<?php echo $item->service_id.'\', \''.$item->daytime_id; ?>');" title="Assigner la tranche horaire à un bénévole">
+							<i class="icon-user"></i>
 						</a>
 						<a class="btn" onClick="javascript:return confirm('Supprimera également toutes les inscriptions associées à cette tranche horaire. Êtes-vous sûr?')" href="index.php?option=com_estivole&task=daytime.deleteListDaytime&daytime_id=<?php echo $item->daytime_id; ?>">
 							<i class="icon-trash"></i>
@@ -106,7 +112,6 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 		<a href="javascript:void(0);" class="btn btn-large btn-success" role="button" onclick="addDayTimeModal(null, <?php echo $item->calendar_id; ?>,'<?php echo $item->daytime_day; ?>');">
 			<?php echo JText::_('Ajouter une tranche horaire'); ?>
 		</a>
-		 
 		<a href="index.php?option=com_estivole&task=daytime.exportDaytime&daytime=<?php echo $item->daytime_day; ?>&daytime_id=<?php echo $item->daytime_id; ?>" class="btn btn-large btn-success" role="button">
 			<?php echo JText::_('Exporter les tranches horaire'); ?>
 		</a>

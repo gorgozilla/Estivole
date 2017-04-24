@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 		<h3 id="myModalLabel"><?php echo JText::_('Ajouter une tranche horaire'); ?></h3>
 	</div>
-	<div class="modal-body" style="height:500px;">
+	<div class="modal-body">
 		<div class="row-fluid">
 			<form id="sendEmailMember" method="POST" action="index.php?option=com_estivole&task=email.sendEmailMember&controller=email&tmpl=component">
 				<div id="availibility-modal-info" class="media"></div>

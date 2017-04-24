@@ -93,8 +93,34 @@ class EstivoleModelMember extends JModelAdmin
 		$db = JFactory::getDBO();
 		$db->setQuery($query, $limitstart, $limit);
 		$result = $db->loadObjectList();
-
 		return $result;
+	}
+	
+	/**
+	* Delete a member daytime
+	* @param int      ID of the member to delete
+	* @return boolean True if successfully deleted
+	*/
+	public function hasNonValidatedDaytimes($member_id = null)
+	{
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
+
+		$query->select('*');
+		$query->from('#__estivole_members_daytimes as md');
+		if(is_numeric($member_id)) 
+		{
+		  $query->where('md.member_id = '.$member_id);
+		}
+		$query->where('md.status_id = 0');
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+
+		if(count($result)>0){
+			return true;
+		}
+		
+		return false;
 	}
 
 	/**

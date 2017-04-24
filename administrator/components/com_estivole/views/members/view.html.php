@@ -1,4 +1,5 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' ); 
+require_once JPATH_COMPONENT . '/models/member.php';
 require_once JPATH_COMPONENT . '/models/daytime.php';
 require_once JPATH_COMPONENT . '/models/services.php';
 require_once JPATH_COMPONENT . '/models/calendars.php';
@@ -14,7 +15,7 @@ class EstivoleViewMembers extends JViewLegacy
 		$this->searchterms	= $this->state->get('filter.search');
 		$this->campingPlace	= $this->state->get('filter.campingPlace');
 		$this->services_members	= $this->state->get('filter.services_members');
-		$this->memberStatus	= $this->state->get('filter.member_status');
+		$this->validationStatus	= $this->state->get('filter.validationStatus');
 		$this->user = JFactory::getUser();
 		$this->limitstart=$this->state->get('limitstart');
 
@@ -26,24 +27,28 @@ class EstivoleViewMembers extends JViewLegacy
 		
 		$modelCalendars = new EstivoleModelCalendars();
 		$modelDaytime = new EstivoleModelDaytime();
+		$modelMember = new EstivoleModelMember();
 		$this->calendars = $modelCalendars->listItems();
+		$this->filterCalendarId	= $this->state->get('filter.calendar_id') == null ? $this->calendars[0]->calendar_id : $this->state->get('filter.calendar_id');
+		$this->filterMemberStatus = $this->state->get('filter.member_status') == null ? 'Y' : $this->state->get('filter.member_status');
 		
 		for($i=0; $i<count($this->members); $i++){
-			$this->members[$i]->member_daytimes = $modelDaytime->getMemberDaytimes($this->members[$i]->member_id, $this->calendars[0]->calendar_id);
+			$this->members[$i]->member_daytimes = $modelDaytime->getMemberDaytimes($this->members[$i]->member_id, $this->filterCalendarId);
+			$this->members[$i]->hasNonValidatedDaytimes=$modelMember->hasNonValidatedDaytimes($this->members[$i]->member_id);
 		}
 		
 		for($i=0; $i<count($this->totalMembersM); $i++){
-			$this->totalMembersM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForTshirt($this->totalMembersM[$i]->member_id, $this->calendars[0]->calendar_id);
+			$this->totalMembersM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForTshirt($this->totalMembersM[$i]->member_id, $this->filterCalendarId);
 			$this->totalShirtsM+=ceil(count($this->totalMembersM[$i]->member_daytimes)/2);
 			
-			$this->totalMembersM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersM[$i]->member_id, $this->calendars[0]->calendar_id);
+			$this->totalMembersM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersM[$i]->member_id, $this->filterCalendarId);
 			$this->totalPolosM+=ceil(count($this->totalMembersM[$i]->member_daytimes)/2);
 		}
 		for($i=0; $i<count($this->totalMembersF); $i++){
-			$this->totalMembersF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForTshirt($this->totalMembersF[$i]->member_id, $this->calendars[0]->calendar_id);
+			$this->totalMembersF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForTshirt($this->totalMembersF[$i]->member_id, $this->filterCalendarId);
 			$this->totalShirtsF+=ceil(count($this->totalMembersF[$i]->member_daytimes)/2);
 			
-			$this->totalMembersF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersF[$i]->member_id, $this->calendars[0]->calendar_id);
+			$this->totalMembersF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersF[$i]->member_id, $this->filterCalendarId);
 			$this->totalPolosF+=ceil(count($this->totalMembersF[$i]->member_daytimes)/2);
 		}
 			

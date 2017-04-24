@@ -42,6 +42,10 @@ class EstivoleModelDaytimes extends JModelList
 		//Omit double (white-)spaces and set state
 		$this->setState('filter.search', preg_replace('/\s+/',' ', $search));
 		
+		//Filter (dropdown) calendar id
+		$calendarId= $app->getUserStateFromRequest($this->context.'.filter.calendar_id', 'filter_calendar_id', '', 'int');
+		$this->setState('filter.calendar_id', $calendarId);
+		
 		//Filter (dropdown) service
 		$services= $app->getUserStateFromRequest($this->context.'.filter.services', 'filter_services', '', 'string');
 		$this->setState('filter.services', $services);
@@ -97,11 +101,12 @@ class EstivoleModelDaytimes extends JModelList
 		$query = $db->getQuery(TRUE);
 
 		$query->select('*');
-		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md, #__users as u');
+		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_calendars as c, #__estivole_daytimes as d, #__estivole_members_daytimes as md, #__users as u');
 		$query->where('md.member_id = m.member_id');
 		$query->where('m.user_id = u.id');
 		$query->where('md.service_id = s.service_id');
-		$query->where('md.daytime_id = d.daytime_id');
+		$query->where('md.daytime_id=d.daytime_id');
+		$query->where('d.calendar_id=c.calendar_id');
 		return $query;
 	}
 
@@ -120,9 +125,18 @@ class EstivoleModelDaytimes extends JModelList
 			$query->where('md.member_id = ' . $this->_member_id);
 		}
 		
-		if(is_numeric($this->_calendar_id)) 
-		{
-			$query->where('d.calendar_id = ' . $this->_calendar_id);
+		$calendarId= $db->escape($this->getState('filter.calendar_id'));
+		if (!empty($calendarId)) {
+			$query->where('(c.calendar_id='.$calendarId.')');
+		}else{
+			$query_cal = $db->getQuery(TRUE);
+			$query_cal->select('*');
+			$query_cal->from('#__estivole_calendars as c');
+			$query_cal->order('c.calendar_id DESC');
+			$db->setQuery($query_cal);
+			$cal_id = $db->loadObjectList();
+			$cal_id = $cal_id[0]->calendar_id;
+			$query->where('(c.calendar_id='.$cal_id.')');
 		}
 		
 		$service= $db->escape($this->getState('filter.services'));

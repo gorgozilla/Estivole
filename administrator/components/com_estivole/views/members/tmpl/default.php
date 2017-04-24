@@ -24,9 +24,16 @@ $campingOptions=$membersOptions->getOptionsCamping(); // works only if you set y
 //Get member status options
 $memberStatusOptions=$membersOptions->getOptionsMemberStatus(); // works only if you set your field getOptions on public!!
 
+//Get validation status options
+$validationStatusOptions=$membersOptions->getOptionsValidationStatus(); // works only if you set your field getOptions on public!!
+
 //Get services options
 $services = JFormHelper::loadFieldType('Services', false);
 $servicesOptions=$services->getOptions(); // works only if you set your field getOptions on public!!
+
+//Get calendars options
+$calendars = JFormHelper::loadFieldType('Calendars', false);
+$calendarsOptions=$calendars->getOptions(); // works only if you set your field getOptions on public!!
 
 ?>
 <script language="javascript" type="text/javascript">
@@ -73,10 +80,23 @@ function tableOrdering( order, dir, task )
 					<button type="button" class="btn hasTooltip" title="Effacer" onclick="document.getElementById('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 				</div>
 				<div class="btn-group pull-right hidden-phone">
+					<select name="filter_validationStatus" class="inputbox" onchange="this.form.submit()">
+						<option value="1000"> - Status validation - </option>
+						<?php echo JHtml::_('select.options', $validationStatusOptions, 'value', 'text', $this->state->get('filter.validationStatus'));?>
+					</select>
 					<select name="filter_memberStatus" class="inputbox" onchange="this.form.submit()">
 						<option value="1000"> - Status - </option>
-						<?php echo JHtml::_('select.options', $memberStatusOptions, 'value', 'text', $this->state->get('filter.member_status'));?>
+						<?php echo JHtml::_('select.options', $memberStatusOptions, 'value', 'text', $this->filterMemberStatus);?>
 					</select>
+					<select name="filter_calendar_id" class="inputbox" onchange="this.form.submit()">
+						<option value="1000"> - Calendrier - </option>
+						<?php echo JHtml::_('select.options', $calendarsOptions, 'value', 'text', $this->filterCalendarId);?>
+					</select>
+					<select name="filter_services_members" class="inputbox" onchange="this.form.submit()">
+						<option value=""> - Secteur - </option>
+					<?php echo JHtml::_('select.options', $servicesOptions, 'value', 'text', $this->state->get('filter.services_members'));?>
+					</select>
+					<br />
 					<select name="filter_tshirtsize" class="inputbox" onchange="this.form.submit()">
 						<option value=""> - Taille t-shirt - </option>
 						<?php echo JHtml::_('select.options', $tshirtOptions, 'value', 'text', $this->state->get('filter.tshirt_size'));?>
@@ -85,11 +105,6 @@ function tableOrdering( order, dir, task )
 						<option value=""> - Camping - </option>
 						<?php echo JHtml::_('select.options', $campingOptions, 'value', 'text', $this->state->get('filter.campingPlace'));?>
 					</select>
-					<select name="filter_services_members" class="inputbox" onchange="this.form.submit()">
-						<option value=""> - Secteur - </option>
-					<?php echo JHtml::_('select.options', $servicesOptions, 'value', 'text', $this->state->get('filter.services_members'));?>
-					</select>
-					<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
 					<?php echo $this->pagination->getLimitBox(); ?>
 				</div>
 			</div>
@@ -118,13 +133,19 @@ function tableOrdering( order, dir, task )
 							<?php echo JText::_('Tél.'); ?>
 						</th>
 						<th class="left">
-							<?php echo JText::_('Adresse'); ?>
+							<?php echo JText::_('Date de naissance'); ?>
 						</th>
 						<th class="left">
 							<?php echo JText::_('Ville'); ?>
 						</th>
 						<th class="left">
 							<?php echo JText::_( 'T-Shirt size' ); ?>
+						</th>
+						<th class="left">
+							<?php echo JText::_('Camping ?'); ?>
+						</th>
+						<th class="left">
+							<?php echo JText::_('Status validation'); ?>
 						</th>
 						<th class="center">
 							<?php echo JText::_('Actions'); ?>
@@ -140,6 +161,8 @@ function tableOrdering( order, dir, task )
 					$userProfile = JUserHelper::getProfile( $userId );
 					$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
 					$itemNumber++;
+					if($this->validationStatus=='1000' || ($this->validationStatus=='N' && $item->hasNonValidatedDaytimes) || ($this->validationStatus=='Y' && !$item->hasNonValidatedDaytimes))
+					{
 				?>
 					<tr class="row<?php echo $i % 2; ?>">
 						<td class="center hidden-phone">
@@ -160,7 +183,11 @@ function tableOrdering( order, dir, task )
 							<?php echo JText::_($userProfile->profile['phone']); ?>
 						</td>
 						<td class="left">
-							<?php echo JText::_($userProfile->profile['address1']); ?>
+							<?php 
+							$source = '2012-07-31';
+							$birthDate = new DateTime($userProfile->profile['dob']); 
+							echo $birthDate->format('d-m-Y'); 
+							?>
 						</td>
 						<td class="left">
 							<?php echo JText::_($userProfile->profile['postal_code']." / ".$userProfile->profile['city']); ?>
@@ -169,16 +196,23 @@ function tableOrdering( order, dir, task )
 							<?php echo JText::_($userProfilEstivole->profilestivole['tshirtsize']); ?>
 						</td>
 						<td class="center">
+							<?php if($userProfilEstivole->profilestivole['campingPlace']){ echo '<i class="icon-ok"></i>'; } ?>
+						</td>
+						<td class="center">
+							<?php if(!$item->hasNonValidatedDaytimes){ echo '<i class="icon-ok" title="Toutes les tranches horaires sont validées"></i>'; }else{ echo '<i class="icon-clock" title="Tranches horaires en attente de validation"></i>'; } ?>
+						</td>
+						<td class="center">
 							<!--<a class="btn" onclick="composeEmail('<?php echo $item->member_id; ?>')">
 								<i class="icon-mail"></i>
 							</a>-->
-							<a class="btn" href="javascript:void(0);" onclick="addAvailibilityModal('<?php echo $item->member_id; ?>');" title="Assigner une tranche horaire">
-								<i class="icon-time"></i>
+							<a class="btn" href="javascript:void(0);" onclick="addAvailibilityModal('<?php echo $item->member_id; ?>');" title="Assigner le bénévole à une tranche horaire">
+								<i class="icon-clock"></i>
 							</a>
 							<?php echo JHtml::_('job.deleteListMember', $item->member_id, $i); ?>
 						</td>
 					</tr>
 				<?php 
+					}
 				} 
 				?>
 				</tbody>
