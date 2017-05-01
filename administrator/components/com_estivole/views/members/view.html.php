@@ -42,7 +42,7 @@ class EstivoleViewMembers extends JViewLegacy
 			$this->totalShirtsM+=ceil(count($this->totalMembersM[$i]->member_daytimes)/2);
 			
 			$this->totalMembersM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersM[$i]->member_id, $this->filterCalendarId);
-			$this->totalPolosM+=ceil(count($this->totalMembersM[$i]->member_daytimes)/2);
+			$this->totalPolosM+=count($this->totalMembersM[$i]);
 		}
 		for($i=0; $i<count($this->totalMembersF); $i++){
 			$this->totalMembersF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForTshirt($this->totalMembersF[$i]->member_id, $this->filterCalendarId);

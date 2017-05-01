@@ -259,13 +259,13 @@ class EstivoleModelDaytime extends JModelList
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
 
-		$query->select('*');
+		$query->select('m.member_id');
 		$query->from('#__estivole_members as m, #__estivole_services as s, #__estivole_daytimes as d, #__estivole_members_daytimes as md');
 		$query->where('md.member_id = ' . $member_id);
 		if($calendar_id!=null){
 			$query->where('d.calendar_id = ' . $calendar_id);
 		}
-		$query->where('(md.service_id=38 OR md.service_id=36)');
+		$query->where('(md.service_id=38 OR md.service_id=45)');
 		$query->where('md.member_id = m.member_id');
 		$query->where('md.service_id = s.service_id');
 		$query->where('md.daytime_id = d.daytime_id');

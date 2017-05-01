@@ -32,12 +32,17 @@ if($this->user->guest){
 	
 	<p>Vous pouvez bien sûr ajouter autant de disponibilités que vous le souhaitez. Pour chaque disponibilité, une confirmation vous sera envoyée par email.</p>
 	
-		<p class="text-danger"><strong>Important :<br />
+		<p><strong>Important :<br />
 		Pour les bénévoles travaillant le 1er août, soit durant la soirée gratuite, un billet vous sera offert l'année prochaine pour la soirée de votre choix!<br />
 		De plus, uniquement les tentes seront acceptées à l'intérieur du camping bénévoles, les minibus, camping-car et tout autre type de véhicule ne seront pas admis!</strong></p>
 	
 	<h2>Calendrier "<?php echo $this->calendars[0]->name; ?>"</h2>
 	
+	<?php if(count($this->calendars[0]->member_daytimes)<2 && count($this->calendars[0]->member_daytimes)>0){ ?>
+		<div class="alert alert-danger">
+			<p><strong>Vous n'avez pas un minimum de 2 tranches horaires sur toute la durée du fesival, votre inscription n'est pour le moment pas prise en compte et ne sera pas validée.</strong></p>
+		</div>
+	<?php } ?>
 	<table class="table" id="memberDaytimesTable">
 		<thead>
 		<tr>
