@@ -209,6 +209,7 @@ class EstivoleModelMembers extends JModelList
 	{
 		$query = $this->_buildQuery();    
 		$query = $this->_buildWhere($query);
+				echo $query;
 		$list = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
 		return $list;
 	}

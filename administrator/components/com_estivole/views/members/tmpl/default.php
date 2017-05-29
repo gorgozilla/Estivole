@@ -161,7 +161,8 @@ function tableOrdering( order, dir, task )
 					$userProfile = JUserHelper::getProfile( $userId );
 					$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
 					$itemNumber++;
-					if($this->validationStatus=='1000' || ($this->validationStatus=='N' && $item->hasNonValidatedDaytimes) || ($this->validationStatus=='Y' && !$item->hasNonValidatedDaytimes))
+
+					if(empty($this->validationStatus) || $this->validationStatus=='1000' || ($this->validationStatus=='N' && $item->hasNonValidatedDaytimes) || ($this->validationStatus=='Y' && !$item->hasNonValidatedDaytimes))
 					{
 				?>
 					<tr class="row<?php echo $i % 2; ?>">

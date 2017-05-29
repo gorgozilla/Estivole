@@ -23,10 +23,10 @@ defined('_JEXEC') or die;
 					<?php echo JText::_('Tâche'); ?>
 				</th>
 				<th>
-					<?php echo JText::_('Heure début'); ?>
+					<?php echo JText::_('Heure <br />début'); ?>
 				</th>
 				<th>
-					<?php echo JText::_('Heure fin'); ?>
+					<?php echo JText::_('Heure<br />fin'); ?>
 				</th>
 				<th>
 					<?php echo JText::_('Quota'); ?>

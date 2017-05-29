@@ -13,12 +13,20 @@ JHtml::_('behavior.keepalive');
 JHtml::_('behavior.formvalidator');
 ?>
 
-<h1>Login bénévole</h1>
-<p>La 27e édition de l’Estivale Open Air aura lieu cette année du vendredi 28 juillet au mardi 1eraoût 2017.</p>
+<h1>Rejoins nous en tant que bénévole</h1>
+<p>La 27e édition de l’Estivale Open Air aura lieu cette année du vendredi 28 juillet au mardi 01 août 2017.</p>
 
-<p>Rejoins-nous pour participer au bon fonctionnement d'un Festival exceptionnel !</p>
+<p>Rejoins-nous pour participer au bon fonctionnement d'un festival exceptionnel !</p>
 
 <p><strong>Et  si  tu  fais  déjà  partie  de  cette  grande  famille  alors  tes  données  de  l’année  passée sont toujours valables.</strong></p>
+
+<h2>Marche à suivre</h2>
+
+<ol>
+<li>Connecte-toi à ton compte grâce au formulaire ci-dessous ou <a href="index.php?option=com_users&view=registration&Itemid=134">crée un compte bénévole</a></li>
+<li>Confirme ton inscription grâce à l'email de confirmation envoyé après la création de ton compte</li>
+<li>Une fois ton compte validé, connecte-toi à ce dernier et rends toi dans le menu "Votre profil > Mon calendrier"</li>
+</ol>
 
 <div class="login<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>

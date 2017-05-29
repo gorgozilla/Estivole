@@ -10,14 +10,11 @@
 defined('_JEXEC') or die;
 
 JHTML::_('behavior.modal');
-
+jimport( 'joomla.application.module.helper' );
 //If user not logged in, then display login form
 if($this->user->guest){
-	$position = 'position-3';
-	$modules =& JModuleHelper::getModules($position); 
-	foreach ($modules as $module) { 
-		echo JModuleHelper::renderModule($module); 
-	}
+	$app =& JFactory::getApplication();
+	$app->redirect('index.php?option=com_users&view=login&Itemid=104');
 }else{
 	// Else display member edit form ?>
 	<h1>Espace benevole > Mon calendrier</h1>
@@ -25,7 +22,7 @@ if($this->user->guest){
 	<p>C'est ici que vous réservez votre place pour devenir bénévole. Pour se faire, c'est très simple : </p>
 	
 	<ul>
-	<li>Cliquez sur le bouton "Ajouter une disponibilité" ci-dessous.</li>
+	<li>Cliquez sur le bouton "M'inscrire en tant que bénévole" ci-dessous.</li>
 	<li>Sélectionnez le secteur et la date pour laquelle vous souhaitez participer.</li>
 	<li>La liste des tranches horaires s'affiche, sélectionnez celle de votre choix en fonction de votre disponibilité et de la tâche vous arrangeant.</li>
 	</ul>
@@ -43,6 +40,7 @@ if($this->user->guest){
 			<p><strong>Vous n'avez pas un minimum de 2 tranches horaires sur toute la durée du fesival, votre inscription n'est pour le moment pas prise en compte et ne sera pas validée.</strong></p>
 		</div>
 	<?php } ?>
+	
 	<table class="table" id="memberDaytimesTable">
 		<thead>
 		<tr>
@@ -61,15 +59,15 @@ if($this->user->guest){
 					<p>Pas d'attribution à ce calendrier.</p>
 				</td>
 			</tr>
+		</table>
 		<?php }else{ 
-			foreach($this->calendars[0]->member_daytimes as $daytime) :
-		?>
+			foreach($this->calendars[0]->member_daytimes as $daytime) : ?>
 			<tr>
 				<td>
 					<?php if($daytime->status_id==0){ ?>
-						<a title="Date en attente de confirmation"><span class="badge-warning"><i class="icon-time"></i></span></a>
+						<a title="Date en attente de confirmation" style="background-color:#ff8800;cursor:help;">&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<?php }else{ ?>
-						<a title="Date confirmée"><span class="badge-success">&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+						<a title="Date confirmée" style="background-color:#008800;cursor:help;">&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<?php } ?>
 					
 					<?php echo date('d-m-Y',strtotime($daytime->daytime_day)); ?>
@@ -85,13 +83,18 @@ if($this->user->guest){
 					<?php } ?>
 				</td>
 			</tr>
-		<?php endforeach;
-		}
-		?>
-		</tr>
-	</table>
+		<?php endforeach; ?>
+		</table>
+		
+		<p>
+			<i>Légende : </i><br />
+			<a title="Date en attente de confirmation" style="background-color:#ff8800;cursor:help;">&nbsp;&nbsp;&nbsp;&nbsp;</a> Date réservée en attente de validation<br />
+			<a title="Date confirmée" style="background-color:#008800;cursor:help;">&nbsp;&nbsp;&nbsp;&nbsp;</a> Date confirmée
+		</p>
+		<?php } ?>
+	
 	<br />
-	<a href="index.php?option=com_estivole&view=member&layout=_addavailibility&tmpl=component&calendar_id=<?php echo $this->calendars[0]->calendar_id; ?>" class="modal btn btn-default" rel="{size: {x: 800, y: 650}, onClose:function(){var js = window.location.reload();}, handler:'iframe'}">
-        Ajouter une disponibilité
+	<a href="index.php?option=com_estivole&view=member&layout=_addavailibility&tmpl=component&calendar_id=<?php echo $this->calendars[0]->calendar_id; ?>" class="modal btn btn-warning" rel="{size: {y: 650}, onClose:function(){var js = window.location.reload();}, handler:'iframe'}">
+        M'inscrire en tant que bénévole
 	</a>
 <?php	} ?>
