@@ -5,17 +5,10 @@ defined('_JEXEC') or die;
  jimport('joomla.application.component.modellist');
  
 class EstivoleModelDaytime extends JModelList
-{
-
-  /**
-  * Protected fields
-  **/
-  var $_daytime_id     = null;
-  
+{ 
   function __construct()
   {
     $app = JFactory::getApplication();
-    $this->_daytime_id = $app->input->get('daytime_id', null);
 	$this->_calendar_id = $app->input->get('calendar_id', null);
 	$this->_service_id = $app->input->get('service_id', null);
 	$this->_daytime_day = $app->input->get('daytime', null);
@@ -87,7 +80,7 @@ class EstivoleModelDaytime extends JModelList
 		
 		$service= $this->getState('filter.services_daytime');
 		if (!empty($service)) {
-			$query->where("b.service_id = '".(int) $service."'");
+			$this->_service_id=$service;
 		}
 		
 		if (!empty($this->_service_id)) {
@@ -122,7 +115,27 @@ class EstivoleModelDaytime extends JModelList
   *
   * @return array An array of results.
   */
-  public function listItems($calendar_id=null)
+  public function listItems()
+  {
+	  //Build and querydatabase
+    $query = $this->_buildQuery();    
+    $query = $this->_buildWhere($query);
+	if($this->_daytime_day==null){
+		$query->group('daytime_day');
+	}
+	$query->order('b.daytime_day, s.service_name, b.daytime_hour_start');
+	//Get list of data
+    $list = $this->_getList($query, $this->limitstart, $this->limit);
+	
+    return $list;
+  }
+  
+  /**
+  * Build query and where for protected _getList function and return a list
+  *
+  * @return array An array of results.
+  */
+  public function listItemsByCalendar($calendar_id)
   {
 	  //Build and querydatabase
     $query = $this->_buildQuery();    
@@ -182,6 +195,7 @@ class EstivoleModelDaytime extends JModelList
 	$query->where("m.member_id = md.member_id");
 	$query->where("b.service_id = s.service_id");
 	$query->order('b.daytime_hour_start, b.daytime_hour_end');
+	echo $query;
     $db->setQuery($query);
     $result = $db->loadObjectList();
 	return $result;

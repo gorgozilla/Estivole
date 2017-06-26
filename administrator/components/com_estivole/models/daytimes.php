@@ -213,13 +213,10 @@ class EstivoleModelDaytimes extends JModelList
 	public function getItem()
 	{
 		$db = JFactory::getDBO();
-
 		$query = $this->_buildQuery();
 		$this->_buildWhere($query);
 		$db->setQuery($query);
-
 		$item = $db->loadObject();
-
 		return $item;
 	}
 	

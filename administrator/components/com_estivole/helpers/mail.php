@@ -87,7 +87,7 @@ class EstivoleHelpersMail
 
 		<p>Voilà pour ces premières informations, je te ferai un rappel de tout ceci quelques jours avant le début du festival!</p>
 		
-		<p><a href=\"".JURI::root()."index.php/votre-calendrier\">Cliquez ici</a> pour accéder à votre \"calendrier bénévole\" et ainsi voir toutes vos tranches horaires.</p>
+		<p><a href=\"".JURI::root()."index.php?option=com_estivole&view=member&layout=memberdaytimes&Itemid=109\">Cliquez ici</a> pour accéder à votre \"calendrier bénévole\" et ainsi voir toutes vos tranches horaires.</p>
 
 		<p>Encore merci à toi pour ton aide et au plaisir de te rencontrer tout bientôt! :)</p>
 

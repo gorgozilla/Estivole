@@ -84,6 +84,9 @@ function tableOrdering( order, dir, task )
 						<?php echo JHTML::_( 'grid.sort', 'Email', 'u.email', $this->sortDirection, $this->sortColumn); ?>
 					</th>
 					<th class="left">
+						Date de naissance					
+					</th>
+					<th class="left">
 						<?php echo JHTML::_( 'grid.sort', 'Secteur', 's.service_name', $this->sortDirection, $this->sortColumn); ?>
 					</th>
 					<th class="left">
@@ -107,6 +110,7 @@ function tableOrdering( order, dir, task )
 			<?php foreach ($this->member_daytimes as $i => $item){
 					$userId = $item->user_id; 
 					$user = JFactory::getUser($userId);
+					$userProfile = JUserHelper::getProfile( $userId );
 					$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
 			?>
 				<tr class="row<?php echo $i % 2; ?>">
@@ -119,6 +123,12 @@ function tableOrdering( order, dir, task )
 						<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $item->member_id); ?>">
 						<?php echo JText::_($item->email); ?>
 						</a>
+					</td>
+					<td class="left">
+						<?php 
+						$birthDate = new DateTime($userProfile->profile['dob']); 
+						echo $birthDate->format('d-m-Y'); 
+						?>
 					</td>
 					<td class="left">
 						<?php echo JText::_($item->service_name.' - '.$item->description); ?>

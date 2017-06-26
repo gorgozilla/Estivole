@@ -185,7 +185,6 @@ function tableOrdering( order, dir, task )
 						</td>
 						<td class="left">
 							<?php 
-							$source = '2012-07-31';
 							$birthDate = new DateTime($userProfile->profile['dob']); 
 							echo $birthDate->format('d-m-Y'); 
 							?>
