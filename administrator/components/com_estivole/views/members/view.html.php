@@ -41,15 +41,15 @@ class EstivoleViewMembers extends JViewLegacy
 			$this->totalMembersM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForTshirt($this->totalMembersM[$i]->member_id, $this->filterCalendarId);
 			$this->totalShirtsM+=ceil(count($this->totalMembersM[$i]->member_daytimes)/2);
 			
-			$this->totalMembersM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersM[$i]->member_id, $this->filterCalendarId);
-			$this->totalPolosM+=count($this->totalMembersM[$i]);
+			$this->totalMembersForPolosM[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersM[$i]->member_id, $this->filterCalendarId);
+			$this->totalPolosM+=ceil(count($this->totalMembersForPolosM[$i]->member_daytimes)/2);
 		}
 		for($i=0; $i<count($this->totalMembersF); $i++){
 			$this->totalMembersF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForTshirt($this->totalMembersF[$i]->member_id, $this->filterCalendarId);
 			$this->totalShirtsF+=ceil(count($this->totalMembersF[$i]->member_daytimes)/2);
 			
-			$this->totalMembersF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersF[$i]->member_id, $this->filterCalendarId);
-			$this->totalPolosF+=ceil(count($this->totalMembersF[$i]->member_daytimes)/2);
+			$this->totalMembersForPolosF[$i]->member_daytimes = $modelDaytime->getMemberDaytimesForPolo($this->totalMembersF[$i]->member_id, $this->filterCalendarId);
+			$this->totalPolosF+=ceil(count($this->totalMembersForPolosF[$i]->member_daytimes)/2);
 		}
 			
 		EstivoleHelpersEstivole::addSubmenu('members');

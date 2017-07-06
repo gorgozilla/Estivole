@@ -100,8 +100,6 @@ class EstivoleControllerMember extends JControllerForm
 		$return = array("success"=>false);
 
 		if($this->model->deleteMember($member_id)){
-			$return['success'] = true;
-			$return['msg'] = 'Yes';
 			$app->enqueueMessage('Bénévole supprimée avec succès!');
 		}else{
 			$app->enqueueMessage('Erreur!');

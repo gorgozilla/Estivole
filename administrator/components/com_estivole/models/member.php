@@ -140,9 +140,9 @@ class EstivoleModelMember extends JModelAdmin
 		$memberDaytimes = $modelDaytime->getMemberDaytimes($member_id, null);
 		
 		foreach($memberDaytimes as $memberDaytime){
-			$daytime = JTable::getInstance('Daytime','Table');
-			$daytime->load($memberDaytime->daytime_id);
-			if ($daytime->delete()) 
+			$daytime = JTable::getInstance('MemberDaytime','Table');
+			$daytime->load($memberDaytime->member_daytime_id);
+			if (!$daytime->delete()) 
 			{
 				return false;
 			}

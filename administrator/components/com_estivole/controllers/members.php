@@ -127,8 +127,16 @@ class EstivoleControllerMembers extends JControllerAdmin
             JError::raiseWarning(500, JText::_('JERROR_NO_ITEMS_SELECTED'));
         }
         else {
+			$errors=null;
 			foreach($ids as $id){
-				$this->model->deleteMember($id);
+				if(!$this->model->deleteMember($id)){
+					$errors+='Erreur lors de la suppression du membre ID '.$id.'<br />';
+				};
+			}
+			if($errors==null){
+				$app->enqueueMessage('Membre supprimé avec succès!');
+			}else{
+				$app->enqueueMessage($errors, 'error');				
 			}
 			$app->redirect( $_SERVER['HTTP_REFERER']);
         }
