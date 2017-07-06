@@ -101,7 +101,7 @@ class EstivoleModelMember extends JModelAdmin
 	* @param int      ID of the member to delete
 	* @return boolean True if successfully deleted
 	*/
-	public function hasNonValidatedDaytimes($member_id = null)
+	public function hasNonValidatedDaytimes($member_id = null, $calendar_id = null)
 	{
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);

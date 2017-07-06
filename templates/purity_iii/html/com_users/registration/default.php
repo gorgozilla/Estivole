@@ -16,7 +16,38 @@ JHtml::_('formbehavior.chosen', 'select');
 //load user_profile plugin language
 $lang = JFactory::getLanguage();
 $lang->load('plg_user_profile', JPATH_ADMINISTRATOR);
+
+$document = JFactory::getDocument();
+$document->addScript(JURI::base(true).'/templates/purity_iii/js/moment.js');
+
 ?>
+
+<script language="javascript">
+jQuery(document).ready(function (){
+	jQuery("#member-registration").submit(function(){
+		var birthdate = jQuery("#jform_profile_dob").val();
+		var dateFormat = 'YYYY-MM-DD';
+
+		if (!moment(birthdate, 'YYYY-MM-DD', true).isValid())
+		{
+			alert('Date de naissance non valide, veuillez svp renseigner cette dernière au format yyyy-mm-jj');
+			return false;
+
+		}		
+		var splitBirthdate = birthdate.split("-");
+		var age = 18;
+		var mydate = new Date(splitBirthdate[0], splitBirthdate[1] - 1, splitBirthdate[2]);
+
+		var currdate = new Date();	
+		currdate.setFullYear(currdate.getFullYear() - age);
+		if ((currdate - mydate) < 0){
+			alert("Désolé, seul les personnes ayant " + age + " ans révolus peuvent s'inscrire.");
+			return false;
+		}
+		return true;
+	});
+});
+</script>
 <div class="registration<?php echo $this->pageclass_sfx?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
 		<div class="page-header">

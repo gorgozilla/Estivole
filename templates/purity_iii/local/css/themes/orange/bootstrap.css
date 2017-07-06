@@ -3296,7 +3296,8 @@ tbody.collapse.in {
 .glyphicon-plane:before {
   content: "\e108";
 }
-.glyphicon-calendar:before {
+.glyphicon-calendar:before,
+.icon-calendar:before {
   content: "\e109";
 }
 .glyphicon-random:before {

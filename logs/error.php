@@ -64,3 +64,4 @@
 2017-05-22T17:17:58+00:00	INFO ::1	joomlafailure	Le mot de passe ne correspond pas au nom d'utilisateur, ou vous n'avez pas encore de compte.
 2017-05-29T20:59:13+00:00	INFO ::1	joomlafailure	Cet utilisateur n'existe pas
 2017-06-19T19:27:40+00:00	INFO ::1	joomlafailure	Le mot de passe ne correspond pas au nom d'utilisateur, ou vous n'avez pas encore de compte.
+2017-07-03T19:59:37+00:00	INFO ::1	joomlafailure	Le mot de passe ne correspond pas au nom d'utilisateur, ou vous n'avez pas encore de compte.

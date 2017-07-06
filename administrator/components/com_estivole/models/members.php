@@ -127,11 +127,6 @@ class EstivoleModelMembers extends JModelList
 		$query->where('md.daytime_id=d.daytime_id');
 		$query->where('d.calendar_id=c.calendar_id');
 		
-		if(is_numeric($this->_member_id)) 
-		{
-			$query->where('b.member_id = ' . (int) $this->_member_id);
-		}
-		
 		// Filter search // Extra: Search more than one fields and for multiple words
 		$regex = str_replace(' ', '|', $this->getState('filter.search'));
 		if (!empty($regex)) {
@@ -149,12 +144,12 @@ class EstivoleModelMembers extends JModelList
 			$query->where('(p.profile_value=\'"'.$campingPlace.'"\' AND p.profile_key=\'profilestivole.campingPlace\')');
 		}
 		
-		$memberStatus= $db->escape($this->getState('filter.member_status'));
-		if ($memberStatus=='N') {
-			$query->where('(b.member_id NOT IN (SELECT member_id FROM #__estivole_members_daytimes))');
-		}else if($memberStatus=='Y'){
-			$query->where('(b.member_id IN (SELECT member_id FROM #__estivole_members_daytimes))');			
-		}
+		// $memberStatus= $db->escape($this->getState('filter.member_status'));
+		// if ($memberStatus=='N') {
+			// $query->where('(b.member_id NOT IN (SELECT member_id FROM #__estivole_members_daytimes))');
+		// }else if($memberStatus=='Y'){
+			// $query->where('(b.member_id IN (SELECT member_id FROM #__estivole_members_daytimes))');			
+		// }
 		
 		$calendarId= $db->escape($this->getState('filter.calendar_id'));
 		if (!empty($calendarId) && $calendarId!=1000) {
@@ -178,6 +173,7 @@ class EstivoleModelMembers extends JModelList
 			$query->where("md.service_id = '".(int) $service."'");
 		}
 		$query->group('b.user_id');
+
 		return $query;
 	}
 
