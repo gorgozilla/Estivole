@@ -18,7 +18,8 @@ class EstivoleViewCalendar extends JViewLegacy
 		$this->daytimes = $modelDaytime->listItems();
 
 		for($i=0; $i<count($this->daytimes); $i++){
-			$this->daytimes[$i]->totalDaytimes=$modelDaytimes->getDaytimesByDaytime($this->daytimes[$i]->daytime_day);		
+			$this->daytimes[$i]->totalDaytimes=$modelDaytimes->getDaytimesByDaytime($this->daytimes[$i]->daytime_day);
+			$this->daytimes[$i]->campersCount=$modelDaytimes->getCampersByDaytime($this->daytimes[$i]->daytime_day);		
 			$this->daytimes[$i]->filledQuota = count($modelDaytime->getQuotasByDaytimeDay($this->daytimes[$i]->daytime_day));			
 		}
 		

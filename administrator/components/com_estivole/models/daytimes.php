@@ -231,4 +231,22 @@ class EstivoleModelDaytimes extends JModelList
 		$result = $db->loadObjectList();
 		return $result;
 	}
+	
+	public function getCampersByDaytime($daytime){
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
+
+		$query->select('*');
+		$query->from('#__estivole_daytimes as d, #__estivole_members_daytimes as md, #__estivole_members as m, #__users as u, #__user_profiles as up');
+		$query->where('md.member_id=m.member_id');
+		$query->where('md.daytime_id=d.daytime_id');
+		$query->where('m.user_id=u.id');
+		$query->where('up.user_id=u.id');
+		$query->where('(up.profile_value!=\'null\' AND up.profile_key=\'profilestivole.campingPlace\')');
+		$query->where('d.daytime_day=\''.$daytime.'\'');
+		$query->group('m.member_id');
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+		return $result;
+	}
 }

@@ -63,11 +63,11 @@ class EstivoleControllerDaytime extends JControllerForm
 		$modelCalendar = new EstivoleModelCalendar();
 		$modelDaytime = new EstivoleModelDaytime();
 		$modelServices = new EstivoleModelServices();
-		
+
 		$daytimeid  = $app->input->get('daytime_id');
-		$daytime = $modelDaytime->getDaytime($daytimeid);
-		$calendar = $modelCalendar->getItem($daytime->calendar_id);
-		$this->services = $modelServices->getServicesByDaytime($daytime->daytime_day);
+		$this->daytime = $modelDaytime->getDaytime($daytimeid);
+		$calendar = $modelCalendar->getItem($this->daytime->calendar_id);
+		$this->services = $modelServices->getServicesByDaytime($this->daytime->daytime_day);
 
 		// Create new PHPExcel object
 		$objPHPExcel = new PHPExcel();
@@ -77,25 +77,17 @@ class EstivoleControllerDaytime extends JControllerForm
 									 ->setLastModifiedBy("Estivole")
 									 ->setTitle("Export Estivole")
 									 ->setSubject("Export des tranches horaires Estivole");
-
-		// Add some data
-		$objPHPExcel->setActiveSheetIndex(0)
-					->setCellValue("A1", "Plan de travail Estivale Open Air - Calendrier ".$calendar->name);
-
-		// // Miscellaneous glyphs, UTF-8
-		$objPHPExcel->setActiveSheetIndex(0)
-					->setCellValue("A2", date('d-m-Y', strtotime($daytime->daytime_day)));
-
-		// Rename worksheet
-		$objPHPExcel->getActiveSheet()->setTitle("Export");
-
-		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
-		$objPHPExcel->setActiveSheetIndex(0);
 		
-		$cellCounter=4;
-		// Add data
-		for ($i = 0; $i < count($this->services); $i++) {			
+		// // Add data
+		for ($i = 0; $i < count($this->services); $i++) {	
+			$cellCounter=4;	
+				$objPHPExcel->createSheet($i); //Setting index when creating
+			// Add some data
+			$objPHPExcel->setActiveSheetIndex($i);
 			$objPHPExcel->getActiveSheet()
+						->setTitle(str_replace('/', '-', $this->services[$i]->service_name))
+						->setCellValue("A1", "Plan de travail Estivale Open Air - Calendrier ".$calendar->name)
+						->setCellValue("A2", date('d-m-Y', strtotime($this->daytime->daytime_day)))
 						->setCellValue("A".$cellCounter, $this->services[$i]->service_name);
 						
 			$this->daytimes = $modelDaytime->listItemsForExport($this->services[$i]->service_id);
@@ -115,11 +107,10 @@ class EstivoleControllerDaytime extends JControllerForm
 				
 				$cellCounter++;
 			}
-			$cellCounter=$cellCounter+2;
 		}
 		// Redirect output to a client’s web browser (Excel2007)
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-		header("Content-Disposition: attachment;filename=\"01simple.xlsx\"");
+		header("Content-Disposition: attachment;filename=\"estivole_".$this->daytime->daytime_day.".xlsx\"");
 		header("Cache-Control: max-age=0");
 		// If you"re serving to IE 9, then the following may be needed
 		header("Cache-Control: max-age=1");

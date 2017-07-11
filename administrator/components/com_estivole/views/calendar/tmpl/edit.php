@@ -51,6 +51,9 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 					<?php echo JText::_('Jour'); ?>
 				</th>
 				<th class="center">
+					<?php echo JText::_('Nbre campeurs'); ?>
+				</th>
+				<th class="center">
 					<?php echo JText::_('Quota'); ?>
 				</th>
 				<th></th>
@@ -63,6 +66,11 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 					<a href="index.php?option=com_estivole&view=daytime&layout=edit&calendar_id=<?php echo $this->calendar->calendar_id; ?>&daytime=<?php echo $item->daytime_day; ?>">
 						<?php echo date('d-m-Y', strtotime($item->daytime_day)); ?>
 					</a>
+				</td>				
+				<td class="center">
+					<?php 
+						echo count($item->campersCount);
+					?>
 				</td>
 				<td class="center">
 					<?php 
@@ -70,7 +78,7 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 						foreach ($item->totalDaytimes as $daytime){
 							$totalquota+=$daytime->quota;
 						}
-						echo '<p '; echo $item->filledQuota==$totalquota ? 'style=font-weight:bold;background-color:#11aa00;padding:10px;>':'>'; echo $item->filledQuota.' / '.$totalquota.'</p>';
+						echo '<p'; echo $item->filledQuota==$totalquota ? 'style=font-weight:bold;background-color:#11aa00;padding:10px;>':'>'; echo $item->filledQuota.' / '.$totalquota.'</p>';
 					?>
 				</td>
 				<td class="center">

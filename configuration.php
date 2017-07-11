@@ -12,7 +12,7 @@ class JConfig {
 	public $debug = '0';
 	public $debug_lang = '0';
 	public $dbtype = 'mysqli';
-	public $host = 'localhost';
+	public $host = '127.0.0.1';
 	public $user = 'root';
 	public $password = '';
 	public $db = 'joom_estivole';
@@ -37,7 +37,7 @@ class JConfig {
 	public $smtpauth = '0';
 	public $smtpuser = '';
 	public $smtppass = '';
-	public $smtphost = 'localhost';
+	public $smtphost = '127';
 	public $smtpsecure = 'none';
 	public $smtpport = '25';
 	public $caching = '0';

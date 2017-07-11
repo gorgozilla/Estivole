@@ -195,7 +195,7 @@ class EstivoleModelDaytime extends JModelList
 	$query->where("m.member_id = md.member_id");
 	$query->where("b.service_id = s.service_id");
 	$query->order('b.daytime_hour_start, b.daytime_hour_end');
-	echo $query;
+
     $db->setQuery($query);
     $result = $db->loadObjectList();
 	return $result;
