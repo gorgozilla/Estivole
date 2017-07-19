@@ -65,49 +65,105 @@ class EstivoleControllerDaytime extends JControllerForm
 		$modelServices = new EstivoleModelServices();
 
 		$daytimeid  = $app->input->get('daytime_id');
-		$this->daytime = $modelDaytime->getDaytime($daytimeid);
-		$calendar = $modelCalendar->getItem($this->daytime->calendar_id);
-		$this->services = $modelServices->getServicesByDaytime($this->daytime->daytime_day);
-
-		// Create new PHPExcel object
-		$objPHPExcel = new PHPExcel();
-
-		// Set document properties
-		$objPHPExcel->getProperties()->setCreator("Estivale Open Air")
-									 ->setLastModifiedBy("Estivole")
-									 ->setTitle("Export Estivole")
-									 ->setSubject("Export des tranches horaires Estivole");
-		
-		// // Add data
-		for ($i = 0; $i < count($this->services); $i++) {	
-			$cellCounter=4;	
-				$objPHPExcel->createSheet($i); //Setting index when creating
-			// Add some data
-			$objPHPExcel->setActiveSheetIndex($i);
-			$objPHPExcel->getActiveSheet()
-						->setTitle(str_replace('/', '-', $this->services[$i]->service_name))
-						->setCellValue("A1", "Plan de travail Estivale Open Air - Calendrier ".$calendar->name)
-						->setCellValue("A2", date('d-m-Y', strtotime($this->daytime->daytime_day)))
-						->setCellValue("A".$cellCounter, $this->services[$i]->service_name);
-						
-			$this->daytimes = $modelDaytime->listItemsForExport($this->services[$i]->service_id);
-			
-			foreach($this->daytimes as $daytime){
-				$userId = $daytime->user_id; 
-				$userProfileEstivole = EstivoleHelpersUser::getProfileEstivole($userId);
-				$userProfile = JUserHelper::getProfile( $userId );
-				$user = JFactory::getUser($userId);
-				
-				$objPHPExcel->getActiveSheet()
-							->setCellValue("A".($cellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
-							->setCellValueExplicit("B".($cellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
-							->setCellValue("C".($cellCounter+1), $user->email)
-							->setCellValue("D".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
-							->setCellValue("E".($cellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)));
-				
-				$cellCounter++;
-			}
+		$calendarid  = $app->input->get('calendar_id');
+		if($daytimeid!=null){
+			$this->daytime = $modelDaytime->getDaytime($daytimeid);
+			$calendar = $modelCalendar->getItem($this->daytime->calendar_id);
+			$calendarDaytimes[0]=$this->daytime;
 		}
+		if($calendarid!=null){
+			$calendar = $modelCalendar->getItem($calendarid);
+			$calendarDaytimes=$modelDaytime->listItemsByCalendar($calendarid);
+		}
+		
+		$totalCellCounter=1;
+		$sheetCreationFlag=true;
+		foreach($calendarDaytimes as $calendarDaytime){
+			$totalCellCounter++;
+			$this->services = $modelServices->getServicesByDaytime($calendarDaytime->daytime_day);
+
+			// Create new PHPExcel object
+			$objPHPExcel = new PHPExcel();
+
+			// Set document properties
+			$objPHPExcel->getProperties()->setCreator("Estivale Open Air")
+										 ->setLastModifiedBy("Estivole")
+										 ->setTitle("Export Estivole")
+										 ->setSubject("Export des tranches horaires Estivole");
+														
+			$objPHPExcel->setActiveSheetIndex(0);
+			$objPHPExcel->getActiveSheet()
+						->setTitle('Tous')
+						->setCellValue("A1", "Plan de travail Estivale Open Air - Calendrier ".$calendar->name)
+						->setCellValue("A".$totalCellCounter, date('d-m-Y', strtotime($calendarDaytime->daytime_day)));
+						
+			$styleArray = array(
+				'font' => array(
+				'bold' => true
+				)
+			);
+			$objPHPExcel->getActiveSheet()
+						->getStyle("A1")->applyFromArray($styleArray);
+			
+			// Add data
+			for ($i = 0; $i < count($this->services); $i++) {
+				$tabCellCounter=3;
+				$totalCellCounter++;
+				$objPHPExcel->setActiveSheetIndex(0);
+				$objPHPExcel->getActiveSheet()
+							->setCellValue("A".($totalCellCounter+1), $this->services[$i]->service_name);
+				$objPHPExcel->getActiveSheet()
+							->getStyle("A".($totalCellCounter+1))->applyFromArray($styleArray);
+				
+				if($sheetCreationFlag){
+					$objPHPExcel->createSheet($i+1); //Setting index when creating
+				}
+				// Add some data
+				$objPHPExcel->setActiveSheetIndex($i+1);
+				$objPHPExcel->getActiveSheet()
+							->setTitle(str_replace('/', '-', $this->services[$i]->service_name))
+							->setCellValue("A1", "Plan de travail Estivale Open Air - Calendrier ".$calendar->name)
+							->setCellValue("A".$tabCellCounter, date('d-m-Y', strtotime($calendarDaytime->daytime_day)))
+							->setCellValue("A".($tabCellCounter+1), $this->services[$i]->service_name);
+							
+				$objPHPExcel->getActiveSheet()
+							->getStyle('A1')->applyFromArray($styleArray);
+							
+				$this->daytimes = $modelDaytime->listItemsForExport($this->services[$i]->service_id);
+				
+				foreach($this->daytimes as $daytime){
+					$totalCellCounter++;
+					$tabCellCounter++;
+					$userId = $daytime->user_id; 
+					$userProfileEstivole = EstivoleHelpersUser::getProfileEstivole($userId);
+					$userProfile = JUserHelper::getProfile( $userId );
+					$user = JFactory::getUser($userId);
+					
+					$objPHPExcel->setActiveSheetIndex(0);
+					$objPHPExcel->getActiveSheet()
+								->setCellValue("A".($totalCellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
+								->setCellValueExplicit("B".($totalCellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
+								->setCellValue("C".($totalCellCounter+1), $user->email)
+								->setCellValue("D".($totalCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
+								->setCellValue("E".($totalCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)))
+								->setCellValue("F".($totalCellCounter+1), $daytime->description);
+					
+					$objPHPExcel->setActiveSheetIndex($i+1);
+					$objPHPExcel->getActiveSheet()
+								->setCellValue("A".($tabCellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
+								->setCellValueExplicit("B".($tabCellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
+								->setCellValue("C".($tabCellCounter+1), $user->email)
+								->setCellValue("D".($tabCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
+								->setCellValue("E".($tabCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)))
+								->setCellValue("F".($tabCellCounter+1), $daytime->description);
+					
+				}
+				$totalCellCounter++;
+			}
+			$sheetCreationFlag=false;
+		}
+		$objPHPExcel->setActiveSheetIndex(0);
+		
 		// Redirect output to a client’s web browser (Excel2007)
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 		header("Content-Disposition: attachment;filename=\"estivole_".$this->daytime->daytime_day.".xlsx\"");

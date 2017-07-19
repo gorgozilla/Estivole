@@ -129,6 +129,7 @@ class EstivoleModelServices extends JModelList
 	$query->where('d.daytime_day = \''.$daytime_day.'\'');
     $query->where('b.service_id = md.service_id');
     $query->where('md.daytime_id = d.daytime_id');
+	$query->order('b.service_name');
 	
 	$service= $this->getState('filter.services_daytime');
 	if (!empty($service)) {

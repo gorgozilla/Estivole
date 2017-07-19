@@ -68,7 +68,7 @@ class EstivoleHelpersMail
 		$db->setQuery($query);
 		$mailModel = $db->loadObject();
 		
-		$mailBody = "<h1>Confirmation d'inscription à une tranche horaire Estivale 2016</h1>
+		$mailBody = "<h1>Confirmation d'inscription à une tranche horaire Estivale ".date("Y")."</h1>
 		
 		<p>Cher (Chère) bénévole,</p>
 
@@ -83,7 +83,7 @@ class EstivoleHelpersMail
 
 		<p><strong>".$mailModel->description."  -  ".date('d-m-Y',strtotime($mailModel->daytime_day))."  -  ".date('H:i',strtotime($mailModel->daytime_hour_start))."  -  ".date('H:i',strtotime($mailModel->daytime_hour_end))."</strong></p>	
 
-		<p>Tu es prié de te rendre 15 minutes avant le début de ta tranche horaire à l'accueil bénévoles situé à proximité l'entrée de l'entrée du festival. C'est là que te seront remis ton pass pour la soirée ainsi que les consignes pour la suite des événements.</p>
+		<p>Tu es prié de te rendre 30 minutes avant le début de ta tranche horaire à l'accueil bénévoles situé à proximité l'entrée de l'entrée du festival. C'est là que te seront remis ton pass pour la soirée ainsi que les consignes pour la suite des événements.</p>
 
 		<p>Voilà pour ces premières informations, je te ferai un rappel de tout ceci quelques jours avant le début du festival!</p>
 		
@@ -96,7 +96,7 @@ class EstivoleHelpersMail
 		$email_member = $mailModel->email;
 		
 		define("BodyConfirmMemberDaytime", $mailBody);
-		define("SubjectConfirmMemberDaytime", "Confirmation d'inscription bénévole Estivale 2015");
+		define("SubjectConfirmMemberDaytime", "Confirmation d'inscription bénévole Estivale ".date("Y"));
 		
 		$mail = JFactory::getMailer();
 		$mail->setBody(constant("BodyConfirmMemberDaytime"));

@@ -19,6 +19,9 @@ defined('_JEXEC') or die;
 			</tr>
 			<tr>
 				<th class="left">
+					<?php echo JText::_('Tâche'); ?>
+				</th>
+				<th class="left">
 					<?php echo JText::_('Heure début'); ?>
 				</th>
 				<th class="left">
@@ -35,6 +38,9 @@ defined('_JEXEC') or die;
 		<tbody>
 		<?php foreach ($this->daytimes as $i => $item) : ?>
 			<tr <?php if ($item->isAvailable!=null && $item->status_id==0){ ?>style="background-color:#F89406;"<?php }elseif($item->isAvailable!=null && $item->status_id==1){ ?>style="background-color:#00ff00;"<?php }elseif($item->isComplete){ ?>style="background-color:#ff0000;"<?php } ?>>
+				<td>
+					<?php echo $item->description; ?>
+				</td>
 				<td>
 					<?php if ($item->isAvailable!=null){ ?>
 						<?php if($item->status_id==0){ ?>

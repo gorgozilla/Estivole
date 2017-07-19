@@ -34,7 +34,7 @@ class EstivoleViewMembers extends JViewLegacy
 		
 		for($i=0; $i<count($this->members); $i++){
 			$this->members[$i]->member_daytimes = $modelDaytime->getMemberDaytimes($this->members[$i]->member_id, $this->filterCalendarId);
-			$this->members[$i]->hasNonValidatedDaytimes=$modelMember->hasNonValidatedDaytimes($this->members[$i]->member_id);
+			$this->members[$i]->hasNonValidatedDaytimes=$modelMember->hasNonValidatedDaytimes($this->members[$i]->member_id,$this->filterCalendarId);
 		}
 		
 		for($i=0; $i<count($this->totalMembersM); $i++){

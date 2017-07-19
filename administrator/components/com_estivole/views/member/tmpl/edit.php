@@ -97,6 +97,9 @@ function generateRandomString($length = 10) {
 					<?php echo JText::_('Secteur'); ?>
 				</th>
 				<th class="left">
+					<?php echo JText::_('Tâche'); ?>
+				</th>
+				<th class="left">
 					<?php echo JText::_('Tranche horaire'); ?>
 				</th>
 				<th class="center">
@@ -122,6 +125,9 @@ function generateRandomString($length = 10) {
 						<a href="index.php?option=com_estivole&view=service&layout=edit&service_id=<?php echo $item->service_id; ?>">
 							<?php echo JText::_($item->service_name); ?>
 						</a>
+					</td>
+					<td class="left">
+						<?php echo JText::_($item->description); ?>
 					</td>
 					<td class="left">
 						<a href="index.php?option=com_estivole&view=daytime&layout=edit&calendar_id=<?php echo $calendar->calendar_id; ?>&daytime=<?php echo $item->daytime_day; ?>">

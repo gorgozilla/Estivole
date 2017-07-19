@@ -112,6 +112,12 @@ class EstivoleModelMember extends JModelAdmin
 		{
 		  $query->where('md.member_id = '.$member_id);
 		}
+		if(is_numeric($calendar_id)) 
+		{
+			$query->from('#__estivole_daytimes as d');
+			$query->where('d.calendar_id = '.$calendar_id);
+			$query->where('md.daytime_id = d.daytime_id');
+		}
 		$query->where('md.status_id = 0');
 		$db->setQuery($query);
 		$result = $db->loadObjectList();
