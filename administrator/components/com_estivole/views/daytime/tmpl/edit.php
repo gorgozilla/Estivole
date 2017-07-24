@@ -17,6 +17,8 @@ JHtml::_('behavior.modal', 'a.modal');
 JFormHelper::addFieldPath(JPATH_COMPONENT . '/models/fields');
 $services = JFormHelper::loadFieldType('Services', false);
 $servicesOptions=$services->getOptions(); // works only if you set your field getOptions on public!!
+
+$subscriptionsMembersCounter=0;
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
@@ -26,6 +28,11 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 		}
 	}
 </script>
+<style>
+	.subrow td{
+		padding:10px 50px !important;
+	}
+</style>
 <div id="j-sidebar-container" class="span2">
 	<?php echo $this->sidebar; ?>
 </div>
@@ -98,6 +105,9 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 						<?php echo $item->filledQuota !='' ? $item->filledQuota : '0'; echo ' / '.JText::_($item->quota); ?>
 					</td>
 					<td class="center">
+						<button class="btn" onClick="toggleCalendarDaytime(<?php echo $subscriptionsMembersCounter; ?>);" title="Voir les bénévoles inscrits">
+							<i class="icon-search"></i>
+						</button>
 						<a class="btn" href="javascript:void(0);" onclick="assignAvailibilityModal('<?php echo $item->service_id.'\', \''.$item->daytime_id; ?>');" title="Assigner la tranche horaire à un bénévole">
 							<i class="icon-user"></i>
 						</a>
@@ -106,6 +116,48 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 						</a>
 					</td>
 				</tr>
+				
+				<?php foreach ($item->subscriptionsMembers as $i => $subscr) : 
+				
+					$userId = $subscr->user_id; 
+					$user = JFactory::getUser($userId);
+					$userProfile = JUserHelper::getProfile( $userId );
+					$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
+					
+				?>
+					<tr class="subrow subrow-<?php echo $subscriptionsMembersCounter; ?>" style="display:none;">
+						<td class="left">
+							<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $subscr->member_id); ?>">
+								<?php echo JText::_($user->name); ?>
+							</a>
+						</td>
+						<td class="left">
+							<a href="<?php echo JRoute::_('index.php?option=com_estivole&task=member.edit&member_id='.(int) $subscr->member_id); ?>">
+							<?php echo JText::_($subscr->email); ?>
+							</a>
+						</td>
+						<td class="left">
+							<?php 
+							$birthDate = new DateTime($userProfile->profile['dob']); 
+							echo $birthDate->format('d-m-Y'); 
+							?>
+						</td>
+						<td class="left">
+
+						</td>
+						<td class="left">
+
+						</td>
+						<td class="left">
+
+						</td>
+						<td class="center">
+
+						</td>
+					</tr>
+					<?php endforeach;
+					$subscriptionsMembersCounter++;
+					?>
 				<?php endforeach; ?>
 			</tbody>
 		</table>

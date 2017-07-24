@@ -1,6 +1,6 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' ); 
 require_once JPATH_COMPONENT . '/models/daytime.php';
-require_once JPATH_COMPONENT . '/models/service.php';
+require_once JPATH_COMPONENT . '/models/daytimes.php';
 require_once JPATH_COMPONENT . '/models/calendar.php';
 require_once JPATH_COMPONENT . '/helpers/estivole.php';
 
@@ -13,7 +13,7 @@ class EstivoleViewDaytime extends JViewLegacy
 		$this->form		= $this->get('Form');
 		
 		$model = new EstivoleModelDaytime();
-		$modelService = new EstivoleModelService();
+		$modelDaytimes = new EstivoleModelDaytimes();
 		$this->daytimes = $model->listItems();
 		$this->daytime = $app->input->get('daytime', null);
 		
@@ -22,6 +22,7 @@ class EstivoleViewDaytime extends JViewLegacy
 		
 		for($i=0; $i<count($this->daytimes); $i++){
 			$this->daytimes[$i]->filledQuota = count($model->getQuotasByDaytimeId($this->daytimes[$i]->daytime_id));
+			$this->daytimes[$i]->subscriptionsMembers=$modelDaytimes->listItems($this->daytimes[$i]->daytime_id);
 		}
 		
 		EstivoleHelpersEstivole::addSubmenu('daytime');

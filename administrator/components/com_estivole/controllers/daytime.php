@@ -70,26 +70,30 @@ class EstivoleControllerDaytime extends JControllerForm
 			$this->daytime = $modelDaytime->getDaytime($daytimeid);
 			$calendar = $modelCalendar->getItem($this->daytime->calendar_id);
 			$calendarDaytimes[0]=$this->daytime;
+			$fileName = "estivole_".$this->daytime->daytime_day;
 		}
 		if($calendarid!=null){
 			$calendar = $modelCalendar->getItem($calendarid);
 			$calendarDaytimes=$modelDaytime->listItemsByCalendar($calendarid);
+			$fileName = "estivole_".$calendar->name;
 		}
 		
 		$totalCellCounter=1;
 		$sheetCreationFlag=true;
+		
+		// Create new PHPExcel object
+		$objPHPExcel = new PHPExcel();
+
+		// Set document properties
+		$objPHPExcel->getProperties()->setCreator("Estivale Open Air")
+									 ->setLastModifiedBy("Estivole")
+									 ->setTitle("Export Estivole")
+									 ->setSubject("Export des tranches horaires Estivole");
+										 
 		foreach($calendarDaytimes as $calendarDaytime){
 			$totalCellCounter++;
-			$this->services = $modelServices->getServicesByDaytime($calendarDaytime->daytime_day);
-
-			// Create new PHPExcel object
-			$objPHPExcel = new PHPExcel();
-
-			// Set document properties
-			$objPHPExcel->getProperties()->setCreator("Estivale Open Air")
-										 ->setLastModifiedBy("Estivole")
-										 ->setTitle("Export Estivole")
-										 ->setSubject("Export des tranches horaires Estivole");
+			$totalCellCounter++;
+			$this->services = $modelServices->getServicesForExport($calendarDaytime->calendar_id);
 														
 			$objPHPExcel->setActiveSheetIndex(0);
 			$objPHPExcel->getActiveSheet()
@@ -104,10 +108,12 @@ class EstivoleControllerDaytime extends JControllerForm
 			);
 			$objPHPExcel->getActiveSheet()
 						->getStyle("A1")->applyFromArray($styleArray);
+			$objPHPExcel->getActiveSheet()
+						->getStyle("A".$totalCellCounter)->applyFromArray($styleArray);
+			$firstCellCounter=$tabCellCounter;
 			
 			// Add data
 			for ($i = 0; $i < count($this->services); $i++) {
-				$tabCellCounter=3;
 				$totalCellCounter++;
 				$objPHPExcel->setActiveSheetIndex(0);
 				$objPHPExcel->getActiveSheet()
@@ -116,12 +122,15 @@ class EstivoleControllerDaytime extends JControllerForm
 							->getStyle("A".($totalCellCounter+1))->applyFromArray($styleArray);
 				
 				if($sheetCreationFlag){
+					$tabCellCounter=3;
 					$objPHPExcel->createSheet($i+1); //Setting index when creating
+				}else{
+					//$tabCellCounter=${'tabCellCounter'.$i}[0];
 				}
 				// Add some data
 				$objPHPExcel->setActiveSheetIndex($i+1);
 				$objPHPExcel->getActiveSheet()
-							->setTitle(str_replace('/', '-', $this->services[$i]->service_name))
+							->setTitle(substr(str_replace('/', '-', $this->services[$i]->service_name), 0, 30))
 							->setCellValue("A1", "Plan de travail Estivale Open Air - Calendrier ".$calendar->name)
 							->setCellValue("A".$tabCellCounter, date('d-m-Y', strtotime($calendarDaytime->daytime_day)))
 							->setCellValue("A".($tabCellCounter+1), $this->services[$i]->service_name);
@@ -132,31 +141,32 @@ class EstivoleControllerDaytime extends JControllerForm
 				$this->daytimes = $modelDaytime->listItemsForExport($this->services[$i]->service_id);
 				
 				foreach($this->daytimes as $daytime){
-					$totalCellCounter++;
-					$tabCellCounter++;
-					$userId = $daytime->user_id; 
-					$userProfileEstivole = EstivoleHelpersUser::getProfileEstivole($userId);
-					$userProfile = JUserHelper::getProfile( $userId );
-					$user = JFactory::getUser($userId);
-					
-					$objPHPExcel->setActiveSheetIndex(0);
-					$objPHPExcel->getActiveSheet()
-								->setCellValue("A".($totalCellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
-								->setCellValueExplicit("B".($totalCellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
-								->setCellValue("C".($totalCellCounter+1), $user->email)
-								->setCellValue("D".($totalCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
-								->setCellValue("E".($totalCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)))
-								->setCellValue("F".($totalCellCounter+1), $daytime->description);
-					
-					$objPHPExcel->setActiveSheetIndex($i+1);
-					$objPHPExcel->getActiveSheet()
-								->setCellValue("A".($tabCellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
-								->setCellValueExplicit("B".($tabCellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
-								->setCellValue("C".($tabCellCounter+1), $user->email)
-								->setCellValue("D".($tabCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
-								->setCellValue("E".($tabCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)))
-								->setCellValue("F".($tabCellCounter+1), $daytime->description);
-					
+					if($daytime->daytime_day==$calendarDaytime->daytime_day){
+						$totalCellCounter++;
+						$tabCellCounter++;
+						$userId = $daytime->user_id; 
+						$userProfileEstivole = EstivoleHelpersUser::getProfileEstivole($userId);
+						$userProfile = JUserHelper::getProfile( $userId );
+						$user = JFactory::getUser($userId);
+						
+						$objPHPExcel->setActiveSheetIndex(0);
+						$objPHPExcel->getActiveSheet()
+									->setCellValue("A".($totalCellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
+									->setCellValueExplicit("B".($totalCellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
+									->setCellValue("C".($totalCellCounter+1), $user->email)
+									->setCellValue("D".($totalCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
+									->setCellValue("E".($totalCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)))
+									->setCellValue("F".($totalCellCounter+1), $daytime->description);
+						
+						$objPHPExcel->setActiveSheetIndex($i+1);
+						$objPHPExcel->getActiveSheet()
+									->setCellValue("A".($tabCellCounter+1), $userProfileEstivole->profilestivole['lastname'].' '.$userProfileEstivole->profilestivole['firstname'])
+									->setCellValueExplicit("B".($tabCellCounter+1), $userProfile->profile['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
+									->setCellValue("C".($tabCellCounter+1), $user->email)
+									->setCellValue("D".($tabCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_start)))
+									->setCellValue("E".($tabCellCounter+1), date('H:i', strtotime($daytime->daytime_hour_end)))
+									->setCellValue("F".($tabCellCounter+1), $daytime->description);
+					}
 				}
 				$totalCellCounter++;
 			}
@@ -166,7 +176,7 @@ class EstivoleControllerDaytime extends JControllerForm
 		
 		// Redirect output to a client’s web browser (Excel2007)
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-		header("Content-Disposition: attachment;filename=\"estivole_".$this->daytime->daytime_day.".xlsx\"");
+		header("Content-Disposition: attachment;filename=\"".$fileName.".xlsx\"");
 		header("Cache-Control: max-age=0");
 		// If you"re serving to IE 9, then the following may be needed
 		header("Cache-Control: max-age=1");

@@ -43,6 +43,9 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 			</div>
 		</div>
 	</form>
+	<a href="index.php?option=com_estivole&task=daytime.exportDaytime&calendar_id=<?php echo $this->calendar->calendar_id; ?>" class="btn btn-large btn-success" role="button">
+		<?php echo JText::_('Exporter les tranches horaire'); ?>
+	</a>
 	<h2>Dates du calendrier</h2>
 	<table class="table table-striped">
 		<thead>

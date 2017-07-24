@@ -237,3 +237,8 @@ function getDaytimesByService(calendar_id, service_id)
        }
 	});
 }
+
+function toggleCalendarDaytime(row_number)
+{
+	jQuery(".subrow-"+row_number).toggle();
+}

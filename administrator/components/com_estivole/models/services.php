@@ -119,14 +119,14 @@ class EstivoleModelServices extends JModelList
   *
   * @return array An array of results.
   */
-  public function getServicesByDaytime($daytime_day)
+  public function getServicesForExport($calendar_id)
   {
 	$db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
 
     $query->select('*');
     $query->from('#__estivole_services as b, #__estivole_members_daytimes as md, #__estivole_daytimes as d');
-	$query->where('d.daytime_day = \''.$daytime_day.'\'');
+	$query->where('d.calendar_id = '.$calendar_id);
     $query->where('b.service_id = md.service_id');
     $query->where('md.daytime_id = d.daytime_id');
 	$query->order('b.service_name');

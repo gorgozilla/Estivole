@@ -186,10 +186,14 @@ class EstivoleModelDaytimes extends JModelList
 	*
 	* @return array An array of results.
 	*/
-	public function listItems()
+	public function listItems($daytime_id = null)
 	{
 		$query = $this->_buildQuery();    
 		$query = $this->_buildWhere($query);
+		if($daytime_id!=null){
+			$query->where('d.daytime_id='.$daytime_id);
+			$query->order('u.name');
+		}
 		$list = $this->_getList($query, $this->limitstart, $this->limit);
 		return $list;
 	}

@@ -144,13 +144,6 @@ class EstivoleModelMembers extends JModelList
 			$query->where('(p.profile_value=\'"'.$campingPlace.'"\' AND p.profile_key=\'profilestivole.campingPlace\')');
 		}
 		
-		// $memberStatus= $db->escape($this->getState('filter.member_status'));
-		// if ($memberStatus=='N') {
-			// $query->where('(b.member_id NOT IN (SELECT member_id FROM #__estivole_members_daytimes))');
-		// }else if($memberStatus=='Y'){
-			// $query->where('(b.member_id IN (SELECT member_id FROM #__estivole_members_daytimes))');			
-		// }
-		
 		$calendarId= $db->escape($this->getState('filter.calendar_id'));
 		if (!empty($calendarId) && $calendarId!=1000) {
 			$query->where('(c.calendar_id='.$calendarId.')');

@@ -18,12 +18,6 @@ class EstivoleViewMembers extends JViewLegacy
 		$this->validationStatus	= $this->state->get('filter.validationStatus');
 		$this->user = JFactory::getUser();
 		$this->limitstart=$this->state->get('limitstart');
-
-		//retrieve task list from model
-		$model = new EstivoleModelMembers();
-		$this->members = $model->listItems();
-		$this->totalMembersM = $model->getTotalItems('M');
-		$this->totalMembersF = $model->getTotalItems('F');
 		
 		$modelCalendars = new EstivoleModelCalendars();
 		$modelDaytime = new EstivoleModelDaytime();
@@ -31,6 +25,12 @@ class EstivoleViewMembers extends JViewLegacy
 		$this->calendars = $modelCalendars->listItems();
 		$this->filterCalendarId	= $this->state->get('filter.calendar_id') == null ? $this->calendars[0]->calendar_id : $this->state->get('filter.calendar_id');
 		$this->filterMemberStatus = $this->state->get('filter.member_status') == null ? 'Y' : $this->state->get('filter.member_status');
+		
+		//retrieve task list from model
+		$model = new EstivoleModelMembers();
+		$this->members = $model->listItems();
+		$this->totalMembersM = $model->getTotalItems('M');
+		$this->totalMembersF = $model->getTotalItems('F');
 		
 		for($i=0; $i<count($this->members); $i++){
 			$this->members[$i]->member_daytimes = $modelDaytime->getMemberDaytimes($this->members[$i]->member_id, $this->filterCalendarId);
