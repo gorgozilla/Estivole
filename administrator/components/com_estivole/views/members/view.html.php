@@ -29,12 +29,27 @@ class EstivoleViewMembers extends JViewLegacy
 		//retrieve task list from model
 		$model = new EstivoleModelMembers();
 		$this->members = $model->listItems();
-		$this->totalMembersM = $model->getTotalItems('M');
-		$this->totalMembersF = $model->getTotalItems('F');
-		
+		$this->totalMembers = $model->getTotalItems();
+		//$this->totalMembersF = $model->getTotalItems('F');
+		$counterM=0;
+		$counterF=0;
 		for($i=0; $i<count($this->members); $i++){
 			$this->members[$i]->member_daytimes = $modelDaytime->getMemberDaytimes($this->members[$i]->member_id, $this->filterCalendarId);
 			$this->members[$i]->hasNonValidatedDaytimes=$modelMember->hasNonValidatedDaytimes($this->members[$i]->member_id,$this->filterCalendarId);
+		}
+		for($i=0; $i<count($this->totalMembers); $i++){
+			$userId = $this->totalMembers[$i]->user_id; 
+			$user = JFactory::getUser($userId);
+			$userProfile = JUserHelper::getProfile( $userId );
+			$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
+			
+			if($userProfilEstivole->profilestivole['sex'] == 'M'){
+				$this->totalMembersM[$counterM] = $this->totalMembers[$i];
+				$counterM++;
+			}else if($userProfilEstivole->profilestivole['sex'] == 'F'){
+				$this->totalMembersF[$counterF] = $this->totalMembers[$i];
+				$counterF++;
+			}
 		}
 		
 		for($i=0; $i<count($this->totalMembersM); $i++){

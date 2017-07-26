@@ -238,9 +238,9 @@ class EstivoleModelMembers extends JModelList
 			$query = $this->_buildWhere($query);
 		}
 		$query->order('b.firstname', 'asc');
-		if($sex != null){
-			$query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\') group by b.user_id)');
-		}
+		// if($sex != null){
+			// $query->where('b.user_id IN (SELECT b.user_id FROM pt5z3_estivole_members as b,pt5z3_users as u,pt5z3_user_profiles as p WHERE b.user_id=p.user_id AND b.user_id=u.id AND (p.profile_value=\'"'.$sex.'"\' AND p.profile_key=\'profilestivole.sex\') group by b.user_id)');
+		// }
 		
 		$list = $this->_getList($query);
 		return $list;

@@ -35,6 +35,7 @@ $servicesOptions=$services->getOptions(); // works only if you set your field ge
 $calendars = JFormHelper::loadFieldType('Calendars', false);
 $calendarsOptions=$calendars->getOptions(); // works only if you set your field getOptions on public!!
 
+$subscriptionsMembersCounter=0;
 ?>
 <script language="javascript" type="text/javascript">
 function tableOrdering( order, dir, task )
@@ -46,22 +47,22 @@ function tableOrdering( order, dir, task )
 }
 </script>
 
-	<script type="text/javascript" language="javascript">
-		jQuery(document).ready(function() {
-			jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").change(function() {
-				var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
-				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-				var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
-				getCalendarDaytimes(calendar_id, daytime, service_id);
-			});
-			
-			jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformservice_id").change(function() {
-				var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
-				var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
-				getDaytimesByService(calendar_id, service_id);
-			});
+<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function() {
+		jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformdaytime, #addDayTimeForm #jformservice_id").change(function() {
+			var daytime = jQuery("#addDayTimeForm #jformdaytime").val();
+			var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
+			var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
+			getCalendarDaytimes(calendar_id, daytime, service_id);
 		});
-	</script>
+		
+		jQuery("#addDayTimeForm #jformcalendar_id, #addDayTimeForm #jformservice_id").change(function() {
+			var service_id = jQuery("#addDayTimeForm #jformservice_id").val();
+			var calendar_id = jQuery("#addDayTimeForm #jformcalendar_id").val();
+			getDaytimesByService(calendar_id, service_id);
+		});
+	});
+</script>
 
 <div id="j-sidebar-container" class="span2">
 	<?php echo $this->sidebar; ?>
@@ -164,7 +165,7 @@ function tableOrdering( order, dir, task )
 
 					if(empty($this->validationStatus) || $this->validationStatus=='1000' || ($this->validationStatus=='N' && $item->hasNonValidatedDaytimes) || ($this->validationStatus=='Y' && !$item->hasNonValidatedDaytimes))
 					{
-				?>
+					?>
 					<tr class="row<?php echo $i % 2; ?>">
 						<td class="center hidden-phone">
 							<?php echo JHtml::_('grid.id', $i, $item->member_id); ?>
@@ -205,15 +206,63 @@ function tableOrdering( order, dir, task )
 							<!--<a class="btn" onclick="composeEmail('<?php echo $item->member_id; ?>')">
 								<i class="icon-mail"></i>
 							</a>-->
+							<button class="btn" onClick="toggleCalendarDaytime(<?php echo $subscriptionsMembersCounter; ?>);" title="Voir les tranches horaires du bénévole">
+								<i class="icon-search"></i>
+							</button>
 							<a class="btn" href="javascript:void(0);" onclick="addAvailibilityModal('<?php echo $item->member_id; ?>');" title="Assigner le bénévole à une tranche horaire">
 								<i class="icon-clock"></i>
 							</a>
 							<?php echo JHtml::_('job.deleteListMember', $item->member_id, $i); ?>
 						</td>
 					</tr>
-				<?php 
+					<?php foreach ($item->member_daytimes as $x => $member_daytime) : 
+					
+						$userId = $member_daytime->user_id; 
+						$user = JFactory::getUser($userId);
+						$userProfile = JUserHelper::getProfile( $userId );
+						$userProfilEstivole = EstivoleHelpersUser::getProfilEstivole( $userId );
+						
+					?>
+					<tr class="subrow subrow-<?php echo $subscriptionsMembersCounter; ?>" style="display:none;">
+						<td class="left">
+							<a href="index.php?option=com_estivole&view=daytime&layout=edit&calendar_id=<?php echo $calendar->calendar_id; ?>&daytime=<?php echo $member_daytime->daytime_day; ?>">
+								<?php echo date('d-m-Y', strtotime($member_daytime->daytime_day)); ?>
+							</a>
+						</td>
+						<td class="left">
+							<a href="index.php?option=com_estivole&view=service&layout=edit&service_id=<?php echo $member_daytime->service_id; ?>">
+								<?php echo JText::_($member_daytime->service_name); ?>
+							</a>
+						</td>
+						<td class="left">
+							<?php echo JText::_($member_daytime->description); ?>
+						</td>
+						<td class="left">
+							<a href="index.php?option=com_estivole&view=daytime&layout=edit&calendar_id=<?php echo $calendar->calendar_id; ?>&daytime=<?php echo $member_daytime->daytime_day; ?>">
+								<?php echo date('H:i', strtotime($member_daytime->daytime_hour_start)).' - '.date('H:i', strtotime($member_daytime->daytime_hour_end));  ?>
+							</a>
+						</td>
+						<td class="center">
+							<?php if($member_daytime->status_id==0){ ?>
+								<a href="index.php?option=com_estivole&controller=daytime&task=daytime.changeStatusDaytime&member_daytime_id=<?php echo $member_daytime->member_daytime_id; ?>&status_id=1" title="Confirmer la disponibilité">
+									<span class="badge-warning"><i class="icon-time"></i></span>
+								</a>
+							<?php }else{ ?>
+								<a href="index.php?option=com_estivole&controller=daytime&task=daytime.changeStatusDaytime&member_daytime_id=<?php echo $member_daytime->member_daytime_id; ?>&status_id=0" title="Remttre le status en attente de validation">
+									<span class="badge-success"><i class="icon-ok"></i></span>
+								</a>
+							<?php } ?>
+						</td>
+						<td class="center" colspan=6>
+							<a class="btn" href="index.php?option=com_estivole&controller=member&task=member.deleteAvailibility&member_daytime_id=<?php echo $member_daytime->member_daytime_id; ?>">
+								<i class="icon-trash"></i>
+							</a>
+						</td>
+					</tr>
+					<?php endforeach;
+					$subscriptionsMembersCounter++;
 					}
-				} 
+				}
 				?>
 				</tbody>
 				<tfoot>
